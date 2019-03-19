@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 2019-3-17 22:07:24 by Hibernate Tools 5.3.6.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="tmall" dynamic-insert="false" dynamic-update="false" mutable="true" name="top.ourck.beans.Orderitem" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="orderitem">
+        <id name="id" type="java.lang.Integer">
+            <column name="id"/>
+            <generator class="identity"/>
+        </id>
+        <many-to-one class="top.ourck.beans.Product" embed-xml="true" fetch="select" insert="true" name="product" not-found="exception" optimistic-lock="true" unique="false" update="true">
+            <column name="pid"/>
+        </many-to-one>
+        <many-to-one class="top.ourck.beans.User" embed-xml="true" fetch="select" insert="true" name="user" not-found="exception" optimistic-lock="true" unique="false" update="true">
+            <column name="uid"/>
+        </many-to-one>
+        <property generated="never" lazy="false" name="oid" optimistic-lock="true" type="java.lang.Integer" unique="false">
+            <column name="oid"/>
+        </property>
+        <property generated="never" lazy="false" name="number" optimistic-lock="true" type="java.lang.Integer" unique="false">
+            <column name="number"/>
+        </property>
+    </class>
+</hibernate-mapping>
