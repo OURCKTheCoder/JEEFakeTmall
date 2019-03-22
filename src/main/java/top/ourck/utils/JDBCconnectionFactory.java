@@ -11,9 +11,10 @@ public class JDBCconnectionFactory {
 	private static final String USER_NAME = "root";
 	private static final String PASSWD = "voidPwd039";
 	private static final String PARAMS = "?serverTimezone=UTC";
-	private static final String CONN_URL = "jdbc:mysql://" + IP_ADDR + ":" + PORT + PARAMS;
+	private static final String DEFAULT_DB = "tmall";
+	private static final String CONN_URL = "jdbc:mysql://" + IP_ADDR + ":" + PORT + "/" + DEFAULT_DB + PARAMS;
 	
-	static { // DAO�ĳ�ʼ����÷����������ڵ���ǰ
+	static { // Initialize at static loading.
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
@@ -21,7 +22,7 @@ public class JDBCconnectionFactory {
 		}
 	}
 	
-	public static Connection getConnection() throws SQLException { // �׳��ƺ��Ǹ����õ�ѡ���õ�����Ԥ�����������
+	public static Connection getConnection() throws SQLException { // TODO Singleton maybe?
 		return DriverManager.getConnection(CONN_URL, USER_NAME, PASSWD);
 	}
 	

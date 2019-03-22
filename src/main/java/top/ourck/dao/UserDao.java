@@ -7,19 +7,22 @@ import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 
-import top.ourck.beans.Category;
+import top.ourck.beans.User;
 import top.ourck.utils.JDBCconnectionFactory;
 
-public class CategoryDao implements SimpleDao<Category> {
+public class UserDao implements SimpleDao<User> {
 
-	// Category table has only 2 columns: (id, name).
+	// User table has 3 columns: (id, name, password).
 	
 	@Override
-	public void add(Category obj) {
-		String sql = "INSERT INTO category values(null, ?)"; 
+	public void add(User obj) {
+		String sql = "INSERT INTO user values(null, ?, ?)"; 
 		try {
 			PreparedStatement stmt = JDBCconnectionFactory.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			
 			stmt.setString(1, obj.getName());
+			stmt.setString(2, obj.getPassword());
+			
 			stmt.execute();
 			ResultSet rs = stmt.getGeneratedKeys(); // Fill in the empty id field back of bean.
 			if(rs.next()) {
@@ -35,7 +38,7 @@ public class CategoryDao implements SimpleDao<Category> {
 	public void delete(int id) {
 		try {
 			Statement stmt = JDBCconnectionFactory.getConnection().createStatement();
-			String sql = "DELETE FROM category WHERE id = " + id;
+			String sql = "DELETE FROM user WHERE id = " + id;
 			stmt.execute(sql);
 		} catch(SQLException e) {
 			e.printStackTrace();
@@ -43,13 +46,14 @@ public class CategoryDao implements SimpleDao<Category> {
 	}
 
 	@Override
-	public void update(Category obj) {
-		String sql = "UPDATE category set name = ? WHERE id = ?";
+	public void update(User obj) {
+		String sql = "UPDATE user set name = ?, password = ? WHERE id = ?";
 		try {
 			PreparedStatement stmt = JDBCconnectionFactory.getConnection().prepareStatement(sql);
 			
 			stmt.setString(1, obj.getName());
-			stmt.setInt(2, obj.getId());
+			stmt.setString(2, obj.getPassword());
+			stmt.setInt(3, obj.getId());
 			
 			stmt.execute();
 		} catch (SQLException e) {
@@ -58,41 +62,43 @@ public class CategoryDao implements SimpleDao<Category> {
 	}
 
 	@Override
-	public Category query(int id) {
-		Category c = null;
+	public User query(int id) {
+		User u = null;
 		try {
-			String sql = "SELECT * FROM category WHERE id = ?";
+			String sql = "SELECT * FROM user WHERE id = ?";
 			PreparedStatement stmt = JDBCconnectionFactory.getConnection().prepareStatement(sql);
 			
 			stmt.setInt(1, id);
 			
 			ResultSet rs = stmt.executeQuery();
 			if(rs.next()) { // Only 1 item.
-				c = new Category();
-				c.setId(rs.getInt(1));
-				c.setName(rs.getString(2));
+				u = new User();
+				u.setId(rs.getInt(1));
+				u.setName(rs.getString(2));
+				u.setPassword(rs.getString(3));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-		return c;
+		return u;
 	}
 
 	@Override
-	public List<Category> list(int start, int count) {
-		List<Category> list = new LinkedList<>();
+	public List<User> list(int start, int count) {
+		List<User> list = new LinkedList<>();
 		try {
-			String sql = "SELECT * FROM category ORDER BY id DESC LIMIT ?, ?";
+			String sql = "SELECT * FROM user ORDER BY id DESC LIMIT ?, ?";
 			PreparedStatement s = JDBCconnectionFactory.getConnection().prepareStatement(sql);
 			s.setInt(1, start);
 			s.setInt(2, count);
 			ResultSet rs = s.executeQuery();
 			
 			while(rs.next()) {
-				Category c = new Category();
+				User c = new User();
 				c.setId(rs.getInt(1));
 				c.setName(rs.getString(2));
+				c.setPassword(rs.getString(3));
 				list.add(c);
 			}
 		} catch (SQLException e) {
@@ -103,7 +109,7 @@ public class CategoryDao implements SimpleDao<Category> {
 	}
 
 	@Override
-	public List<Category> list() {
+	public List<User> list() {
 		return list(0, Short.MAX_VALUE);
 	}
 
@@ -112,7 +118,7 @@ public class CategoryDao implements SimpleDao<Category> {
 		int n = 0;
 		try {
 			Statement stmt = JDBCconnectionFactory.getConnection().createStatement();
-			String sql = "SELECT COUNT(*) FROM category";
+			String sql = "SELECT COUNT(*) FROM user";
 			ResultSet rs = stmt.executeQuery(sql);
 			//n = rs.getFetchSize();
 			while(rs.next()) {
@@ -126,8 +132,8 @@ public class CategoryDao implements SimpleDao<Category> {
 	}
 
 	public static void main(String[] args) {
-		Category c = new Category("ZZZZZZzZZZ");
-		CategoryDao cd = new CategoryDao();
+		User c = new User("ZZZZZZzZZZ", "lol");
+		UserDao cd = new UserDao();
 		
 		cd.add(c);
 		cd.delete(c.getId());

@@ -44,6 +44,11 @@ public class User implements java.io.Serializable {
 		this.password = password;
 	}
 
+	@Override
+	public String toString() {
+		return "User " + "[" + id + ", " + name + ", " + password + "]";
+	}
+	
 	/**
 	 * Extended method.
 	 * @return Anonymous name of an User.
