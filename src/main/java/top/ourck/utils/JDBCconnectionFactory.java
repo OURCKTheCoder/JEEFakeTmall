@@ -1,4 +1,4 @@
-package top.ourck.dao;
+package top.ourck.utils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,7 +13,7 @@ public class JDBCconnectionFactory {
 	private static final String PARAMS = "?serverTimezone=UTC";
 	private static final String CONN_URL = "jdbc:mysql://" + IP_ADDR + ":" + PORT + PARAMS;
 	
-	static { // DAOµÄ³õÊ¼»¯×îºÃ·ÅÔÚÉúÃüÖÜÆÚµÄ×îÇ°
+	static { // DAOï¿½Ä³ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ï¿½ï¿½Ç°
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
@@ -21,7 +21,7 @@ public class JDBCconnectionFactory {
 		}
 	}
 	
-	public static Connection getConnection() throws SQLException { // Å×³öËÆºõÊÇ¸ö¸üºÃµÄÑ¡Ôñ£ºÈÃµ÷ÓÃÕßÔ¤·À¸ÃÒâÍâÇé¿ö
+	public static Connection getConnection() throws SQLException { // ï¿½×³ï¿½ï¿½Æºï¿½ï¿½Ç¸ï¿½ï¿½ï¿½ï¿½Ãµï¿½Ñ¡ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½Ô¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		return DriverManager.getConnection(CONN_URL, USER_NAME, PASSWD);
 	}
 	

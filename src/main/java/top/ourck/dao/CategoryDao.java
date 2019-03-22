@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.List;
 
 import top.ourck.beans.Category;
+import top.ourck.utils.JDBCconnectionFactory;
 
 public class CategoryDao implements SimpleDao<Category> {
 
