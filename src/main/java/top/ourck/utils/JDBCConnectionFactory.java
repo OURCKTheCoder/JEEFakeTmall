@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class JDBCconnectionFactory {
+public class JDBCConnectionFactory {
 	
 	private static final String IP_ADDR = "127.0.0.1"; 
 	private static final String PORT = "3306";

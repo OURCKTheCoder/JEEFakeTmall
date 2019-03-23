@@ -44,4 +44,9 @@ public class Property implements java.io.Serializable {
 		this.name = name;
 	}
 
+	@Override
+	public String toString() {
+		return "Proeprty " + "[" + id + ", " + name + ", " + category + "]";
+	}
+	
 }

@@ -1,5 +1,6 @@
 package top.ourck.dao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,7 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import top.ourck.beans.Category;
-import top.ourck.utils.JDBCconnectionFactory;
+import top.ourck.utils.JDBCConnectionFactory;
 
 public class CategoryDao implements SimpleDao<Category> {
 
@@ -17,8 +18,8 @@ public class CategoryDao implements SimpleDao<Category> {
 	@Override
 	public void add(Category obj) {
 		String sql = "INSERT INTO category values(null, ?)"; 
-		try {
-			PreparedStatement stmt = JDBCconnectionFactory.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+		try(PreparedStatement stmt = JDBCConnectionFactory.getConnection()
+				.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 			stmt.setString(1, obj.getName());
 			stmt.execute();
 			ResultSet rs = stmt.getGeneratedKeys(); // Fill in the empty id field back of bean.
@@ -33,9 +34,9 @@ public class CategoryDao implements SimpleDao<Category> {
 
 	@Override
 	public void delete(int id) {
-		try {
-			Statement stmt = JDBCconnectionFactory.getConnection().createStatement();
-			String sql = "DELETE FROM category WHERE id = " + id;
+		String sql = "DELETE FROM category WHERE id = " + id;
+		try(Connection conn = JDBCConnectionFactory.getConnection();
+				Statement stmt = conn.createStatement()) {
 			stmt.execute(sql);
 		} catch(SQLException e) {
 			e.printStackTrace();
@@ -45,9 +46,8 @@ public class CategoryDao implements SimpleDao<Category> {
 	@Override
 	public void update(Category obj) {
 		String sql = "UPDATE category set name = ? WHERE id = ?";
-		try {
-			PreparedStatement stmt = JDBCconnectionFactory.getConnection().prepareStatement(sql);
-			
+		try(Connection conn = JDBCConnectionFactory.getConnection();
+				PreparedStatement stmt = conn.prepareStatement(sql)) {
 			stmt.setString(1, obj.getName());
 			stmt.setInt(2, obj.getId());
 			
@@ -60,9 +60,9 @@ public class CategoryDao implements SimpleDao<Category> {
 	@Override
 	public Category query(int id) {
 		Category c = null;
-		try {
-			String sql = "SELECT * FROM category WHERE id = ?";
-			PreparedStatement stmt = JDBCconnectionFactory.getConnection().prepareStatement(sql);
+		String sql = "SELECT * FROM category WHERE id = ?";
+		try(Connection conn = JDBCConnectionFactory.getConnection();
+				PreparedStatement stmt = conn.prepareStatement(sql)) {
 			
 			stmt.setInt(1, id);
 			
@@ -82,9 +82,9 @@ public class CategoryDao implements SimpleDao<Category> {
 	@Override
 	public List<Category> list(int start, int count) {
 		List<Category> list = new LinkedList<>();
-		try {
-			String sql = "SELECT * FROM category ORDER BY id DESC LIMIT ?, ?";
-			PreparedStatement s = JDBCconnectionFactory.getConnection().prepareStatement(sql);
+		String sql = "SELECT * FROM category ORDER BY id DESC LIMIT ?, ?";
+		try(Connection conn = JDBCConnectionFactory.getConnection();
+				PreparedStatement s = conn.prepareStatement(sql)) {
 			s.setInt(1, start);
 			s.setInt(2, count);
 			ResultSet rs = s.executeQuery();
@@ -110,9 +110,9 @@ public class CategoryDao implements SimpleDao<Category> {
 	@Override
 	public int getTotal() {
 		int n = 0;
-		try {
-			Statement stmt = JDBCconnectionFactory.getConnection().createStatement();
-			String sql = "SELECT COUNT(*) FROM category";
+		String sql = "SELECT COUNT(*) FROM category";
+		try(Connection conn = JDBCConnectionFactory.getConnection();
+				Statement stmt = conn.createStatement()) {
 			ResultSet rs = stmt.executeQuery(sql);
 			//n = rs.getFetchSize();
 			while(rs.next()) {
@@ -123,18 +123,5 @@ public class CategoryDao implements SimpleDao<Category> {
 		}
 		
 		return n;
-	}
-
-	public static void main(String[] args) {
-		Category c = new Category("ZZZZZZzZZZ");
-		CategoryDao cd = new CategoryDao();
-		
-		cd.add(c);
-		cd.delete(c.getId());
-		c.setName("ASDFGHJKL");
-		cd.update(c);
-		System.out.println(cd.query(c.getId()));
-		
-		System.out.println(cd.getTotal() + " " + cd.list());
 	}
 }

@@ -1,5 +1,6 @@
 package top.ourck.dao;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,7 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import top.ourck.beans.User;
-import top.ourck.utils.JDBCconnectionFactory;
+import top.ourck.utils.JDBCConnectionFactory;
 
 public class UserDao implements SimpleDao<User> {
 
@@ -17,9 +18,8 @@ public class UserDao implements SimpleDao<User> {
 	@Override
 	public void add(User obj) {
 		String sql = "INSERT INTO user values(null, ?, ?)"; 
-		try {
-			PreparedStatement stmt = JDBCconnectionFactory.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			
+		try(PreparedStatement stmt = JDBCConnectionFactory.getConnection()
+				.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 			stmt.setString(1, obj.getName());
 			stmt.setString(2, obj.getPassword());
 			
@@ -36,9 +36,9 @@ public class UserDao implements SimpleDao<User> {
 
 	@Override
 	public void delete(int id) {
-		try {
-			Statement stmt = JDBCconnectionFactory.getConnection().createStatement();
-			String sql = "DELETE FROM user WHERE id = " + id;
+		String sql = "DELETE FROM user WHERE id = " + id;
+		try(Connection conn = JDBCConnectionFactory.getConnection();
+				Statement stmt = conn.createStatement()) {
 			stmt.execute(sql);
 		} catch(SQLException e) {
 			e.printStackTrace();
@@ -48,9 +48,8 @@ public class UserDao implements SimpleDao<User> {
 	@Override
 	public void update(User obj) {
 		String sql = "UPDATE user set name = ?, password = ? WHERE id = ?";
-		try {
-			PreparedStatement stmt = JDBCconnectionFactory.getConnection().prepareStatement(sql);
-			
+		try(Connection conn = JDBCConnectionFactory.getConnection();
+				PreparedStatement stmt = conn.prepareStatement(sql)) {			
 			stmt.setString(1, obj.getName());
 			stmt.setString(2, obj.getPassword());
 			stmt.setInt(3, obj.getId());
@@ -64,10 +63,9 @@ public class UserDao implements SimpleDao<User> {
 	@Override
 	public User query(int id) {
 		User u = null;
-		try {
-			String sql = "SELECT * FROM user WHERE id = ?";
-			PreparedStatement stmt = JDBCconnectionFactory.getConnection().prepareStatement(sql);
-			
+		String sql = "SELECT * FROM user WHERE id = ?";
+		try(Connection conn = JDBCConnectionFactory.getConnection();
+				PreparedStatement stmt = conn.prepareStatement(sql)) {			
 			stmt.setInt(1, id);
 			
 			ResultSet rs = stmt.executeQuery();
@@ -87,9 +85,9 @@ public class UserDao implements SimpleDao<User> {
 	@Override
 	public List<User> list(int start, int count) {
 		List<User> list = new LinkedList<>();
-		try {
-			String sql = "SELECT * FROM user ORDER BY id DESC LIMIT ?, ?";
-			PreparedStatement s = JDBCconnectionFactory.getConnection().prepareStatement(sql);
+		String sql = "SELECT * FROM user ORDER BY id DESC LIMIT ?, ?";
+		try(Connection conn = JDBCConnectionFactory.getConnection();
+				PreparedStatement s = conn.prepareStatement(sql)) {
 			s.setInt(1, start);
 			s.setInt(2, count);
 			ResultSet rs = s.executeQuery();
@@ -116,9 +114,9 @@ public class UserDao implements SimpleDao<User> {
 	@Override
 	public int getTotal() {
 		int n = 0;
-		try {
-			Statement stmt = JDBCconnectionFactory.getConnection().createStatement();
-			String sql = "SELECT COUNT(*) FROM user";
+		String sql = "SELECT COUNT(*) FROM user";
+		try(Connection conn = JDBCConnectionFactory.getConnection();
+				Statement stmt = conn.createStatement()) {
 			ResultSet rs = stmt.executeQuery(sql);
 			//n = rs.getFetchSize();
 			while(rs.next()) {
@@ -131,6 +129,56 @@ public class UserDao implements SimpleDao<User> {
 		return n;
 	}
 
+	public User get(String userName) {
+		User user = null;
+		String sql = "SELECT * FROM user WHERE name = ?";
+		try(Connection conn = JDBCConnectionFactory.getConnection();
+				PreparedStatement stmt = conn.prepareStatement(sql)) {	
+			
+			stmt.setString(1, userName);
+			
+			ResultSet rs = stmt.executeQuery();
+			while(rs.next()) {
+				user = new User();
+				user.setId(rs.getInt(1));
+				user.setName(rs.getString(2));
+				user.setPassword(rs.getString(3));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return user;
+	}
+	
+	public boolean isExist(String userName) {
+		return get(userName) != null; // Maybe EXISTS in sql ?
+	}
+	
+	public User get(String userName, String pwd) {
+		User user = null;
+		String sql = "SELECT * FROM user WHERE name = ?, password = ?";
+		try(Connection conn = JDBCConnectionFactory.getConnection();
+				PreparedStatement stmt = conn.prepareStatement(sql)) {			
+			stmt.setString(1, userName);
+			stmt.setString(2, pwd);
+			
+			ResultSet rs = stmt.executeQuery();
+			while(rs.next()) {
+				user = new User();
+				user.setId(rs.getInt(1));
+				user.setName(rs.getString(2));
+				user.setPassword(rs.getString(3));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return user;
+	}
+	
 	public static void main(String[] args) {
 		User c = new User("ZZZZZZzZZZ", "lol");
 		UserDao cd = new UserDao();
