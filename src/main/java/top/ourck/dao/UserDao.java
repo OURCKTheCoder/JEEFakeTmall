@@ -152,10 +152,6 @@ public class UserDao implements SimpleDao<User> {
 		return user;
 	}
 	
-	public boolean isExist(String userName) {
-		return get(userName) != null; // Maybe EXISTS in sql ?
-	}
-	
 	public User get(String userName, String pwd) {
 		User user = null;
 		String sql = "SELECT * FROM user WHERE name = ?, password = ?";
