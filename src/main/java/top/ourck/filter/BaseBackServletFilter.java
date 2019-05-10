@@ -26,8 +26,6 @@ public class BaseBackServletFilter extends HttpFilter {
 
 		String[] command = cmd.split("_");
 		if(command.length == 2) {
-			response.setStatus(400);
-			response.getWriter().println("[!] Invalid request!");
 			String obj = command[0];
 			String op = command[1];
 			String targetServlet = obj + "Servlet";

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" isELIgnored="false"%>
 <html>
 <head>
 	<meta charset="UTF-8">
@@ -18,9 +18,10 @@
 		
 		<div>
 			<ul class="nav navbar-nav">
-				<li class="active"><a href="#">商品管理</a></li>
-				<li><a href="#">用户管理</a></li>
-				<li><a href="#">产品管理</a></li>
+				<li><a href="./category_list">商品管理</a></li>
+				<li><a href="./user_list">用户管理</a></li>
+				<li><a href="./product_list">产品管理</a></li>
+				<li><a href="./order_list">订单管理</a></li>
 			</ul>
 		</div>
 	</nav>

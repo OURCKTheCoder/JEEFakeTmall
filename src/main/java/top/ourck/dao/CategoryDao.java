@@ -124,4 +124,24 @@ public class CategoryDao implements SimpleDao<Category> {
 		
 		return n;
 	}
+	
+	public String getNameById(int id) {
+		String name = null;
+		String sql = "SELECT name FROM category WHERE id = ?";
+		try(Connection conn = JDBCConnectionFactory.getConnection();
+				PreparedStatement stmt = conn.prepareStatement(sql)) {
+			
+			stmt.setInt(1, id);
+			
+			ResultSet rs = stmt.executeQuery();
+			//n = rs.getFetchSize();
+			while(rs.next()) {
+				name = rs.getString(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return name;
+	}
 }
