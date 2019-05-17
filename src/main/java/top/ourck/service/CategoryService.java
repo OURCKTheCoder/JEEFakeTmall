@@ -33,4 +33,8 @@ public class CategoryService {
 	public String getNameById(int id) {
 		return categoryDao.getNameById(id);
 	}
+	
+	public Category getById(int id) {
+		return categoryDao.query(id);
+	}
 }

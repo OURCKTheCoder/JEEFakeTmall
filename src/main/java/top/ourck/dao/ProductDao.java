@@ -34,19 +34,19 @@ public class ProductDao implements SimpleDao<Product> {
     @Override
     public void add(Product bean) {
  
-        String sql = "insert into product values(null,?,?,?,?,?,?,?)";
-        try (Connection c = JDBCConnectionFactory.getConnection(); PreparedStatement ps = c.prepareStatement(sql);) {
+        try (Connection c = JDBCConnectionFactory.getConnection(); Statement s = c.createStatement();) {
+        	String sql = "insert into product values("
+        			+ "null, "
+        			+ "\'" + bean.getName() + "\', "
+        			+ "\'" + bean.getSubTitle() + "\', "
+        			+ bean.getOriginalPrice() + ", "
+        			+ bean.getPromotePrice() + ", "
+        			+ bean.getStock() + ", "
+        			+ bean.getCategory().getId() + ", "
+        			+ "\'" + DBUtils.d2t(bean.getCreateDate()) + "\');";
+            s.execute(sql, Statement.RETURN_GENERATED_KEYS);
   
-            ps.setString(1, bean.getName());
-            ps.setString(2, bean.getSubTitle());
-            ps.setFloat(3, bean.getOrignalPrice());
-            ps.setFloat(4, bean.getPromotePrice());
-            ps.setInt(5, bean.getStock());
-            ps.setInt(6, bean.getCategory().getId());
-            ps.setTimestamp(7, DBUtils.d2t(bean.getCreateDate()));
-            ps.execute();
-  
-            ResultSet rs = ps.getGeneratedKeys();
+            ResultSet rs = s.getGeneratedKeys();
             if (rs.next()) {
                 int id = rs.getInt(1);
                 bean.setId(id);
@@ -64,7 +64,7 @@ public class ProductDao implements SimpleDao<Product> {
  
             ps.setString(1, bean.getName());
             ps.setString(2, bean.getSubTitle());
-            ps.setFloat(3, bean.getOrignalPrice());
+            ps.setFloat(3, bean.getOriginalPrice());
             ps.setFloat(4, bean.getPromotePrice());
             ps.setInt(5, bean.getStock());
             ps.setInt(6, bean.getCategory().getId());
@@ -107,7 +107,7 @@ public class ProductDao implements SimpleDao<Product> {
                
                 bean.setName(name);
                 bean.setSubTitle(subTitle);
-                bean.setOrignalPrice(orignalPrice);
+                bean.setOriginalPrice(orignalPrice);
                 bean.setPromotePrice(promotePrice);
                 bean.setStock(stock);
                 Category category = new CategoryDao().query(cid);
@@ -151,7 +151,7 @@ public class ProductDao implements SimpleDao<Product> {
  
                 bean.setName(name);
                 bean.setSubTitle(subTitle);
-                bean.setOrignalPrice(orignalPrice);
+                bean.setOriginalPrice(orignalPrice);
                 bean.setPromotePrice(promotePrice);
                 bean.setStock(stock);
                 bean.setCreateDate(createDate);
@@ -197,7 +197,7 @@ public class ProductDao implements SimpleDao<Product> {
  
                 bean.setName(name);
                 bean.setSubTitle(subTitle);
-                bean.setOrignalPrice(orignalPrice);
+                bean.setOriginalPrice(orignalPrice);
                 bean.setPromotePrice(promotePrice);
                 bean.setStock(stock);
                 bean.setCreateDate(createDate);
@@ -285,7 +285,7 @@ public class ProductDao implements SimpleDao<Product> {
  
                     bean.setName(name);
                     bean.setSubTitle(subTitle);
-                    bean.setOrignalPrice(orignalPrice);
+                    bean.setOriginalPrice(orignalPrice);
                     bean.setPromotePrice(promotePrice);
                     bean.setStock(stock);
                     bean.setCreateDate(createDate);

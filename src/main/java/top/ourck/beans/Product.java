@@ -12,12 +12,12 @@ import java.util.List;
 public class Product implements java.io.Serializable {
 
 	private Integer id;
-	private Category category;
 	private String name;
 	private String subTitle;
-	private Float orignalPrice;
+	private Float originalPrice;
 	private Float promotePrice;
 	private Integer stock;
+	private Category category;
 	private Date createDate;
 	private List<ProductImage> productImages = new LinkedList<ProductImage>();
 	private List<Review> reviews = new LinkedList<Review>();
@@ -36,7 +36,7 @@ public class Product implements java.io.Serializable {
 		this.category = category;
 		this.name = name;
 		this.subTitle = subTitle;
-		this.orignalPrice = orignalPrice;
+		this.originalPrice = orignalPrice;
 		this.promotePrice = promotePrice;
 		this.stock = stock;
 		this.createDate = createDate;
@@ -74,12 +74,12 @@ public class Product implements java.io.Serializable {
 		this.subTitle = subTitle;
 	}
 
-	public Float getOrignalPrice() {
-		return this.orignalPrice;
+	public Float getOriginalPrice() {
+		return this.originalPrice;
 	}
 
-	public void setOrignalPrice(Float orignalPrice) {
-		this.orignalPrice = orignalPrice;
+	public void setOriginalPrice(Float orignalPrice) {
+		this.originalPrice = orignalPrice;
 	}
 
 	public Float getPromotePrice() {

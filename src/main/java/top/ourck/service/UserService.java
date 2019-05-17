@@ -40,7 +40,7 @@ public class UserService {
 		userDao.update(user);
 	}
 	
-	public User getUser(int id) {
+	public User getById(int id) {
 		return userDao.query(id);
 	}
 	

@@ -17,13 +17,13 @@ public class ProductImageDao implements SimpleDao<ProductImage>{
  
 	public static final String type_single = "type_single";
 	public static final String type_detail = "type_detail";
-
+	private static final String TABLE_NAME = " productimage ";
 	
     public int getTotal() {
         int total = 0;
         try (Connection c = JDBCConnectionFactory.getConnection(); Statement s = c.createStatement();) {
  
-            String sql = "select count(*) from ProductImage";
+            String sql = "select count(*) from" + TABLE_NAME;
  
             ResultSet rs = s.executeQuery(sql);
             while (rs.next()) {
@@ -40,7 +40,7 @@ public class ProductImageDao implements SimpleDao<ProductImage>{
 
 
 
-        String sql = "insert into ProductImage values(null,?,?)";
+        String sql = "insert into" + TABLE_NAME + "values(null,?,?)";
         try (Connection c = JDBCConnectionFactory.getConnection(); PreparedStatement ps = c.prepareStatement(sql);) {
             ps.setInt(1, bean.getProduct().getId());
             ps.setString(2, bean.getType());
@@ -57,6 +57,7 @@ public class ProductImageDao implements SimpleDao<ProductImage>{
         }
     }
  
+    // TODO
     public void update(ProductImage bean) {
  
     }
@@ -65,7 +66,7 @@ public class ProductImageDao implements SimpleDao<ProductImage>{
  
         try (Connection c = JDBCConnectionFactory.getConnection(); Statement s = c.createStatement();) {
  
-            String sql = "delete from ProductImage where id = " + id;
+            String sql = "delete from" + TABLE_NAME + "where id = " + id;
  
             s.execute(sql);
  
@@ -81,7 +82,7 @@ public class ProductImageDao implements SimpleDao<ProductImage>{
 
         try (Connection c = JDBCConnectionFactory.getConnection(); Statement s = c.createStatement();) {
  
-            String sql = "select * from ProductImage where id = " + id;
+            String sql = "select * from" + TABLE_NAME + "where id = " + id;
  
             ResultSet rs = s.executeQuery(sql);
  
@@ -108,7 +109,7 @@ public class ProductImageDao implements SimpleDao<ProductImage>{
     public List<ProductImage> list(Product p, String type, int start, int count) {
         List<ProductImage> beans = new ArrayList<ProductImage>();
  
-        String sql = "select * from ProductImage where pid =? and type =? order by id desc limit ?,? ";
+        String sql = "select * from" + TABLE_NAME + "where pid =? and type =? order by id desc limit ?,? ";
  
         try (Connection c = JDBCConnectionFactory.getConnection(); PreparedStatement ps = c.prepareStatement(sql);) {
  
@@ -143,7 +144,7 @@ public class ProductImageDao implements SimpleDao<ProductImage>{
 	@Override
 	public List<ProductImage> list(int start, int count) {
 		List<ProductImage> pList = new LinkedList<ProductImage>();
-		String sql = "SELECT * FROM productimage ORDER BY id DESC LIMIT ?, ?";
+		String sql = "SELECT * FROM" + TABLE_NAME + "ORDER BY id DESC LIMIT ?, ?";
 		try(Connection conn = JDBCConnectionFactory.getConnection();
 				PreparedStatement stmt = conn.prepareStatement(sql)) {
 			

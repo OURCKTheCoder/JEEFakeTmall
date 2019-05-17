@@ -6,8 +6,7 @@
 <div class="container">
 
 	<div class="listDataTableDiv">
-		<table
-			class="table table-striped table-bordered table-hover table-condensed">
+		<table class="table table-striped table-bordered table-hover table-condensed">
 			<thead>
 				<tr class="success">
 					<th>ID</th>
@@ -43,11 +42,13 @@
 		<div class="panel-heading">新增分类</div>
 		<div class="panel-body">
 			<form method="post" id="addForm" action="category_add">
-				<table class="addTable table-condensed">
+				<table class="addTable table table-responsive table-striped table-hover">
 					<tr>
 						<td>分类名称</td>
 						<td><input id="name" name="name" type="text"
 							class="form-control"></td>
+					</tr>
+					<tr>
 						<td colspan="2" align="center">
 							<button type="submit" class="btn btn-success">提 交</button>
 						</td>
