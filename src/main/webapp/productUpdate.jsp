@@ -20,24 +20,24 @@
 					</tr>
 					<tr>
 						<td>商品描述</td>
-						<td><input id="name" name="subTitle" type="text" class="form-control" value="${p.subTitle}"></td>
+						<td><input id="subTitle" name="subTitle" type="text" class="form-control" value="${p.subTitle}"></td>
 					</tr>
 					<tr>
 						<td>商品原价</td>
-						<td><input id="name" name="originalPrice" type="text" class="form-control" value="${p.originalPrice}"></td>
+						<td><input id="originalPrice" name="originalPrice" type="text" class="form-control" value="${p.originalPrice}"></td>
 					</tr>
 					<tr>
 						<td>商品促销价</td>
-						<td><input id="name" name="promotePrice" type="text" class="form-control" value="${p.promotePrice}"></td>
+						<td><input id="promotePrice" name="promotePrice" type="text" class="form-control" value="${p.promotePrice}"></td>
 					</tr>
 					<tr>
 						<td>商品库存</td>
-						<td><input id="name" name="stock" type="text" class="form-control" value="${p.stock}"></td>
+						<td><input id="stock" name="stock" type="text" class="form-control" value="${p.stock}"></td>
 					</tr>
 					<tr>
 						<!-- 这里应该是一个下拉框 以保证参照完整性 -->
 						<td>商品品类id</td>
-						<td><input id="name" name="category" type="text" class="form-control" value="${p.category.id}"></td>
+						<td><input id="category" name="category" type="text" class="form-control" value="${p.category.id}"></td>
 					</tr>
 					<tr>
 						<!-- 这里应该是一个下拉框 以保证参照完整性 -->

@@ -108,7 +108,7 @@ public class OrderDao implements SimpleDao<Order>{
     }
  
     public void delete(int id) {
-    	String sql = "delete from Order_ where id = " + id;
+    	String sql = "delete from order_ where id = " + id;
         try (Connection c = JDBCConnectionFactory.getConnection();
         		Statement s = c.createStatement();) {
         	
@@ -120,7 +120,7 @@ public class OrderDao implements SimpleDao<Order>{
  
     public Order query(int id) {
         Order bean = new Order();
-        String sql = "select * from Order_ where id = " + id;
+        String sql = "select * from order_ where id = " + id;
         try (Connection c = JDBCConnectionFactory.getConnection();
         		Statement s = c.createStatement();) {
  
@@ -166,7 +166,7 @@ public class OrderDao implements SimpleDao<Order>{
  
     public List<Order> list(int start, int count) {
         List<Order> beans = new ArrayList<Order>();
-        String sql = "select * from Order_ order by id desc limit ?,? ";
+        String sql = "select * from order_ order by id desc limit ?,? ";
  
         try (Connection c = JDBCConnectionFactory.getConnection();
         		PreparedStatement ps = c.prepareStatement(sql);) {
@@ -219,7 +219,7 @@ public class OrderDao implements SimpleDao<Order>{
      
     public List<Order> list(int uid, String excludedStatus, int start, int count) {
     	List<Order> beans = new ArrayList<Order>();
-    	String sql = "select * from Order_ where uid = ? and status != ? order by id desc limit ?,? ";
+    	String sql = "select * from order_ where uid = ? and status != ? order by id desc limit ?,? ";
 
     	try (Connection c = JDBCConnectionFactory.getConnection();
     			PreparedStatement ps = c.prepareStatement(sql);) {

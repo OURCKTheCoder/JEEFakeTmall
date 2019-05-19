@@ -16,18 +16,18 @@ import java.util.List;
 public class Order implements java.io.Serializable {
 
 	private Integer id;
-	private User user;
-	private String orderCode;
+	private User user; 			// TODO 数据库里这个冗余了！order_表和这里二选一就OK
+	private String orderCode; 	// 订单号
 	private String address;
-	private String post;
-	private String receiver;
-	private String mobile;
-	private String userMessage;
+	private String post;		// 邮编
+	private String receiver;	// 收货人信息（真实名字）
+	private String mobile;		// 手机号码
+	private String userMessage;	// 用户备注信息
 	private Date createDate;
 	private Date payDate;
-	private Date deliveryDate;
-	private Date confirmDate;
-	private String status;
+	private Date deliveryDate;	// 发货日期
+	private Date confirmDate;	// 确认收货日期
+	private String status;		// 订单状态
 
 	private List<OrderItem> itemList;
 	private Double totalAmount;

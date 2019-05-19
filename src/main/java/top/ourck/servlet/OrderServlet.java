@@ -45,7 +45,7 @@ public class OrderServlet extends HttpServlet {
 			else if(op.equals("edit")) {
 				int id = Integer.parseInt(request.getParameter("id"));
 				OrderItem item = orderItemService.getById(id);
-				request.setAttribute("orderitem", item);
+				request.setAttribute("orderItem", item);
 				request.getRequestDispatcher("/orderUpdate.jsp").forward(request, response);
 			}
 		}
@@ -57,6 +57,7 @@ public class OrderServlet extends HttpServlet {
 		String op = (String) request.getAttribute("op");
 		if(op != null) {
 			if(op.equals("add")) {
+				// TODO 不能直接搞个oid完事！还要接收订单细节的值。
 				Integer pid = Integer.parseInt(request.getParameter("pid"));
 				Integer uid = Integer.parseInt(request.getParameter("uid"));
 				Integer oid = Integer.parseInt(request.getParameter("oid"));
@@ -70,11 +71,14 @@ public class OrderServlet extends HttpServlet {
 				response.sendRedirect("./order_list");
 			}
 			else if(op.equals("update")) {
+				// TODO 不能直接搞个oid完事！还要接收订单细节的值。
 				Integer id = Integer.parseInt(request.getParameter("id"));
 				Integer pid = Integer.parseInt(request.getParameter("pid"));
 				Integer uid = Integer.parseInt(request.getParameter("uid"));
 				Integer oid = Integer.parseInt(request.getParameter("oid"));
 				Integer number = Integer.parseInt(request.getParameter("number"));
+				
+				
 				
 				Product p = productService.getById(pid);
 				User u = userService.getById(uid);

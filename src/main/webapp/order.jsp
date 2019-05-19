@@ -5,7 +5,7 @@
 
 <div class="container">
 
-	<div class="panel panel-warning addDiv" style="“width: 550px;">
+<!-- 	<div class="panel panel-warning addDiv" style="“width: 550px;">
 		<div class="panel-heading">新增订单</div>
 		<div class="panel-body">
 			<form method="post" id="addForm" action="product_add">
@@ -23,7 +23,7 @@
 				</table>
 			</form>
 		</div>
-	</div>
+	</div> -->
 
 	<div class="listDataTableDiv">
 		<table
@@ -31,16 +31,12 @@
 			<thead>
 				<tr class="success">
 					<th>ID</th>
-					<th>产品名</th>
-					<th>产品描述</th>
-					<th>原价</th>
-					<th>促销价</th>
-					<th>库存</th>
-					<th>品类</th>
-					<th>入库时间</th>
+					<th>订单ID</th>
+					<th>订单细节ID</th>
+					<th>用户ID</th>
+					<th>数量</th>
 					<th>编辑</th>
 					<th>删除</th>
-					<!-- 图片上传！ -->
 				</tr>
 			</thead>
 
@@ -48,20 +44,17 @@
 				<c:forEach items="${list}" var="item">
 					<tr>
 						<td>${item.id}</td>
-						<td>${item.name}</td>
-						<td>${item.subTitle}</td>
-						<td>${item.originalPrice}</td>
-						<td>${item.promotePrice}</td>
-						<td>${item.stock}</td>
-						<td>${item.category.name}</td>
-						<td>${item.createDate}</td>
+						<td>${item.product.id}</td>
+						<td>${item.order.id}</td>
+						<td>${item.user.id}</td>
+						<td>${item.number}</td>
 						<td>
-							<a href="product_edit?id=${item.id}">
+							<a href="order_edit?id=${item.id}">
 								<span class="glyphicon glyphicon-edit"></span>
 							</a>
 						</td>
 						<td>
-							<a href="product_delete?id=${item.id}">
+							<a href="order_delete?id=${item.id}">
 								<span class="glyphicon glyphicon-trash"></span>
 							</a>
 						</td>
