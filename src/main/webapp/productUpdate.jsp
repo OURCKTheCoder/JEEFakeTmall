@@ -14,7 +14,10 @@
 				<table class="addTable table table-responsive table-striped table-hover">
 					<tr>
 						<td><b>商品id</b></td>
-						<td><b>${p.id}</b></td>
+						<td>
+							<input id="id" name="id" type="hidden" class="form-control" value="${p.id}">
+							<b>${p.id}</b>
+						</td>
 					</tr>
 					<tr>
 						<td>商品名称</td>

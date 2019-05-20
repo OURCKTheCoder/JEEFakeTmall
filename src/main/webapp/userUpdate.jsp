@@ -12,7 +12,10 @@
 				<table class="addTable table table-responsive table-striped table-hoverS">
 					<tr>
 						<td><b>用户id</b></td>
-						<td><b>${id}</b></td>
+						<td>
+							<input id="id" name="id" type="hidden" class="form-control" value="${id}">
+							<b>${id}</b>
+						</td>
 					</tr>
 					<tr>
 						<td>用户名称</td>

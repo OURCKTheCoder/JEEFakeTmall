@@ -49,6 +49,7 @@ public class CategoryServlet extends HttpServlet {
 			if(op.equals("add")) {
 				String name = request.getParameter("name");
 				categoryService.add(name);
+				response.sendRedirect("./category_list");
 			}
 			else if(op.equals("update")) {
 				String id = request.getParameter("id");

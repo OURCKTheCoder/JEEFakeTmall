@@ -12,7 +12,7 @@
 				<table class="addTable table table-responsive table-striped table-hover">
 					<tr>
 						<td><b>分类id</b></td>
-						<td><b>${id}</b></td>
+						<td><input id="id" name="id" type="hidden" class="form-control" value="${id}"><b>${id}</b></td>
 					</tr>
 					<tr>
 						<td>分类名称</td>

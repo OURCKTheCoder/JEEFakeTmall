@@ -15,7 +15,10 @@
 				<table class="addTable table table-responsive table-striped table-hover">
 					<tr>
 						<td><b>ID</b></td>
-						<td><b>${orderItem.id}</b></td>
+						<td>
+							<input id="id" name="id" type="hidden" class="form-control" value="${orderItem.id}">
+							<b>${orderItem.id}</b>
+						</td>
 					</tr>
 					<tr>
 						<td><b>订单细节ID</b></td>
