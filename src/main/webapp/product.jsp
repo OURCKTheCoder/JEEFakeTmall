@@ -76,7 +76,7 @@
 						<td>${item.originalPrice}</td>
 						<td>${item.promotePrice}</td>
 						<td>${item.stock}</td>
-						<td><a href="./category_edit?id=${item.category.id}">${item.category.name}</a></td>
+						<td><a target="_blank" href="./category_edit?id=${item.category.id}">${item.category.name}</a></td>
 						<td>
 							<fmt:formatDate value="${item.createDate}" pattern="<%=TimeUtils.DATE_PATTERN %>"/>
 						</td>

@@ -13,8 +13,8 @@
 			<form method="post" id="addForm" action="product_update">
 				<table class="addTable table table-responsive table-striped table-hover">
 					<tr>
-						<td>商品id</td>
-						<td><input id="id" name="id" type="text" class="form-control" value="${p.id}"></td>
+						<td><b>商品id</b></td>
+						<td><b>${p.id}</b></td>
 					</tr>
 					<tr>
 						<td>商品名称</td>

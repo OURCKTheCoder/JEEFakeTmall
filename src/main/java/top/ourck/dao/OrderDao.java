@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -49,7 +50,11 @@ public class OrderDao implements SimpleDao<Order>{
 
         try (Connection c = JDBCConnectionFactory.getConnection();
         		Statement ps = c.createStatement();) {
- 
+        	Timestamp createDate = TimeUtils.d2t(bean.getCreateDate());
+        	Timestamp payDate = TimeUtils.d2t(bean.getPayDate());
+        	Timestamp deliveryDate = TimeUtils.d2t(bean.getDeliveryDate());
+        	Timestamp confirmDate = TimeUtils.d2t(bean.getConfirmDate());
+        	
         	String sql = "insert into order_ values("
         			+ "null, "
         			+ "\'" + bean.getOrderCode() + "\', "
@@ -62,10 +67,10 @@ public class OrderDao implements SimpleDao<Order>{
 //        			+ "\'" + DBUtils.d2t(bean.getPayDate()) + "\', "
 //        			+ "\'" + DBUtils.d2t(bean.getDeliveryDate()) + "\', "
 //        			+ "\'" + DBUtils.d2t(bean.getConfirmDate()) + "\', "
-        			+ TimeUtils.d2t(bean.getCreateDate()) + ", "
-        			+ TimeUtils.d2t(bean.getPayDate()) + ", "
-        			+ TimeUtils.d2t(bean.getDeliveryDate()) + ", "
-        			+ TimeUtils.d2t(bean.getConfirmDate()) + ", "
+        			+ (createDate == null ? "null" : "\'" + createDate + "\', ")
+        			+ (payDate == null ? "null" : "\'" + payDate + "\', ")
+        			+ (deliveryDate == null ? "null" : "\'" + deliveryDate + "\', ")
+        			+ (confirmDate == null ? "null" : "\'" + confirmDate + "\', ")
         			+ "\'" + bean.getUser().getId() + "\', "
         			+ "\'" + bean.getStatus() + "\')";
         	

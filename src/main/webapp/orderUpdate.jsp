@@ -9,17 +9,17 @@
 <div class="container">
 
 	<div class="panel panel-warning addDiv" style="“width: 550px;">
-		<div class="panel-heading">订单细节</div>
+		<div class="panel-heading">订单细节：id = ${orderItem.id}</div>
 		<div class="panel-body">
 			<form method="post" id="addForm" action="order_update">
 				<table class="addTable table table-responsive table-striped table-hover">
 					<tr>
-						<td>ID</td>
-						<td><input id="id" name="id" type="text" class="form-control" value="${orderItem.id}"></td>
+						<td><b>ID</b></td>
+						<td><b>${orderItem.id}</b></td>
 					</tr>
 					<tr>
-						<td>订单细节ID</td>
-						<td><input id="oid" name="oid" type="text" class="form-control" value="${orderItem.order.id}"></td>
+						<td><b>订单细节ID</b></td>
+						<td><b>${orderItem.order.id}</b></td>
 					</tr>
 					<tr>
 						<td>订单细节信息</td>

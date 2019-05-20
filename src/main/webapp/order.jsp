@@ -109,9 +109,9 @@
 				<c:forEach items="${list}" var="item">
 					<tr>
 						<td>${item.id}</td>
-						<td><a href="./product_edit?id=${item.product.id}">${item.product.id}</a></td>
-						<td><a href="./order_edit?id=${item.id}">${item.order.id}</a></td>
-						<td><a href="./user_edit?id=${item.user.id}">${item.user.id}</a></td>
+						<td><a target="_blank" href="./product_edit?id=${item.product.id}">${item.product.id}</a></td>
+						<td><a target="_blank" href="./order_edit?id=${item.id}">${item.order.id}</a></td>
+						<td><a target="_blank" href="./user_edit?id=${item.user.id}">${item.user.id}</a></td>
 						<td>${item.number}</td>
 						<td>
 							<a href="order_edit?id=${item.id}">
