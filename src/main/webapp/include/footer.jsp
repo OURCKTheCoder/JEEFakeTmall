@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 	
-	<footer class="footer navbar-fixed-bottom">
+	<footer class="footer" style="padding: 50px">
 		<div class="container text-center">
-			<p class="text-muted">OURCK</p>
+			<p class="text-muted">Copyright © 2019 - 2019 FakeTmall. All Rights Reserved.</p>
 		</div>
 	</footer>
 

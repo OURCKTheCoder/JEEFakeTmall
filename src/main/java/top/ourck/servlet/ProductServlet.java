@@ -1,6 +1,9 @@
 package top.ourck.servlet;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -14,6 +17,7 @@ import top.ourck.beans.Category;
 import top.ourck.beans.Product;
 import top.ourck.service.CategoryService;
 import top.ourck.service.ProductService;
+import top.ourck.utils.TimeUtils;
 
 @WebServlet("/productServlet")
 public class ProductServlet extends HttpServlet {
@@ -63,6 +67,8 @@ public class ProductServlet extends HttpServlet {
 				response.sendRedirect("./product_list");
 			}
 			else if(op.equals("update")) {
+				DateFormat format = new SimpleDateFormat(TimeUtils.DATE_PATTERN);
+				
 				Integer id = Integer.parseInt(request.getParameter("id"));
 				String name = request.getParameter("name");
 				String subTitle = request.getParameter("subTitle");
@@ -70,7 +76,13 @@ public class ProductServlet extends HttpServlet {
 				Float promotePrice = Float.parseFloat(request.getParameter("promotePrice"));
 				Integer stock = Integer.parseInt(request.getParameter("stock"));
 				Integer categoryId = Integer.parseInt(request.getParameter("category"));
-				Date createDate = new Date();
+				Date createDate = null;
+				try {
+					createDate = format.parse(request.getParameter("createDate"));
+				} catch (ParseException e) {
+					e.printStackTrace();
+					throw new IOException("DateFormat illeagal!");
+				}
 				
 				Category c = categoryService.getById(categoryId);
 				productService.update(id, name, subTitle, originalPrice, promotePrice, stock, c, createDate);

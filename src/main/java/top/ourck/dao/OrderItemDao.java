@@ -42,21 +42,21 @@ public class OrderItemDao implements SimpleDao<OrderItem> {
 	
 	@Override
     public void add(OrderItem bean) {
-        String sql = "insert into orderitem values(null,?,?,?,?)"; // orderitem (id, pid, oid, uid, number)
+		StringBuilder stb = new StringBuilder();
+		stb.append("insert into orderitem values("); // orderitem (id, pid, oid, uid, number)
         try (Connection c = JDBCConnectionFactory.getConnection();
-        		PreparedStatement ps = c.prepareStatement(sql);) {
- 
-            ps.setInt(1, bean.getProduct().getId());
+        		Statement s = c.createStatement();) {
+        	stb.append("null, ");
+        	stb.append(bean.getProduct().getId() + ", ");
+        	// TODO 订单项在创建的时候，是没有订单信息（oid）的！！
+        	if(null == bean.getOrder())	stb.append("null, ");
+        	else						stb.append(bean.getOrder().getId() + ", ");  
+        	stb.append(bean.getUser().getId() + ", ");
+        	stb.append(bean.getNumber() + ") ");
             
-            // TODO 订单项在创建的时候，是没有订单信息（oid）的！！
-            if(null == bean.getOrder())	ps.setInt(2, -1);
-            else						ps.setInt(2, bean.getOrder().getId());  
-            
-            ps.setInt(3, bean.getUser().getId());
-            ps.setInt(4, bean.getNumber());
-            ps.execute();
+            s.executeUpdate(stb.toString(), Statement.RETURN_GENERATED_KEYS);
  
-            ResultSet rs = ps.getGeneratedKeys();
+            ResultSet rs = s.getGeneratedKeys();
             if (rs.next()) {
                 int id = rs.getInt(1);
                 bean.setId(id);

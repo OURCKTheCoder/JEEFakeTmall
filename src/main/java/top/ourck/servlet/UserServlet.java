@@ -52,6 +52,7 @@ public class UserServlet extends HttpServlet {
 				String name = request.getParameter("name");
 				String passwd = request.getParameter("passwd");
 				userService.add(name, passwd);
+				response.sendRedirect("./user_list");
 			}
 			else if(op.equals("update")) {
 				String id = request.getParameter("id");

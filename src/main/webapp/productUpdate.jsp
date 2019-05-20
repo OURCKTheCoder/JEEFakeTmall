@@ -1,6 +1,8 @@
+<%@page import="top.ourck.utils.TimeUtils"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ include file="./include/header.jsp"%>
 
 <div class="container">
@@ -42,7 +44,8 @@
 					<tr>
 						<!-- 这里应该是一个下拉框 以保证参照完整性 -->
 						<td>创建时间</td>
-						<td><p>${p.createDate}</p></td>
+						<td><input id="createDate" name="createDate" type="text" class="form-control" 
+									value="<fmt:formatDate value='${p.createDate}' pattern='<%=TimeUtils.DATE_PATTERN %>'/>"></td>
 					</tr>
 					
 					<tr>

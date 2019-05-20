@@ -12,7 +12,7 @@ import java.util.List;
 import top.ourck.beans.Product;
 import top.ourck.beans.Review;
 import top.ourck.beans.User;
-import top.ourck.utils.DBUtils;
+import top.ourck.utils.TimeUtils;
 import top.ourck.utils.JDBCConnectionFactory;
  
 public class ReviewDao {
@@ -60,7 +60,7 @@ public class ReviewDao {
             ps.setString(1, bean.getContent());
             ps.setInt(2, bean.getUser().getId());
             ps.setInt(3, bean.getProduct().getId());
-            ps.setTimestamp(4, DBUtils.d2t(bean.getCreateDate()));
+            ps.setTimestamp(4, TimeUtils.d2t(bean.getCreateDate()));
             
             ps.execute();
  
@@ -82,7 +82,7 @@ public class ReviewDao {
             ps.setString(1, bean.getContent());
             ps.setInt(2, bean.getUser().getId());
             ps.setInt(3, bean.getProduct().getId());
-            ps.setTimestamp(4, DBUtils.d2t( bean.getCreateDate()) );
+            ps.setTimestamp(4, TimeUtils.d2t( bean.getCreateDate()) );
             ps.setInt(5, bean.getId());
             ps.execute();
  
@@ -119,7 +119,7 @@ public class ReviewDao {
             if (rs.next()) {
                 int pid = rs.getInt("pid");
                 int uid = rs.getInt("uid");
-                Date createDate = DBUtils.t2d(rs.getTimestamp("createDate"));
+                Date createDate = TimeUtils.t2d(rs.getTimestamp("createDate"));
                 
                 String content = rs.getString("content");
                 
@@ -180,7 +180,7 @@ public class ReviewDao {
                 int id = rs.getInt(1);
 
                 int uid = rs.getInt("uid");
-                Date createDate = DBUtils.t2d(rs.getTimestamp("createDate"));
+                Date createDate = TimeUtils.t2d(rs.getTimestamp("createDate"));
                 
                 String content = rs.getString("content");
                 

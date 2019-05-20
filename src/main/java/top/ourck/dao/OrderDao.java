@@ -14,7 +14,7 @@ import java.util.List;
 
 import top.ourck.beans.Order;
 import top.ourck.beans.User;
-import top.ourck.utils.DBUtils;
+import top.ourck.utils.TimeUtils;
 import top.ourck.utils.JDBCConnectionFactory;
 
 /**
@@ -47,25 +47,29 @@ public class OrderDao implements SimpleDao<Order>{
  
     public void add(Order bean) {
 
-        String sql = "insert into order_ values(null,?,?,?,?,?,?,?,?,?,?,?,?)";
         try (Connection c = JDBCConnectionFactory.getConnection();
-        		PreparedStatement ps = c.prepareStatement(sql);) {
+        		Statement ps = c.createStatement();) {
  
-            ps.setString(1, bean.getOrderCode());
-            ps.setString(2, bean.getAddress());
-            ps.setString(3, bean.getPost());
-            ps.setString(4, bean.getReceiver());
-            ps.setString(5, bean.getMobile());
-            ps.setString(6, bean.getUserMessage());
-            
-            ps.setTimestamp(7,  DBUtils.d2t(bean.getCreateDate()));
-            ps.setTimestamp(8,  DBUtils.d2t(bean.getPayDate()));
-            ps.setTimestamp(9,  DBUtils.d2t(bean.getDeliveryDate()));
-            ps.setTimestamp(10,  DBUtils.d2t(bean.getConfirmDate()));
-            ps.setInt(11, bean.getUser().getId());
-            ps.setString(12, bean.getStatus());
-
-            ps.execute();
+        	String sql = "insert into order_ values("
+        			+ "null, "
+        			+ "\'" + bean.getOrderCode() + "\', "
+        			+ "\'" + bean.getAddress() + "\', "
+        			+ "\'" + bean.getPost() + "\', "
+        			+ "\'" + bean.getReceiver() + "\', "
+        			+ "\'" + bean.getMobile() + "\', "
+        			+ "\'" + bean.getUserMessage() + "\', "
+//        			+ "\'" + DBUtils.d2t(bean.getCreateDate()) + "\', "
+//        			+ "\'" + DBUtils.d2t(bean.getPayDate()) + "\', "
+//        			+ "\'" + DBUtils.d2t(bean.getDeliveryDate()) + "\', "
+//        			+ "\'" + DBUtils.d2t(bean.getConfirmDate()) + "\', "
+        			+ TimeUtils.d2t(bean.getCreateDate()) + ", "
+        			+ TimeUtils.d2t(bean.getPayDate()) + ", "
+        			+ TimeUtils.d2t(bean.getDeliveryDate()) + ", "
+        			+ TimeUtils.d2t(bean.getConfirmDate()) + ", "
+        			+ "\'" + bean.getUser().getId() + "\', "
+        			+ "\'" + bean.getStatus() + "\')";
+        	
+            ps.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
  
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
@@ -90,10 +94,10 @@ public class OrderDao implements SimpleDao<Order>{
             ps.setString(3, bean.getReceiver());
             ps.setString(4, bean.getMobile());
             ps.setString(5, bean.getUserMessage());
-            ps.setTimestamp(6, DBUtils.d2t(bean.getCreateDate()));;
-            ps.setTimestamp(7, DBUtils.d2t(bean.getPayDate()));;
-            ps.setTimestamp(8, DBUtils.d2t(bean.getDeliveryDate()));;
-            ps.setTimestamp(9, DBUtils.d2t(bean.getConfirmDate()));;
+            ps.setTimestamp(6, TimeUtils.d2t(bean.getCreateDate()));;
+            ps.setTimestamp(7, TimeUtils.d2t(bean.getPayDate()));;
+            ps.setTimestamp(8, TimeUtils.d2t(bean.getDeliveryDate()));;
+            ps.setTimestamp(9, TimeUtils.d2t(bean.getConfirmDate()));;
             ps.setString(10, bean.getOrderCode());
             ps.setInt(11, bean.getUser().getId());
             ps.setString(12, bean.getStatus());
@@ -134,10 +138,10 @@ public class OrderDao implements SimpleDao<Order>{
                 String userMessage = rs.getString("userMessage");
                 String status = rs.getString("status");
                 int uid =rs.getInt("uid");
-                Date createDate = DBUtils.t2d( rs.getTimestamp("createDate"));
-                Date payDate = DBUtils.t2d( rs.getTimestamp("payDate"));
-                Date deliveryDate = DBUtils.t2d( rs.getTimestamp("deliveryDate"));
-                Date confirmDate = DBUtils.t2d( rs.getTimestamp("confirmDate"));
+                Date createDate = TimeUtils.t2d(rs.getTimestamp("createDate"));
+                Date payDate = TimeUtils.t2d(rs.getTimestamp("payDate"));
+                Date deliveryDate = TimeUtils.t2d(rs.getTimestamp("deliveryDate"));
+                Date confirmDate = TimeUtils.t2d(rs.getTimestamp("confirmDate"));
 
                 bean.setOrderCode(orderCode);
                 bean.setAddress(address);
@@ -184,11 +188,11 @@ public class OrderDao implements SimpleDao<Order>{
                 String mobile = rs.getString("mobile");
                 String userMessage = rs.getString("userMessage");
                 String status = rs.getString("status");
-                Date createDate = DBUtils.t2d( rs.getTimestamp("createDate"));
-                Date payDate = DBUtils.t2d( rs.getTimestamp("payDate"));
-                Date deliveryDate = DBUtils.t2d( rs.getTimestamp("deliveryDate"));
-                Date confirmDate = DBUtils.t2d( rs.getTimestamp("confirmDate"));
-                int uid =rs.getInt("uid");                
+                Date createDate = TimeUtils.t2d(rs.getTimestamp("createDate"));
+                Date payDate = TimeUtils.t2d(rs.getTimestamp("payDate"));
+                Date deliveryDate = TimeUtils.t2d(rs.getTimestamp("deliveryDate"));
+                Date confirmDate = TimeUtils.t2d(rs.getTimestamp("confirmDate"));
+                int uid = rs.getInt("uid");                
                 
                 int id = rs.getInt("id");
                 bean.setId(id);
@@ -239,10 +243,10 @@ public class OrderDao implements SimpleDao<Order>{
     			String mobile = rs.getString("mobile");
     			String userMessage = rs.getString("userMessage");
     			String status = rs.getString("status");
-    			Date createDate = DBUtils.t2d( rs.getTimestamp("createDate"));
-    			Date payDate = DBUtils.t2d( rs.getTimestamp("payDate"));
-    			Date deliveryDate = DBUtils.t2d( rs.getTimestamp("deliveryDate"));
-    			Date confirmDate = DBUtils.t2d( rs.getTimestamp("confirmDate"));
+    			Date createDate = TimeUtils.t2d(rs.getTimestamp("createDate"));
+    			Date payDate = TimeUtils.t2d(rs.getTimestamp("payDate"));
+    			Date deliveryDate = TimeUtils.t2d(rs.getTimestamp("deliveryDate"));
+    			Date confirmDate = TimeUtils.t2d(rs.getTimestamp("confirmDate"));
                
     			int id = rs.getInt("id");
     			bean.setId(id);

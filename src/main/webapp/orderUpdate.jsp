@@ -1,6 +1,8 @@
+<%@page import="top.ourck.utils.TimeUtils"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ include file="./include/header.jsp"%>
 
 <!DOCTYPE html>
@@ -54,19 +56,23 @@
 									</tr>
 									<tr>
 										<td>创建日期</td>
-										<td><input id="order_createDate" name="order_createDate" type="text" class="form-control" value="${orderItem.order.createDate}"></td>
+										<td><input id="order_createDate" name="order_createDate" type="text" class="form-control" 
+											value="<fmt:formatDate value='${orderItem.order.createDate}' pattern='<%=TimeUtils.DATE_PATTERN %>'/>"></td>
 									</tr>
 									<tr>
 										<td>支付日期</td>
-										<td><input id="order_payDate" name="order_payDate" type="text" class="form-control" value="${orderItem.order.payDate}"></td>
+										<td><input id="order_payDate" name="order_payDate" type="text" class="form-control" 
+											value="<fmt:formatDate value='${orderItem.order.payDate}' pattern='<%=TimeUtils.DATE_PATTERN %>'/>"></td>
 									</tr>
 									<tr>
 										<td>发货日期</td>
-										<td><input id="order_deliveryDate" name="order_deliveryDate" type="text" class="form-control" value="${orderItem.order.deliveryDate}"></td>
+										<td><input id="order_deliveryDate" name="order_deliveryDate" type="text" class="form-control" 
+											value="<fmt:formatDate value='${orderItem.order.deliveryDate}' pattern='<%=TimeUtils.DATE_PATTERN %>'/>"></td>
 									</tr>
 									<tr>
 										<td>确认收货日期</td>
-										<td><input id="order_confirmDate" name="order_confirmDate" type="text" class="form-control" value="${orderItem.order.confirmDate}"></td>
+										<td><input id="order_confirmDate" name="order_confirmDate" type="text" class="form-control" 
+											value="<fmt:formatDate value='${orderItem.order.confirmDate}' pattern='<%=TimeUtils.DATE_PATTERN %>'/>"></td>
 									</tr>
 									<tr>
 										<td>订单状态</td>

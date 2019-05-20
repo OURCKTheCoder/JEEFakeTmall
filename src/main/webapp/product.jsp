@@ -1,6 +1,8 @@
+<%@page import="top.ourck.utils.TimeUtils"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ include file="./include/header.jsp"%>
 
 <div class="container">
@@ -74,8 +76,10 @@
 						<td>${item.originalPrice}</td>
 						<td>${item.promotePrice}</td>
 						<td>${item.stock}</td>
-						<td>${item.category.name}</td>
-						<td>${item.createDate}</td>
+						<td><a href="./category_edit?id=${item.category.id}">${item.category.name}</a></td>
+						<td>
+							<fmt:formatDate value="${item.createDate}" pattern="<%=TimeUtils.DATE_PATTERN %>"/>
+						</td>
 						<td>
 							<a href="product_edit?id=${item.id}">
 								<span class="glyphicon glyphicon-edit"></span>

@@ -5,6 +5,29 @@
 
 <div class="container">
 
+	<div class="panel panel-warning addDiv" style="“width: 550px;">
+		<div class="panel-heading">新增用户</div>
+		<div class="panel-body">
+			<form method="post" id="addForm" action="user_add">
+				<table class="addTable table table-responsive table-striped table-hoverS">
+					<tr>
+						<td>用户名称</td>
+						<td><input id="name" name="name" type="text" class="form-control" value="${oldName}"></td>
+					</tr>
+					<tr>
+						<td>用户密码</td>
+						<td><input id="passwd" name="passwd" type="text" class="form-control" value="${oldPwd}"></td>
+					</tr>
+					<tr>
+						<td colspan="2" align="center">
+							<button type="submit" class="btn btn-success">提 交</button>
+						</td>
+					</tr>
+				</table>
+			</form>
+		</div>
+	</div>
+
 	<div class="listDataTableDiv">
 		<table
 			class="table table-striped table-bordered table-hover table-condensed">

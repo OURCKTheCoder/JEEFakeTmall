@@ -12,7 +12,7 @@ import java.util.List;
 import top.ourck.beans.Category;
 import top.ourck.beans.Product;
 import top.ourck.beans.ProductImage;
-import top.ourck.utils.DBUtils;
+import top.ourck.utils.TimeUtils;
 import top.ourck.utils.JDBCConnectionFactory;
 
 public class ProductDao implements SimpleDao<Product> {
@@ -43,7 +43,7 @@ public class ProductDao implements SimpleDao<Product> {
         			+ bean.getPromotePrice() + ", "
         			+ bean.getStock() + ", "
         			+ bean.getCategory().getId() + ", "
-        			+ "\'" + DBUtils.d2t(bean.getCreateDate()) + "\');";
+        			+ "\'" + TimeUtils.d2t(bean.getCreateDate()) + "\');";
             s.execute(sql, Statement.RETURN_GENERATED_KEYS);
   
             ResultSet rs = s.getGeneratedKeys();
@@ -68,7 +68,7 @@ public class ProductDao implements SimpleDao<Product> {
             ps.setFloat(4, bean.getPromotePrice());
             ps.setInt(5, bean.getStock());
             ps.setInt(6, bean.getCategory().getId());
-            ps.setTimestamp(7, DBUtils.d2t(bean.getCreateDate()));
+            ps.setTimestamp(7, TimeUtils.d2t(bean.getCreateDate()));
             ps.setInt(8, bean.getId());
             ps.execute();
   
@@ -103,7 +103,7 @@ public class ProductDao implements SimpleDao<Product> {
                 float promotePrice = rs.getFloat("promotePrice");
                 int stock = rs.getInt("stock");
                 int cid = rs.getInt("cid");
-                Date createDate = DBUtils.t2d( rs.getTimestamp("createDate"));
+                Date createDate = TimeUtils.t2d( rs.getTimestamp("createDate"));
                
                 bean.setName(name);
                 bean.setSubTitle(subTitle);
@@ -147,7 +147,7 @@ public class ProductDao implements SimpleDao<Product> {
                 float orignalPrice = rs.getFloat("orignalPrice");
                 float promotePrice = rs.getFloat("promotePrice");
                 int stock = rs.getInt("stock");
-                Date createDate = DBUtils.t2d( rs.getTimestamp("createDate"));
+                Date createDate = TimeUtils.t2d( rs.getTimestamp("createDate"));
  
                 bean.setName(name);
                 bean.setSubTitle(subTitle);
@@ -193,7 +193,7 @@ public class ProductDao implements SimpleDao<Product> {
                 float orignalPrice = rs.getFloat("orignalPrice");
                 float promotePrice = rs.getFloat("promotePrice");
                 int stock = rs.getInt("stock");
-                Date createDate = DBUtils.t2d( rs.getTimestamp("createDate"));
+                Date createDate = TimeUtils.t2d( rs.getTimestamp("createDate"));
  
                 bean.setName(name);
                 bean.setSubTitle(subTitle);
@@ -281,7 +281,7 @@ public class ProductDao implements SimpleDao<Product> {
                     float orignalPrice = rs.getFloat("orignalPrice");
                     float promotePrice = rs.getFloat("promotePrice");
                     int stock = rs.getInt("stock");
-                    Date createDate = DBUtils.t2d( rs.getTimestamp("createDate"));
+                    Date createDate = TimeUtils.t2d( rs.getTimestamp("createDate"));
  
                     bean.setName(name);
                     bean.setSubTitle(subTitle);
