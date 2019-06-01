@@ -18,25 +18,21 @@ public class PropertyValueDao implements SimpleDao<PropertyValue>{
     public int getTotal() {
         int total = 0;
         try (Connection c = JDBCConnectionFactory.getConnection(); Statement s = c.createStatement();) {
-  
-            String sql = "select count(*) from PropertyValue";
-  
+            String sql = "select count(*) from propertyvalue";
             ResultSet rs = s.executeQuery(sql);
             while (rs.next()) {
                 total = rs.getInt(1);
             }
         } catch (SQLException e) {
-  
             e.printStackTrace();
         }
         return total;
     }
   
     public void add(PropertyValue bean) {
- 
-        String sql = "insert into PropertyValue values(null,?,?,?)";
-        try (Connection c = JDBCConnectionFactory.getConnection(); PreparedStatement ps = c.prepareStatement(sql);) {
-  
+        String sql = "insert into propertyvalue values(null,?,?,?)";
+        try (Connection c = JDBCConnectionFactory.getConnection();
+        		PreparedStatement ps = c.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);) {
             ps.setInt(1, bean.getProduct().getId());
             ps.setInt(2, bean.getProperty().getId());
             ps.setString(3, bean.getValue());
@@ -48,52 +44,41 @@ public class PropertyValueDao implements SimpleDao<PropertyValue>{
                 bean.setId(id);
             }
         } catch (SQLException e) {
-  
             e.printStackTrace();
         }
     }
   
     public void update(PropertyValue bean) {
- 
-        String sql = "update PropertyValue set pid= ?, ptid=?, value=?  where id = ?";
+        String sql = "update propertyvalue set pid= ?, ptid=?, value=?  where id = ?";
         try (Connection c = JDBCConnectionFactory.getConnection(); PreparedStatement ps = c.prepareStatement(sql);) {
             ps.setInt(1, bean.getProduct().getId());
             ps.setInt(2, bean.getProperty().getId());
             ps.setString(3, bean.getValue());
             ps.setInt(4, bean.getId());
             ps.execute();
-  
         } catch (SQLException e) {
-  
             e.printStackTrace();
         }
   
     }
   
     public void delete(int id) {
-  
         try (Connection c = JDBCConnectionFactory.getConnection(); Statement s = c.createStatement();) {
-  
-            String sql = "delete from PropertyValue where id = " + id;
-  
+            String sql = "delete from propertyvalue where id = " + id;
             s.execute(sql);
-  
         } catch (SQLException e) {
-  
             e.printStackTrace();
         }
     }
   
     public PropertyValue query(int id) {
-        PropertyValue bean = new PropertyValue();
-  
+        PropertyValue bean = null;
         try (Connection c = JDBCConnectionFactory.getConnection(); Statement s = c.createStatement();) {
-  
-            String sql = "select * from PropertyValue where id = " + id;
-  
+            String sql = "select * from propertyvalue where id = " + id;
             ResultSet rs = s.executeQuery(sql);
  
             if (rs.next()) {
+            	bean = new PropertyValue();
                 int pid = rs.getInt("pid");
                 int ptid = rs.getInt("ptid");
                 String value = rs.getString("value");
@@ -105,19 +90,44 @@ public class PropertyValueDao implements SimpleDao<PropertyValue>{
                 bean.setValue(value);
                 bean.setId(id);
             }
-  
         } catch (SQLException e) {
-  
             e.printStackTrace();
+            return null;
         }
         return bean;
     }
-    public PropertyValue get(int ptid, int pid ) {
+    public PropertyValue query(int productId, int propertyId) {
+    	PropertyValue pv = null;
+    	String sql = "SELECT * FROM propertyvalue WHERE pid = ? AND ptid = ?";
+		try(Connection conn = JDBCConnectionFactory.getConnection();
+				PreparedStatement ps = conn.prepareStatement(sql)) {
+			ps.setInt(1, productId);
+			ps.setInt(2, propertyId);
+			ResultSet rs = ps.executeQuery();
+
+			if(rs.next()) {
+				pv = new PropertyValue();
+				ProductDao productDao = new ProductDao();
+				PropertyDao propertyDao = new PropertyDao();
+				pv.setId(rs.getInt(1));
+				pv.setProduct(productDao.query(rs.getInt(2)));
+				pv.setProperty(propertyDao.query(rs.getInt(3)));
+				pv.setValue(rs.getString(4));
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+			
+		return pv;
+	}
+
+	public PropertyValue get(int ptid, int pid ) {
         PropertyValue bean = null;
          
         try (Connection c = JDBCConnectionFactory.getConnection(); Statement s = c.createStatement();) {
              
-            String sql = "select * from PropertyValue where ptid = " + ptid + " and pid = " + pid;
+            String sql = "select * from propertyvalue where ptid = " + ptid + " and pid = " + pid;
              
             ResultSet rs = s.executeQuery(sql);
              
@@ -149,7 +159,7 @@ public class PropertyValueDao implements SimpleDao<PropertyValue>{
     public List<PropertyValue> list(int start, int count) {
         List<PropertyValue> beans = new ArrayList<PropertyValue>();
   
-        String sql = "select * from PropertyValue order by id desc limit ?,? ";
+        String sql = "select * from propertyvalue order by id desc limit ?,? ";
   
         try (Connection c = JDBCConnectionFactory.getConnection(); PreparedStatement ps = c.prepareStatement(sql);) {
   
@@ -198,7 +208,7 @@ public class PropertyValueDao implements SimpleDao<PropertyValue>{
     public List<PropertyValue> list(int pid) {
         List<PropertyValue> beans = new ArrayList<PropertyValue>();
          
-        String sql = "select * from PropertyValue where pid = ? order by ptid desc";
+        String sql = "select * from propertyvalue where pid = ? order by ptid desc";
   
         try (Connection c = JDBCConnectionFactory.getConnection(); PreparedStatement ps = c.prepareStatement(sql);) {
   

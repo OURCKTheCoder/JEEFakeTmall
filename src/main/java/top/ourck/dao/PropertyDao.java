@@ -145,7 +145,7 @@ public class PropertyDao implements SimpleDao<Property> {
     public List<Property> list(int cid, int start, int count) {
         List<Property> beans = new LinkedList<Property>();
   
-        String sql = "select * from Property where cid = ? order by id desc limit ?,? ";
+        String sql = "select * from property where cid = ? order by id desc limit ?,? ";
   
         try (Connection c = JDBCConnectionFactory.getConnection(); PreparedStatement ps = c.prepareStatement(sql);) {
   

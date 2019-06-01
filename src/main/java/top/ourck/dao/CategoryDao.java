@@ -11,6 +11,11 @@ import java.util.List;
 import top.ourck.beans.Category;
 import top.ourck.utils.JDBCConnectionFactory;
 
+/**
+ * FIXME 修复 #所有# Dao类使用的Statement为PreparedStatement.
+ * @author ourck
+ *
+ */
 public class CategoryDao implements SimpleDao<Category> {
 
 	// Category table has only 2 columns: (id, name).

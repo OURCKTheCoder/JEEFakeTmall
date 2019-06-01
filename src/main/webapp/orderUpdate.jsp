@@ -58,7 +58,7 @@
 										<td><input id="order_userMessage" name="order_userMessage" type="text" class="form-control" value="${orderItem.order.userMessage}"></td>
 									</tr>
 									<tr>
-										<td>创建日期</td>
+										<td>创建日期（日期格式<%=TimeUtils.DATE_PATTERN %>，下同）</td>
 										<td><input id="order_createDate" name="order_createDate" type="text" class="form-control" 
 											value="<fmt:formatDate value='${orderItem.order.createDate}' pattern='<%=TimeUtils.DATE_PATTERN %>'/>"></td>
 									</tr>

@@ -61,6 +61,7 @@
 					<th>库存</th>
 					<th>品类</th>
 					<th>入库时间</th>
+					<th>属性修改</th>
 					<th>编辑</th>
 					<th>删除</th>
 					<!-- 图片上传！ -->
@@ -79,6 +80,11 @@
 						<td><a target="_blank" href="./category_edit?id=${item.category.id}">${item.category.name}</a></td>
 						<td>
 							<fmt:formatDate value="${item.createDate}" pattern="<%=TimeUtils.DATE_PATTERN %>"/>
+						</td>
+						<td>
+							<a href="propertyValue_edit?pid=${item.id}">
+								<span class="glyphicon glyphicon-list"></span>
+							</a>
 						</td>
 						<td>
 							<a href="product_edit?id=${item.id}">

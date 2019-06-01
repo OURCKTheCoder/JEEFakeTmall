@@ -19,6 +19,11 @@ import top.ourck.service.CategoryService;
 import top.ourck.service.ProductService;
 import top.ourck.utils.TimeUtils;
 
+/** TODO 分页！！！
+ * http://how2j.cn/k/tmall-j2ee/tmall-j2ee-1000/1000.html#nowhere
+ * @author ourck
+ *
+ */
 @WebServlet("/productServlet")
 public class ProductServlet extends HttpServlet {
 

@@ -1,3 +1,4 @@
+<%@page import="top.ourck.utils.TimeUtils"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -44,7 +45,7 @@
 										<td><input id="order_userMessage" name="order_userMessage" type="text" class="form-control"></td>
 									</tr>
 									<tr>
-										<td>创建日期</td>
+										<td>创建日期（日期格式<%=TimeUtils.DATE_PATTERN %>，下同）</td>
 										<td><input id="order_createDate" name="order_createDate" type="text" class="form-control"></td>
 									</tr>
 									<tr>
@@ -97,7 +98,7 @@
 				<tr class="success">
 					<th>ID</th>
 					<th>产品ID</th>
-					<th>订单细节ID</th>
+					<th>订单细节</th>
 					<th>用户ID</th>
 					<th>数量</th>
 					<th>编辑</th>
@@ -109,9 +110,9 @@
 				<c:forEach items="${list}" var="item">
 					<tr>
 						<td>${item.id}</td>
-						<td><a target="_blank" href="./product_edit?id=${item.product.id}">${item.product.id}</a></td>
-						<td><a target="_blank" href="./order_edit?id=${item.id}">${item.order.id}</a></td>
-						<td><a target="_blank" href="./user_edit?id=${item.user.id}">${item.user.id}</a></td>
+						<td><a target="_blank" href="./product_edit?id=${item.product.id}">${item.product.name}</a></td>
+						<td><a target="_blank" href="./order_edit?id=${item.id}">查看详情...</a></td>
+						<td><a target="_blank" href="./user_edit?id=${item.user.id}">${item.user.name}</a></td>
 						<td>${item.number}</td>
 						<td>
 							<a href="order_edit?id=${item.id}">
