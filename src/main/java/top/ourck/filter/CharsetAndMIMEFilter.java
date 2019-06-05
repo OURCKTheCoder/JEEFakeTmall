@@ -1,7 +1,6 @@
 package top.ourck.filter;
 
 import java.io.IOException;
-
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
@@ -10,31 +9,22 @@ import javax.servlet.http.HttpFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class BaseBackServletFilter extends HttpFilter {
+public class CharsetAndMIMEFilter extends HttpFilter {
 
-	private static final long serialVersionUID = 844088609266205943L;
+	private static final long serialVersionUID = -5086146497139835L;
 
-	@Override
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) res;
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html;charset=UTF-8");
 		
 		String path = request.getContextPath();
-		String cmd = request.getRequestURI().replace(path + "/", "");
-		if(cmd.startsWith("admin")) {
-			cmd = cmd.substring(6); // remove the prefix "admin/".
-			String[] command = cmd.split("_");
-			if(command.length == 2) {
-				String obj = command[0];
-				String op = command[1];
-				String targetServlet = obj + "Servlet";
-				request.setAttribute("op", op);
-				request.getRequestDispatcher("/" + targetServlet).forward(request, response);
-				return;
-			}
-		}
+		String resPath = request.getRequestURI().replace(path + "/", "");
+		if(resPath.endsWith(".css"))
+			response.setContentType("text/css");
 		
 		chain.doFilter(request, response);
 	}
-	
+
 }

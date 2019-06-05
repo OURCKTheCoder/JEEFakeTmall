@@ -7,7 +7,7 @@ import top.ourck.dao.UserDao;
 
 public class UserService {
 	
-	private static final UserDao userDao = new UserDao();
+	private UserDao userDao = new UserDao();
 	
 	public List<User> list() {
 		return userDao.list();
@@ -15,10 +15,6 @@ public class UserService {
 	
 	public boolean isExist(String userName) {
 		return userDao.get(userName) != null; // Maybe EXISTS in sql ?
-	}
-	
-	public boolean getAuth(String userName, String passwd) {
-		return userDao.get(userName, passwd) == null;
 	}
 	
 	public void add(String name, String passwd) {

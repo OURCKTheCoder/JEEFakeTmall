@@ -4,6 +4,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * TODO Maybe use a connection pool?
+ * @author ourck
+ */
 public class JDBCConnectionFactory {
 	
 	private static final String IP_ADDR = "127.0.0.1"; 
