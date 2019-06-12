@@ -11,6 +11,11 @@ public class OrderService {
 
 	private OrderDao orderDao = new OrderDao();
 	
+	public List<Order> getListByUserId(int uid) {
+		return orderDao.list(uid);
+	}
+	
+	@Deprecated
 	public List<Order> list() {
 		return orderDao.list();
 	}

@@ -16,6 +16,10 @@ public class OrderItemService {
 		return orderItemDao.list();
 	}
 	
+	public List<OrderItem> listByUserId(int uid) {
+		return orderItemDao.listByUser(uid);
+	}
+	
 	public void add(OrderItem item) {
 		orderItemDao.add(item);
 	}

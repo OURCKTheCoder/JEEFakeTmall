@@ -17,7 +17,7 @@ public class CharsetAndMIMEFilter extends HttpFilter {
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) res;
 		request.setCharacterEncoding("utf-8");
-		response.setContentType("text/html;charset=UTF-8");
+		response.setCharacterEncoding("utf-8");
 		
 		String path = request.getContextPath();
 		String resPath = request.getRequestURI().replace(path + "/", "");

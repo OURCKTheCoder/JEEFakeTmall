@@ -77,6 +77,7 @@ public class LoginFilter extends HttpFilter {
 					// 4. Attach this user's info into request.
 					request.setAttribute("rememberedUser", user);
 					passFilterFlag = true;
+					request.setAttribute("currentUser", t.getUser());
 					break;
 				}
 			}
