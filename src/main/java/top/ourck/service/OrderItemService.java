@@ -16,9 +16,14 @@ public class OrderItemService {
 		return orderItemDao.list();
 	}
 	
-	public List<OrderItem> listByUserId(int uid) {
-		return orderItemDao.listByUser(uid);
+	public List<OrderItem> listCartByUserId(int uid) {
+		return orderItemDao.listCartByUserId(uid);
 	}
+	
+	public List<OrderItem> listCommitedByUserId(int uid) {
+		return orderItemDao.listCommitedByUserId(uid);
+	}
+	
 	
 	public void add(OrderItem item) {
 		orderItemDao.add(item);

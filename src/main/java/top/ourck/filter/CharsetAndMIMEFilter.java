@@ -21,6 +21,7 @@ public class CharsetAndMIMEFilter extends HttpFilter {
 		
 		String path = request.getContextPath();
 		String resPath = request.getRequestURI().replace(path + "/", "");
+		
 		if(resPath.endsWith(".css"))
 			response.setContentType("text/css");
 		

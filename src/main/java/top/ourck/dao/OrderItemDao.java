@@ -23,6 +23,9 @@ import top.ourck.utils.JDBCConnectionFactory;
 public class OrderItemDao implements SimpleDao<OrderItem> {
  
 	// orderitem (id, pid, oid, uid, number)
+	// 当一个orderitem的oid为0（即INVALID_ORDER_ID）时，意味着该orderitem没有订单详情。
+	// 此时该orderitem为购物车中的项目。
+	private static final int INVALID_ORDER_ID = 0;
 	
 	@Override
     public int getTotal() {
@@ -131,16 +134,15 @@ public class OrderItemDao implements SimpleDao<OrderItem> {
         return bean;
     }
  
-    public List<OrderItem> listByUser(int uid) {
-        return listByUser(uid, 0, Short.MAX_VALUE);
+    public List<OrderItem> listCommitedByUserId(int uid) {
+        return listCommitedByUserId(uid, 0, Short.MAX_VALUE);
     }
  
-    public List<OrderItem> listByUser(int uid, int start, int count) {
+    public List<OrderItem> listCommitedByUserId(int uid, int start, int count) {
         List<OrderItem> beans = new ArrayList<OrderItem>();
-        String sql = "select * from orderitem where uid = ? and oid=-1 order by id desc limit ?,? "; // TODO oid = -1 ?
+        String sql = "select * from orderitem where uid = ? and oid != " + INVALID_ORDER_ID + " order by id desc limit ?,? "; // TODO oid = -1 ?
         try (Connection c = JDBCConnectionFactory.getConnection();
         		PreparedStatement ps = c.prepareStatement(sql);) {
- 
             ps.setInt(1, uid);
             ps.setInt(2, start);
             ps.setInt(3, count);
@@ -154,7 +156,7 @@ public class OrderItemDao implements SimpleDao<OrderItem> {
                 int number = rs.getInt("number");
               
                 Product product = new ProductDao().query(pid);
-                if(-1 != oid){
+                if(INVALID_ORDER_ID != oid) {
                     Order order= new OrderDao().query(oid);
                     bean.setOrder(order);               	
                 }
@@ -172,11 +174,42 @@ public class OrderItemDao implements SimpleDao<OrderItem> {
         }
         return beans;
     }
-    public List<OrderItem> listByOrder(int oid) {
-    	return listByOrder(oid, 0, Short.MAX_VALUE);
+    
+    public List<OrderItem> listCartByUserId(int uid) {
+        List<OrderItem> beans = new ArrayList<OrderItem>();
+        String sql = "select * from orderitem where uid = ? and oid = " + INVALID_ORDER_ID + " order by id desc"; // TODO oid = -1 ?
+        try (Connection c = JDBCConnectionFactory.getConnection();
+        		PreparedStatement ps = c.prepareStatement(sql);) {
+            ps.setInt(1, uid);
+ 
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                OrderItem bean = new OrderItem();
+                int id = rs.getInt(1);
+                int pid = rs.getInt("pid");
+                int number = rs.getInt("number");
+              
+                Product product = new ProductDao().query(pid);
+                User user = new UserDao().query(uid);
+                bean.setProduct(product);
+                bean.setUser(user);
+                bean.setNumber(number);
+                bean.setId(id);                
+                bean.setOrder(null);
+                
+                beans.add(bean);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return beans;
     }
     
-    public List<OrderItem> listByOrder(int oid, int start, int count) {
+    public List<OrderItem> listByOrderId(int oid) {
+    	return listByOrderId(oid, 0, Short.MAX_VALUE);
+    }
+    
+    public List<OrderItem> listByOrderId(int oid, int start, int count) {
     	List<OrderItem> beans = new ArrayList<OrderItem>();
     	String sql = "select * from orderitem where oid = ? order by id desc limit ?,? ";
     	try (Connection c = JDBCConnectionFactory.getConnection();
@@ -222,7 +255,7 @@ public class OrderItemDao implements SimpleDao<OrderItem> {
 	 */
 	public void fill(List<Order> os) {
 		for (Order o : os) {
-			List<OrderItem> ois = listByOrder(o.getId());
+			List<OrderItem> ois = listByOrderId(o.getId());
 			double total = 0; // TODO Why float instead of double?
 			int totalNumber = 0;
 			for (OrderItem oi : ois) {
@@ -241,7 +274,7 @@ public class OrderItemDao implements SimpleDao<OrderItem> {
 	 * @param o 单项订单
 	 */
 	public void fill(Order o) {
-		List<OrderItem> ois = listByOrder(o.getId());
+		List<OrderItem> ois = listByOrderId(o.getId());
 		double total = 0;
 		for (OrderItem oi : ois) {
 			 total += oi.getNumber() * oi.getProduct().getPromotePrice();
