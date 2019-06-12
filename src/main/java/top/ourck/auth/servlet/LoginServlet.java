@@ -1,4 +1,4 @@
-package top.ourck.servlet;
+package top.ourck.auth.servlet;
 
 import java.io.IOException;
 import java.util.Map;
@@ -32,7 +32,7 @@ public class LoginServlet extends HttpServlet {
 					break;
 				}
 			}
-			resp.sendRedirect("/JEEFakeTmall");
+			resp.sendRedirect("/JEEFakeTmall/");
 		}
 		else {
 			req.setAttribute("target", target);

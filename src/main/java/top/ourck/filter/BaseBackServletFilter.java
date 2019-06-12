@@ -21,6 +21,7 @@ public class BaseBackServletFilter extends HttpFilter {
 		
 		String path = request.getContextPath();
 		String cmd = request.getRequestURI().replace(path + "/", "");
+		// TODO 如果有人使坏 输的是admin而不是admin/会导致异常
 		if(cmd.startsWith("admin")) {
 			cmd = cmd.substring(6); // remove the prefix "admin/".
 			String[] command = cmd.split("_");
@@ -29,7 +30,7 @@ public class BaseBackServletFilter extends HttpFilter {
 				String op = command[1];
 				String targetServlet = obj + "Servlet";
 				request.setAttribute("op", op);
-				request.getRequestDispatcher("/" + targetServlet).forward(request, response);
+				request.getRequestDispatcher("/admin/" + targetServlet).forward(request, response);
 				return;
 			}
 		}

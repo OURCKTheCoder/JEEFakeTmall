@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ include file="./include/header.jsp"%>
+<%@ include file="../include/header.jsp"%>
 
 <div class="container">
 	<div class="panel panel-warning addDiv" style="“width: 550px;">
@@ -43,4 +43,4 @@
 
 </div>
 
-<%@ include file="./include/footer.jsp"%>
+<%@ include file="../include/footer.jsp"%>

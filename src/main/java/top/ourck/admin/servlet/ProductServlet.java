@@ -1,4 +1,4 @@
-package top.ourck.servlet;
+package top.ourck.admin.servlet;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -24,7 +24,7 @@ import top.ourck.utils.TimeUtils;
  * @author ourck
  *
  */
-@WebServlet("/productServlet")
+@WebServlet("/admin/productServlet")
 public class ProductServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 8855917531787405078L;
@@ -39,17 +39,17 @@ public class ProductServlet extends HttpServlet {
 			if(op.equals("list")) {
 				List<Product> uList = productService.list();
 				request.setAttribute("list", uList);
-				request.getRequestDispatcher("/product.jsp").forward(request, response);
+				request.getRequestDispatcher("/admin/product.jsp").forward(request, response);
 			}
 			else if(op.equals("delete")) {
 				productService.delete(Integer.parseInt(request.getParameter("id")));
-				response.sendRedirect("./product_list");
+				response.sendRedirect("./admin/product_list");
 			}
 			else if(op.equals("edit")) {
 				int id = Integer.parseInt(request.getParameter("id"));
 				Product p = productService.getById(id);
 				request.setAttribute("p", p);
-				request.getRequestDispatcher("/productUpdate.jsp").forward(request, response);
+				request.getRequestDispatcher("/admin/productUpdate.jsp").forward(request, response);
 			}
 		}
 	}

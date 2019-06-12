@@ -1,4 +1,4 @@
-package top.ourck.servlet;
+package top.ourck.admin.servlet;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -23,7 +23,7 @@ import top.ourck.service.ProductService;
 import top.ourck.service.UserService;
 import top.ourck.utils.TimeUtils;
 
-@WebServlet("/orderServlet")
+@WebServlet("/admin/orderServlet")
 public class OrderServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = -8601392259411168996L;
@@ -41,7 +41,7 @@ public class OrderServlet extends HttpServlet {
 			if(op.equals("list")) {
 				List<OrderItem> uList = orderItemService.list();
 				request.setAttribute("list", uList);
-				request.getRequestDispatcher("/order.jsp").forward(request, response);
+				request.getRequestDispatcher("/admin/order.jsp").forward(request, response);
 			}
 			else if(op.equals("delete")) {
 				orderItemService.delete(Integer.parseInt(request.getParameter("id")));
@@ -51,7 +51,7 @@ public class OrderServlet extends HttpServlet {
 				int id = Integer.parseInt(request.getParameter("id"));
 				OrderItem item = orderItemService.getById(id);
 				request.setAttribute("orderItem", item);
-				request.getRequestDispatcher("/orderUpdate.jsp").forward(request, response);
+				request.getRequestDispatcher("/admin/orderUpdate.jsp").forward(request, response);
 			}
 		}
 	}

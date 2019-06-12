@@ -1,4 +1,4 @@
-package top.ourck.servlet;
+package top.ourck.admin.servlet;
 
 import java.io.IOException;
 import java.util.List;
@@ -19,7 +19,7 @@ import top.ourck.service.PropertyService;
  * @author ourck
  *
  */
-@WebServlet("/propertyServlet")
+@WebServlet("/admin/propertyServlet")
 public class PropertyServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 8855917531787405078L;
@@ -42,7 +42,7 @@ public class PropertyServlet extends HttpServlet {
 				List<Property> pList = propertyService.getPropertiesByCategoryId(categoryId);
 				request.setAttribute("category", category);
 				request.setAttribute("list", pList);
-				request.getRequestDispatcher("/property.jsp").forward(request, response);
+				request.getRequestDispatcher("/admin/property.jsp").forward(request, response);
 			}
 			else if(op.equals("delete")) {
 				String originPath = request.getHeader("Referer"); // 这里偷了个懒。。
@@ -55,7 +55,7 @@ public class PropertyServlet extends HttpServlet {
 				int id = Integer.parseInt(idStr);
 				Property p = propertyService.getById(id);
 				request.setAttribute("item", p);
-				request.getRequestDispatcher("/propertyUpdate.jsp").forward(request, response);
+				request.getRequestDispatcher("/admin/propertyUpdate.jsp").forward(request, response);
 			}
 		}
 	}

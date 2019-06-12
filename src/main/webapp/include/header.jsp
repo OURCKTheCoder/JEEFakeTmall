@@ -5,9 +5,9 @@
 <head>
 	<meta charset="UTF-8">
 	<title>FakeTmall - 理想生活上假天猫</title>
-	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">  
-	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
-	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="/JEEFakeTmall/css/bootstrap.min.css">  
+	<script src="/JEEFakeTmall/js/jquery.min.js"></script>
+	<script src="/JEEFakeTmall/js/bootstrap.min.js"></script>
 </head>
 
 <body>

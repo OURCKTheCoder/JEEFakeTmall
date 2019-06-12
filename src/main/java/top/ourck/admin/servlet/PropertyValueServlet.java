@@ -1,4 +1,4 @@
-package top.ourck.servlet;
+package top.ourck.admin.servlet;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -22,7 +22,7 @@ import top.ourck.service.PropertyService;
  * @author ourck
  *
  */
-@WebServlet("/propertyValueServlet")
+@WebServlet("/admin/propertyValueServlet")
 public class PropertyValueServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 8855917531787405078L;
@@ -46,7 +46,7 @@ public class PropertyValueServlet extends HttpServlet {
 				request.setAttribute("product", p);
 				request.setAttribute("pList", pList);
 				request.setAttribute("pvMap", pvMap);
-				request.getRequestDispatcher("propertyValue.jsp").forward(request, response);
+				request.getRequestDispatcher("/admin/propertyValue.jsp").forward(request, response);
 			}
 		}
 	}

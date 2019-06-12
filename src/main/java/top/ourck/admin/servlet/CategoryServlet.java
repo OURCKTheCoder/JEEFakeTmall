@@ -1,4 +1,4 @@
-package top.ourck.servlet;
+package top.ourck.admin.servlet;
 
 import java.io.IOException;
 import java.util.List;
@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import top.ourck.beans.Category; // TODO Coupling?
 import top.ourck.service.CategoryService;
 
-@WebServlet("/categoryServlet")
+@WebServlet("/admin/categoryServlet")
 public class CategoryServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 3812941669672146055L;
@@ -26,7 +26,7 @@ public class CategoryServlet extends HttpServlet {
 			if(op.equals("list")) {
 				List<Category> uList = categoryService.list();
 				request.setAttribute("list", uList);
-				request.getRequestDispatcher("/category.jsp").forward(request, response);
+				request.getRequestDispatcher("/admin/category.jsp").forward(request, response);
 			}
 			else if(op.equals("delete")) {
 				categoryService.delete(Integer.parseInt(request.getParameter("id")));
@@ -36,7 +36,7 @@ public class CategoryServlet extends HttpServlet {
 				int id = Integer.parseInt(request.getParameter("id"));
 				request.setAttribute("id", id);
 				request.setAttribute("oldName", categoryService.getNameById(id));
-				request.getRequestDispatcher("/categoryUpdate.jsp").forward(request, response);
+				request.getRequestDispatcher("/admin/categoryUpdate.jsp").forward(request, response);
 			}
 		}
 //		response.sendRedirect("./category.jsp"); // DO NOT DO THIS!

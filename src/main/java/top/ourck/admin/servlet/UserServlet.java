@@ -1,4 +1,4 @@
-package top.ourck.servlet;
+package top.ourck.admin.servlet;
 
 import java.io.IOException;
 import java.util.List;
@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import top.ourck.beans.User;
 import top.ourck.service.UserService;
 
-@WebServlet("/userServlet")
+@WebServlet("/admin/userServlet")
 public class UserServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
@@ -27,7 +27,7 @@ public class UserServlet extends HttpServlet {
 			if(op.equals("list")) {
 				List<User> uList = userService.list();
 				request.setAttribute("list", uList);
-				request.getRequestDispatcher("/user.jsp").forward(request, response);
+				request.getRequestDispatcher("/admin/user.jsp").forward(request, response);
 			}
 			else if(op.equals("delete")) {
 				userService.delete(Integer.parseInt(request.getParameter("id")));
@@ -38,7 +38,7 @@ public class UserServlet extends HttpServlet {
 				request.setAttribute("id", id);
 				request.setAttribute("oldName", userService.getNameById(id));
 				request.setAttribute("oldPwd", userService.getById(id).getPassword());
-				request.getRequestDispatcher("/userUpdate.jsp").forward(request, response);
+				request.getRequestDispatcher("/admin/userUpdate.jsp").forward(request, response);
 			}
 		}
 	}
