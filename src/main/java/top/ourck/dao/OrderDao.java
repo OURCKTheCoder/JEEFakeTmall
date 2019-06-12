@@ -222,19 +222,20 @@ public class OrderDao implements SimpleDao<Order>{
         return beans;
     }
     
-    public List<Order> list(int uid) {
-        return list(uid, 0, Short.MAX_VALUE);
+    public List<Order> list(int uid,String excludedStatus) {
+        return list(uid,excludedStatus,0, Short.MAX_VALUE);
     }
      
-    public List<Order> list(int uid, int start, int count) {
+    public List<Order> list(int uid, String excludedStatus, int start, int count) {
     	List<Order> beans = new ArrayList<Order>();
-    	String sql = "select * from order_ where uid = ? order by id desc limit ?,? ";
+    	String sql = "select * from order_ where uid = ? and status != ? order by id desc limit ?,? ";
 
     	try (Connection c = JDBCConnectionFactory.getConnection();
     			PreparedStatement ps = c.prepareStatement(sql);) {
     		ps.setInt(1, uid);
-    		ps.setInt(2, start);
-    		ps.setInt(3, count);
+    		ps.setString(2, excludedStatus);
+    		ps.setInt(3, start);
+    		ps.setInt(4, count);
     		
     		ResultSet rs = ps.executeQuery();
     		

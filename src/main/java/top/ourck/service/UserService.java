@@ -17,7 +17,6 @@ public class UserService {
 		return userDao.get(userName) != null; // Maybe EXISTS in sql ?
 	}
 	
-	// TODO 应该返回一个Map，里面带有成功 / 失败信息
 	public void add(String name, String passwd) {
 		User user = new User();
 		user.setName(name);
