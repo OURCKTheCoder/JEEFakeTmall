@@ -10,7 +10,7 @@ import java.sql.SQLException;
  */
 public class JDBCConnectionFactory {
 	
-	private static final String IP_ADDR = "127.0.0.1"; 
+	private static final String IP_ADDR = "ourck.top"; 
 	private static final String PORT = "3306";
 	private static final String USER_NAME = "root";
 	private static final String PASSWD = "voidPwd039";
