@@ -13,6 +13,7 @@ import top.ourck.dao.UserDao;
 
 public class AuthService {
 	
+	private static final int EXPIRE_SEC = 60 * 60 * 24; // 1-day man
 	private UserDao userDao = new UserDao();
 	private LoginTicketDao ticketDao = new LoginTicketDao();
 	
@@ -36,7 +37,7 @@ public class AuthService {
 		else {
 			if(passwd.equals(u.getPassword())) {
 				// Add ticket on both side.
-				int expireSec = 60 * 60 * 24; // TODO 1-day man
+				int expireSec = EXPIRE_SEC;
 				LoginTicket ticket = genTicket(u.getId(), expireSec);
 				info.put("success", "true");
 				info.put("ticket", ticket.getTicket());

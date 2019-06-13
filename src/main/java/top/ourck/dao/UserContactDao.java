@@ -18,7 +18,6 @@ public class UserContactDao implements SimpleDao<UserContact> {
 
 	@Override
 	public void add(UserContact obj) {
-		// TODO 自动生成的方法存根
 		String sql="INSRET INTO user_contact values(null,?,?,?,?,?)";
 		try(PreparedStatement stmt = JDBCConnectionFactory.getConnection()
 				.prepareStatement(sql)){
@@ -35,7 +34,6 @@ public class UserContactDao implements SimpleDao<UserContact> {
 
 	@Override
 	public void delete(int id) {
-		// TODO 自动生成的方法存根
 		String sql = "DELETE FORM user_contact WHERE id = ?";
 		try(PreparedStatement stmt = JDBCConnectionFactory.getConnection()
 				.prepareStatement(sql);){
@@ -48,7 +46,6 @@ public class UserContactDao implements SimpleDao<UserContact> {
 	}
 
 	public void deleteByUid(int uid) {
-		// TODO 自动生成的方法存根
 		String sql = "DELETE FORM user_contact WHERE uid = ?";
 		try(PreparedStatement stmt = JDBCConnectionFactory.getConnection()
 				.prepareStatement(sql);){
@@ -62,7 +59,6 @@ public class UserContactDao implements SimpleDao<UserContact> {
 	
 	@Override
 	public void update(UserContact obj) {
-		// TODO 自动生成的方法存根
 		String sql = "UPDATE user_contact set phone = ?,address = ?,emailaddress = ?,name = ?,uid = ?";
 		try(PreparedStatement stmt = JDBCConnectionFactory.getConnection()
 				.prepareStatement(sql)){
@@ -80,7 +76,6 @@ public class UserContactDao implements SimpleDao<UserContact> {
 
 	@Override
 	public UserContact query(int id) {
-		// TODO 自动生成的方法存根
 		UserContact uc = null;
 		
 		String sql = "SELECT * FROM user_contact WHERE id = ?";
@@ -132,7 +127,6 @@ public class UserContactDao implements SimpleDao<UserContact> {
 	
 	@Override
 	public List<UserContact> list(int start, int count) {
-		// TODO 自动生成的方法存根
 		List<UserContact> list = new LinkedList<>();
 		
 		String sql = "SELECT * FROM user_contact ORDER BY id DESC LIMIT ?,?";
@@ -161,13 +155,11 @@ public class UserContactDao implements SimpleDao<UserContact> {
 
 	@Override
 	public List<UserContact> list() {
-		// TODO 自动生成的方法存根
 		return list(0, Short.MAX_VALUE);
 	}
 
 	@Override
 	public int getTotal() {
-		// TODO 自动生成的方法存根
 		int count = 0;
 		String sql = "SELECT COUNT(*) FORMT user_contact";
 		

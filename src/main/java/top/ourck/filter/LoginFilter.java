@@ -19,6 +19,11 @@ import top.ourck.beans.User;
 import top.ourck.service.AuthService;
 import top.ourck.service.UserService;
 
+/**
+ * TODO 这仅仅只是后台管理系统的登录验证Filter 还应该照顾前台，也搞一个。
+ * @author ourck
+ *
+ */
 public class LoginFilter extends HttpFilter {
 
 	private static final long serialVersionUID = 3963316667619810889L;

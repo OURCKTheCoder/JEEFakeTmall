@@ -45,20 +45,21 @@ public class OrderItemDao implements SimpleDao<OrderItem> {
 	
 	@Override
     public void add(OrderItem bean) {
+		String sql = "insert into orderitem values(null, ?, ?, ?, ?)";
 		StringBuilder stb = new StringBuilder();
-		stb.append("insert into orderitem values("); // orderitem (id, pid, oid, uid, number)
+		
+		// orderitem (id, pid, oid, uid, number)
         try (Connection c = JDBCConnectionFactory.getConnection();
-        		Statement s = c.createStatement();) {
-        	stb.append("null, ");
-        	stb.append(bean.getProduct().getId() + ", ");
-        	// TODO 订单项在创建的时候，是没有订单信息（oid）的！！
-        	if(null == bean.getOrder())	stb.append("null, ");
-        	else						stb.append(bean.getOrder().getId() + ", ");  
-        	stb.append(bean.getUser().getId() + ", ");
-        	stb.append(bean.getNumber() + ") ");
-            
+        		PreparedStatement s = c.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);) {
+        	s.setInt(1, bean.getProduct().getId());
+        	
+        	// 订单项在创建的时候，订单信息（oid）默认值为0！！
+        	if(null == bean.getOrder())	s.setInt(2, INVALID_ORDER_ID);
+        	else						s.setInt(2, bean.getOrder().getId());
+        	
+        	s.setInt(3, bean.getUser().getId());
+        	s.setInt(4, bean.getNumber());
             s.executeUpdate(stb.toString(), Statement.RETURN_GENERATED_KEYS);
- 
             ResultSet rs = s.getGeneratedKeys();
             if (rs.next()) {
                 int id = rs.getInt(1);
@@ -140,7 +141,7 @@ public class OrderItemDao implements SimpleDao<OrderItem> {
  
     public List<OrderItem> listCommitedByUserId(int uid, int start, int count) {
         List<OrderItem> beans = new ArrayList<OrderItem>();
-        String sql = "select * from orderitem where uid = ? and oid != " + INVALID_ORDER_ID + " order by id desc limit ?,? "; // TODO oid = -1 ?
+        String sql = "select * from orderitem where uid = ? and oid != " + INVALID_ORDER_ID + " order by id desc limit ?,? ";
         try (Connection c = JDBCConnectionFactory.getConnection();
         		PreparedStatement ps = c.prepareStatement(sql);) {
             ps.setInt(1, uid);
@@ -177,7 +178,7 @@ public class OrderItemDao implements SimpleDao<OrderItem> {
     
     public List<OrderItem> listCartByUserId(int uid) {
         List<OrderItem> beans = new ArrayList<OrderItem>();
-        String sql = "select * from orderitem where uid = ? and oid = " + INVALID_ORDER_ID + " order by id desc"; // TODO oid = -1 ?
+        String sql = "select * from orderitem where uid = ? and oid = " + INVALID_ORDER_ID + " order by id desc";
         try (Connection c = JDBCConnectionFactory.getConnection();
         		PreparedStatement ps = c.prepareStatement(sql);) {
             ps.setInt(1, uid);

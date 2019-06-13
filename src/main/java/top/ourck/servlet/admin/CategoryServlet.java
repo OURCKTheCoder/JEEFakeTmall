@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import top.ourck.beans.Category; // TODO Coupling?
+import top.ourck.beans.Category;
 import top.ourck.service.CategoryService;
 
 @WebServlet("/admin/categoryServlet")

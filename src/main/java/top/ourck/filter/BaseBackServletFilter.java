@@ -21,9 +21,13 @@ public class BaseBackServletFilter extends HttpFilter {
 		
 		String path = request.getContextPath();
 		String cmd = request.getRequestURI().replace(path + "/", "");
-		// TODO 如果有人使坏 输的是admin而不是admin/会导致异常
+		
+		// 第二个if(cmd.startsWith("/"))处理是为了预防
+		// 如果有人使坏 输的是admin而不是admin/会导致异常
 		if(cmd.startsWith("admin")) {
-			cmd = cmd.substring(6); // remove the prefix "admin/".
+			cmd = cmd.substring(5); // strip the prefix "admin".
+			if(cmd.startsWith("/"))
+				cmd = cmd.substring(1); // strip the prefix "/".
 			String[] command = cmd.split("_");
 			if(command.length == 2) {
 				String obj = command[0];

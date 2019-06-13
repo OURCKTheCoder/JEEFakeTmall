@@ -17,7 +17,7 @@ public class UserServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private UserService userService = new UserService(); // TODO Coupling!
+	private UserService userService = new UserService();
 	
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
