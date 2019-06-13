@@ -373,5 +373,4 @@ public class OrderItemDao implements SimpleDao<OrderItem> {
 	public List<OrderItem> list() {
 		return list(0, Short.MAX_VALUE);
 	}
-	
 }

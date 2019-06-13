@@ -8,22 +8,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * 查看商品细节的API
- * @author ourck
- */
-@WebServlet("/product/detail")
-public class ProductDetailServlet extends HttpServlet {
+import org.json.JSONArray;
 
-	private static final long serialVersionUID = -8152307407054163312L;
+import top.ourck.service.CategoryService;
 
-	// TODO ...
+@WebServlet("/category/info")
+public class CategoryInfoServlet extends HttpServlet{
+
+	private static final long serialVersionUID = -3506843039935629668L;
+	private CategoryService categoryService = new CategoryService();
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
-		
+		JSONArray jobj = new JSONArray(categoryService.list());
 		resp.setContentType("application/json");
-		resp.setContentType("text/html");
+		resp.getWriter().println(jobj.toString());
 	}
 
 	
