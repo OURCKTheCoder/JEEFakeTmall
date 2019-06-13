@@ -36,7 +36,7 @@ public class ProductInfoServlet extends HttpServlet {
 			jobj.put("name", p.getName());
 			jobj.put("price", p.getOriginalPrice());
 			jobj.put("detailUrl", "www.baidu.com");
-			jobj.put("imageUrl", "http://localhost:8080/JEEFakeTmall/product/image"); // FIXME !!!
+			jobj.put("imageUrl", "http://localhost:8080/JEEFakeTmall/product/1.jpg"); // FIXME !!!
 			jary.put(jobj);
 		}
 		resp.setContentType("application/json");

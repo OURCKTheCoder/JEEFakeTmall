@@ -25,36 +25,25 @@ public class InfoServlet extends HttpServlet{
 		User user;
 		user = (User) req.getAttribute("rememberedUser");
 		
+		
 		// FIXME 判空！
-		UserContact usercontact = usercontactservice.getByUid(user.getId());
-		JSONObject jsobj = new JSONObject();
-		if(usercontact == null)
-		{
-			jsobj.put("phone", "");
-			jsobj.put("address", "");
-			jsobj.put("emailaddress", "");
-			jsobj.put("name", "");
-		}
-		else {
-			if(usercontact.getPhone() == null)
-				jsobj.put("phone", "");
-			else
-				jsobj.put("phone", usercontact.getPhone());
-			if(usercontact.getAddress() == null)
-				jsobj.put("address", "");
-			else	
-				jsobj.put("address", usercontact.getAddress());
-			if(usercontact.getEmailaddress() == null)
-				jsobj.put("emailaddress", "");
-			else	
-				jsobj.put("emailaddress", usercontact.getEmailaddress());
-			if(usercontact.getName() == null)
-				jsobj.put("name", "");
-			else
-				jsobj.put("name", usercontact.getName());
+		if(user == null)
+		{	
+			resp.sendRedirect("/JEEFakeTmall/login.html");
+			return;
 		}
 		
-		resp.getWriter().print(jsobj);
+		UserContact usercontact = usercontactservice.getByUid(user.getId());
+		JSONObject jsobj = new JSONObject();
+		
+		jsobj.put("phone", usercontact.getPhone());
+		jsobj.put("address", usercontact.getAddress());
+		jsobj.put("emailaddress", usercontact.getEmailaddress());
+		jsobj.put("name", usercontact.getName());
+		jsobj.put("acount", user.getName());
+		
+		resp.setContentType("application/json");
+		resp.getWriter().print(jsobj.toString());
 	}
 
 	@Override
