@@ -86,11 +86,11 @@ public class UserContactDao implements SimpleDao<UserContact> {
 			if(rs.next())
 			{
 				uc=new UserContact();
-				uc.setPhone(rs.getString(1));
-				uc.setAddress(rs.getString(2));
-				uc.setEmailaddress(rs.getString(3));
-				uc.setName(rs.getString(4));
-				uc.setUid(rs.getInt(5));
+				uc.setPhone(rs.getString(2));
+				uc.setAddress(rs.getString(3));
+				uc.setEmailaddress(rs.getString(4));
+				uc.setName(rs.getString(5));
+				uc.setUid(rs.getInt(6));
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -111,11 +111,11 @@ public class UserContactDao implements SimpleDao<UserContact> {
 			if(rs.next())
 			{
 				uc=new UserContact();
-				uc.setPhone(rs.getString(1));
-				uc.setAddress(rs.getString(2));
-				uc.setEmailaddress(rs.getString(3));
-				uc.setName(rs.getString(4));
-				uc.setUid(rs.getInt(5));
+				uc.setPhone(rs.getString(2));
+				uc.setAddress(rs.getString(3));
+				uc.setEmailaddress(rs.getString(4));
+				uc.setName(rs.getString(5));
+				uc.setUid(rs.getInt(6));
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();

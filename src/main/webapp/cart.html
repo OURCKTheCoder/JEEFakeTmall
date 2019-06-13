@@ -205,7 +205,7 @@
  var goodNum = 0;
  var tableData;
  function createTable(name,img_url,quantity,price){
-	 tableData +='<tr>';
+	 tableData ='<tr>';
 	 tableData +='<td class="pro-thumbnail"><a href="#"><img src="'+ img_url+'" alt="" /></a></td>';
 	 tableData +='<td class="pro-title"><a href="#">' + name + '</a></td>';
 	 tableData +=' <td class="pro-price"><input type="text" id ="v' + goodNum + '" value="'+ price +'" /></td>';
@@ -220,7 +220,9 @@
 	 	+ '" value="' + parseInt(quantity)*parseInt(price) +'" /></td>';
 	 tableData +='<td class="pro-remove"><a href="#">×</a></td> ';
 	 tableData +=' </tr>   ';
-	 $("#tbody1").html(tableData);
+	 
+	 container = document.getElementById('tbody1');
+	 container.innerHTML  += tableData; 
 	 goodNum++;
  }
 	
@@ -250,7 +252,8 @@
      	        	createTable(data[num].name, data[num].img_url, data[num].quantity,data[num].price);
      	        }        	   
 	     	 }
-	     	 
+	     	calSum();
+	     	
 	     	$('.qtybtn').on('click', function() {
 			    var $button = $(this);
 			    var oldValue = $button.parent().find('input').val();
@@ -273,7 +276,7 @@
 	     }              
 	 });
 	 
-	 calSum();
+	 
 }); 
 </script>
 <!-- Main js -->

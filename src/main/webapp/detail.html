@@ -109,7 +109,7 @@
                                 <input id="r_name" type="text" readonly="readonly" />                        
                             </div>     
                             <div class="col-sm-6 col-xs-12 mb-20">
-                                <label for="r_uid">UID</label>										
+                                <label for="r_uid">Account</label>										
                                 <input id="r_uid" type="text" readonly="readonly" />
                             </div>                         
                             <div class="col-sm-6 col-xs-12 mb-20">
@@ -136,7 +136,6 @@
  <script type="text/javascript">
  window.onload = function(){
 	 $.ajax({ 
-		 withCredentials:true
 	     url: "http://localhost:8080/JEEFakeTmall/user/info", 
 	     type: 'get',  
 	     success: function(data){  
@@ -144,13 +143,11 @@
 	     	        //表示遍历数组，而i表示的是数组的下标值，
 	     	        //result[i]表示获得第i个json对象即JSONObject
 	     	        //result[i]通过.字段名称即可获得指定字段的值
-	     	        if(data[num].uid != ''){     	        	
 	     	        	document.getElementById("r_name").value= data[num].name; 
 	     	            document.getElementById("r_uid").value= data[num].account;
 	     	            document.getElementById("r_email").value= data[num].emailaddress;
 	     	            document.getElementById("r_phone").value= data[num].phone;
 	     	            document.getElementById("r_addr").value= data[num].address; 
-	     	        }        	   
 	     	    }     	
 	     }              
 	 });

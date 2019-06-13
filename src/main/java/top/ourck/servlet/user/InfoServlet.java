@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import top.ourck.beans.User;
@@ -35,15 +36,18 @@ public class InfoServlet extends HttpServlet{
 		
 		UserContact usercontact = usercontactservice.getByUid(user.getId());
 		JSONObject jsobj = new JSONObject();
+		JSONArray jary = new JSONArray();
 		
 		jsobj.put("phone", usercontact.getPhone());
 		jsobj.put("address", usercontact.getAddress());
 		jsobj.put("emailaddress", usercontact.getEmailaddress());
 		jsobj.put("name", usercontact.getName());
-		jsobj.put("acount", user.getName());
+		jsobj.put("account", user.getName());
+		jary.put(jsobj);
+		
 		
 		resp.setContentType("application/json");
-		resp.getWriter().print(jsobj.toString());
+		resp.getWriter().println(jary);
 	}
 
 	@Override

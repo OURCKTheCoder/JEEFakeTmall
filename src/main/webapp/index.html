@@ -350,8 +350,8 @@
 		     	        //result[i]通过.字段名称即可获得指定字段的值
 		     	        if(data[num].name != ''){     	        	
 		     	        	printGood(data[num].pid,data[num].name,data[num].price,data[num].detail_url,
-		     	        			data[num].img_url, data[num].category);
-		     	        }        	   
+		     	        			data[num].img_url, data[num].category);		  
+		     	        }      
 		     	    }     	
 		     }              
 		 });
@@ -362,9 +362,12 @@
 			 $.ajax({ 
 			     url: "http://localhost:8080/JEEFakeTmall/cart/update?op=add", 
 			     type: 'get',  
-			     data:"pid=" + pid + "&num=" + num          
+			     data:"pid=" + pid + "&num=" + num,
+			     success: function(data){
+			     }
 			 });
 		}
+		
 		var printGood = function(pid,name,price,detail_Url,img_Url,category){
 			var container;
 			<!-- Product Item Start -->
@@ -379,7 +382,7 @@
 			          
 		          <!-- Action Button -->
 		          container +='<div class="action-btn fix">';                           
-	         	  container +='<a href="#" onclick = addToCart('+pid +',1) title="Add to Cart"><i class="pe-7s-cart"></i>add to cart</a>'; 
+	         	  container +='<a href="javascript:void(0)" id = "'+pid +'" onclick =addToCart(' +pid +',1)' + ' title="Add to Cart"><i class="pe-7s-cart"></i>add to cart</a>'; 
 		          container +='</div>';
 			      container +='</div>';
 			      <!-- Portfolio Info -->
