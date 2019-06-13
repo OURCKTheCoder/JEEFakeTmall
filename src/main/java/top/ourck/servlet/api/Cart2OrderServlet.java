@@ -34,7 +34,6 @@ public class Cart2OrderServlet extends HttpServlet {
 		User user = (User)req.getAttribute("rememberedUser");
 		UserContact uc = ucService.getByUid(user.getId());
 		Order o = new Order();
-		OrderItem oi = new OrderItem();
 		
 		o.setAddress(uc.getAddress());
 		o.setConfirmDate(new Date()); // FIXME !!
@@ -50,8 +49,15 @@ public class Cart2OrderServlet extends HttpServlet {
 		o.setUserMessage("23333");
 		orderService.add(o);
 		
-		int oiid = Integer.parseInt(req.getParameter("oiid"));
-		oi.setId(oiid);
+		int oiCount = Integer.parseInt(req.getParameter("oi_count"));
+		for(int i = 0; i < oiCount; i++) {
+			int oiid = Integer.parseInt(req.getParameter("oiid" + i));
+			OrderItem oi = oiService.getById(oiid);
+			oi.setOrder(o);
+			oiService.update(oi);
+		}
+		resp.getWriter().println("Order commited! :)");
+		
 	}
 	
 	
