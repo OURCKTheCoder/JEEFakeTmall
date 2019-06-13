@@ -112,7 +112,7 @@
                                     <th class="pro-quantity">Content</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id = "tbody2">
                                 <tr>
                                     <td class="pro-thumbnail">1</td>
                                     <td class="pro-title">Le Parc Minotti Chair</td>
@@ -181,7 +181,49 @@
 <script src="js/ajax-mail.js"></script>
 <!-- Main js -->
 <script src="js/main.js"></script>
+<!--  this is my js -->
+<!--  document.write('');-->
+<script>
+ 
+ 
+ function creatOrder(order_num,content){
+	 var tableData;
+	 tableData ='<tr>';
+	 tableData +='<td class="pro-thumbnail">'+ order_num+'</td>';
+	 tableData +='<td class="pro-title">' + content + '</td>';
+	 tableData +=' </tr>   ';
+	 
+	 container = document.getElementById('tbody2');	 
+	 container.innerHTML  += tableData ; 
+	 
+ }
+	
 
+ 
+ $(document).ready(function() {  
+	 creatOrder('888','nothing here');
+	 /*
+	 $.ajax({ 
+	     url: "http://localhost:8080/JEEFakeTmall/product/info", 
+	     type: 'get',  
+	     success: function(data){
+	     	 //data = eval('(' + data + ')')
+	     	 for(var num in data){
+	     	        //表示遍历数组，而i表示的是数组的下标值，
+	     	        //result[i]表示获得第i个json对象即JSONObject
+	     	        //result[i]通过.字段名称即可获得指定字段的值
+	     	        if(data[num].name != ''){     	        	
+	     	        	 creatOrder(ID,content);
+	     	        }        	   
+	     	    }     	
+	     }              
+	 });*/
+	 
+
+	 
+	
+}); 
+</script>
 </body>
 
 </html>

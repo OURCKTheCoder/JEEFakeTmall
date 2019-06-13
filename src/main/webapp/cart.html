@@ -204,11 +204,7 @@
  
  var goodNum = 0;
  var tableData;
- function creatTable(data){
-	 var name = 'noname';
-	 var img_url = 'img/product/1.jpg';
-	 var quantity = '1';
-	 var price = '160';
+ function creatTable(name,img_url,quantity,price){
 	 tableData +='<tr>';
 	 tableData +='<td class="pro-thumbnail"><a href="#"><img src="'+ img_url+'" alt="" /></a></td>';
 	 tableData +='<td class="pro-title"><a href="#">' + name + '</a></td>';
@@ -239,9 +235,29 @@
  }
  
  $(document).ready(function() {  
-	 creatTable("");
-	 creatTable("");
+	 creatTable('noname','img/product/1.jpg','1','160');
+
+	 creatTable('noname','img/product/1.jpg','2','250');
+	 /*
+	 $.ajax({ 
+	     url: "http://localhost:8080/JEEFakeTmall/product/info", 
+	     type: 'get',  
+	     success: function(data){
+	     	 //data = eval('(' + data + ')')
+	     	 for(var num in data){
+	     	        //表示遍历数组，而i表示的是数组的下标值，
+	     	        //result[i]表示获得第i个json对象即JSONObject
+	     	        //result[i]通过.字段名称即可获得指定字段的值
+	     	        if(data[num].name != ''){     	        	
+	     	        	printGood(data[num].name,data[num].price,data[num].detail_url,
+	     	        			data[num].img_url, "123");
+	     	        }        	   
+	     	    }     	
+	     }              
+	 });*/
+	 
 	 calSum();
+	 
 	 $('.qtybtn').on('click', function() {
 		    var $button = $(this);
 		    var oldValue = $button.parent().find('input').val();
