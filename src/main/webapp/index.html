@@ -120,46 +120,47 @@
 <!--  document.write('');-->
  <script type="text/javascript">
  var printGood = function(name,price,detail_Url,img_Url,category){
+	 var container =document.getElementById('mainDIV');	
+	
 	  <!-- Product Item Start -->
-	  document.write('<div class="isotope-item '+ category +
-			  '  col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-50">');
-       
-       document.write('<div class="product-item text-center">');
-              <!-- Product Image -->
-              document.write('<div class="product-img">');
-                  <!-- Image -->                          
-                  document.write('<a class="image" href="'+ detail_Url	+
-                		  '"><img src="'+img_Url
-                		  +'" alt=""/></a> '); 
-							
-                  
-                  <!-- Action Button -->
-                  document.write('<div class="action-btn fix">');                           
-                 	 document.write('<a href="#" title="Add to Cart"><i class="pe-7s-cart"></i>add to cart</a>'); 
-                  document.write('</div>');
-              document.write('</div>');
-              <!-- Portfolio Info -->
-              document.write('<div class="product-info text-left">');
-                  <!-- Title -->
-                  document.write('<h5 class="title"><a href="'+ detail_Url +
-                		  '">' + name +
-                		  '</a></h5>');
-                  <!-- Price Ratting -->
-                  document.write('<div class="price-ratting fix">');
-                  	document.write('<span class="price float-left"><span class="new">'+ price +
-                  			'</span></span>');
-                  	document.write('<span class="ratting float-right">');
-                  		 document.write('<i class="fa fa-star active"></i>');
-                 		 document.write('<i class="fa fa-star active"></i>');
-                		 document.write('<i class="fa fa-star active"></i>');
-                 		 document.write('<i class="fa fa-star active"></i>');
-                 		 document.write('<i class="fa fa-star active"></i>');
-                 	 document.write('</span>');
-                  document.write('</div>');
-              document.write('</div>');
-       document.write('</div>');
-     document.write('</div>');
- 
+	  container.appendChild('<div class="isotope-item '+ category +
+	  '  col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-50">');
+
+container.appendChild('<div class="product-item text-center">');
+      <!-- Product Image -->
+      container.appendChild('<div class="product-img">');
+          <!-- Image -->                          
+          container.appendChild('<a class="image" href="'+ detail_Url	+
+        		  '"><img src="'+img_Url
+        		  +'" alt=""/></a> '); 
+					
+          
+          <!-- Action Button -->
+          container.appendChild('<div class="action-btn fix">');                           
+         	 container.appendChild('<a href="#" title="Add to Cart"><i class="pe-7s-cart"></i>add to cart</a>'); 
+          container.appendChild('</div>');
+      container.appendChild('</div>');
+      <!-- Portfolio Info -->
+      container.appendChild('<div class="product-info text-left">');
+          <!-- Title -->
+          container.appendChild('<h5 class="title"><a href="'+ detail_Url +
+        		  '">' + name +
+        		  '</a></h5>');
+          <!-- Price Ratting -->
+          container.appendChild('<div class="price-ratting fix">');
+          	container.appendChild('<span class="price float-left"><span class="new">'+ price +
+          			'</span></span>');
+          	container.appendChild('<span class="ratting float-right">');
+          		 container.appendChild('<i class="fa fa-star active"></i>');
+         		 container.appendChild('<i class="fa fa-star active"></i>');
+        		 container.appendChild('<i class="fa fa-star active"></i>');
+         		 container.appendChild('<i class="fa fa-star active"></i>');
+         		 container.appendChild('<i class="fa fa-star active"></i>');
+         	 container.appendChild('</span>');
+          container.appendChild('</div>');
+      container.appendChild('</div>');
+container.appendChild('</div>');
+container.appendChild('</div>');
       <!-- Product Item End -->
 	　　
 	}
@@ -183,7 +184,7 @@
         </div>
         
         
-        <div class="isotope-grid row">
+        <div class="isotope-grid row" id = "mainDIV">
          <!-- Product Item Start -->
          <script>
  	            $.ajax({ 
@@ -202,9 +203,6 @@
 	                	    }     	
 	                }              
 	            });
-/*              	printGood("no name chair","250","product-details.html","img/product/1.jpg", "lighting");
-            	printGood("no name chair","250","product-details.html","img/product/1.jpg", "lighting");
-            	printGood("a name chair","666","product-details.html","img/product/1.jpg", "ptable"); */
             </script>
             <!-- Product Item End -->
             
