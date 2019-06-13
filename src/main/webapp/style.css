@@ -2914,7 +2914,13 @@ a.meanmenu-reveal i {
   padding: 0 0 12px;
   vertical-align: top;
 }
-.cart-total table tr td .amount {
+.cart-total table tr td input {
+ font-family: "Catamaran",sans-serif;
+ font-size: 20px;
+  border: medium none;
+  height: 24px;
+  text-align: right;
+  width: 60px;
   color: #3f3f3f;
   display: block;
 }
