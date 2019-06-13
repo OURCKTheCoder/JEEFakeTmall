@@ -31,6 +31,7 @@ public class LoginServlet extends HttpServlet {
 			String ticket = info.get("ticket");
 			Cookie ck = new Cookie("ticket", ticket);
 			resp.addCookie(ck);
+			resp.sendRedirect("/JEEFakeTmall");
 		}
 	}
 

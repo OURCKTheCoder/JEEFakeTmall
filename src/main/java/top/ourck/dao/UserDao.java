@@ -11,6 +11,11 @@ import java.util.List;
 import top.ourck.beans.User;
 import top.ourck.utils.JDBCConnectionFactory;
 
+/**
+ * FIXME 检查一遍SQL语句！有问题！
+ * @author ourck
+ *
+ */
 public class UserDao implements SimpleDao<User> {
 
 	// User table has 3 columns: (id, name, password).
