@@ -18,13 +18,15 @@ public class UserContactDao implements SimpleDao<UserContact> {
 
 	@Override
 	public void add(UserContact obj) {
-		String sql="INSRET INTO user_contact values(null,?,?,?,?,?)";
+		String sql="INSERT INTO user_contact values(null,?,?,?,?,?)";
 		try(PreparedStatement stmt = JDBCConnectionFactory.getConnection()
 				.prepareStatement(sql)){
 			stmt.setString(1,obj.getPhone());
 			stmt.setString(2, obj.getAddress());
 			stmt.setString(3, obj.getEmailaddress());
-			stmt.setInt(4, obj.getUid());
+			stmt.setString(4, obj.getName());
+			stmt.setInt(5, obj.getUid());
+			
 			
 			stmt.execute();
 		}catch(SQLException e) {

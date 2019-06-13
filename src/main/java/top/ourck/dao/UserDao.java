@@ -152,9 +152,9 @@ public class UserDao implements SimpleDao<User> {
 		return user;
 	}
 	
-	public User get(String userName, String pwd) {
+	public static User get(String userName, String pwd) {
 		User user = null;
-		String sql = "SELECT * FROM user WHERE name = ?, password = ?";
+		String sql = "SELECT * FROM user WHERE name = ? AND password = ?";
 		try(Connection conn = JDBCConnectionFactory.getConnection();
 				PreparedStatement stmt = conn.prepareStatement(sql)) {			
 			stmt.setString(1, userName);
@@ -173,6 +173,25 @@ public class UserDao implements SimpleDao<User> {
 		}
 		
 		return user;
+	}
+	
+	public static int getId(String userName, String pwd) {
+		int id = 0;
+		String sql = "SELECT id FROM user WHERE name = ? AND password = ?";
+		try( PreparedStatement stmt= JDBCConnectionFactory.getConnection()
+				 .prepareStatement(sql)) {			
+			stmt.setString(1, userName);
+			stmt.setString(2, pwd);
+			
+			ResultSet rs = stmt.executeQuery();
+			while(rs.next()) {
+				id = rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return id;
 	}
 	
 	public static void main(String[] args) {
