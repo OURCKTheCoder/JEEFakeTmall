@@ -27,6 +27,8 @@
     <!-- Modernizr JS -->
     <script src="js/vendor/modernizr-2.8.3.min.js"></script>
     
+    <!-- jQuery latest version -->
+	<script src="js/vendor/jquery-3.1.1.min.js"></script>
 </head>
 
 <body>
@@ -184,26 +186,24 @@
         <div class="isotope-grid row">
          <!-- Product Item Start -->
          <script>
-            /*
-            $.ajax({ 
-                url: "http://localhost:8080/Web-Map/Servlet", 
-                type: 'post',  
-                success: function(data){  
-                	 for(var num in data){
-                	        //表示遍历数组，而i表示的是数组的下标值，
-                	        //result[i]表示获得第i个json对象即JSONObject
-                	        //result[i]通过.字段名称即可获得指定字段的值
-                	        if(data[num].name != ''){     	        	
-                	        	printGood(data[num].name,data[num].price,data[num].detail_url,
-                	        			data[num].img_url, category);
-                	        }        	   
-                	    }     	
-                }              
-            });
-            */
+ 	            $.ajax({ 
+	                url: "http://localhost:8080/JEEFakeTmall/product/info", 
+	                type: 'get',  
+	                success: function(data){  
+	                	 for(var num in data){
+	                	        //表示遍历数组，而i表示的是数组的下标值，
+	                	        //result[i]表示获得第i个json对象即JSONObject
+	                	        //result[i]通过.字段名称即可获得指定字段的值
+	                	        if(data[num].name != ''){     	        	
+	                	        	printGood(data[num].name,data[num].price,data[num].detail_url,
+	                	        			data[num].img_url, category);
+	                	        }        	   
+	                	    }     	
+	                }              
+	            });
+/*              	printGood("no name chair","250","product-details.html","img/product/1.jpg", "lighting");
             	printGood("no name chair","250","product-details.html","img/product/1.jpg", "lighting");
-            	printGood("no name chair","250","product-details.html","img/product/1.jpg", "lighting");
-            	printGood("a name chair","666","product-details.html","img/product/1.jpg", "ptable");
+            	printGood("a name chair","666","product-details.html","img/product/1.jpg", "ptable"); */
             </script>
             <!-- Product Item End -->
             
@@ -428,8 +428,6 @@
 
 <!-- Placed JS at the end of the document so the pages load faster -->
 
-<!-- jQuery latest version -->
-<script src="js/vendor/jquery-3.1.1.min.js"></script>
 <!-- Bootstrap js -->
 <script src="js/bootstrap.min.js"></script>
 <!-- Plugins js -->
