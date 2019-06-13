@@ -46,7 +46,6 @@ public class OrderItemDao implements SimpleDao<OrderItem> {
 	@Override
     public void add(OrderItem bean) {
 		String sql = "insert into orderitem values(null, ?, ?, ?, ?)";
-		StringBuilder stb = new StringBuilder();
 		
 		// orderitem (id, pid, oid, uid, number)
         try (Connection c = JDBCConnectionFactory.getConnection();
@@ -59,7 +58,7 @@ public class OrderItemDao implements SimpleDao<OrderItem> {
         	
         	s.setInt(3, bean.getUser().getId());
         	s.setInt(4, bean.getNumber());
-            s.executeUpdate(stb.toString(), Statement.RETURN_GENERATED_KEYS);
+            s.executeUpdate();
             ResultSet rs = s.getGeneratedKeys();
             if (rs.next()) {
                 int id = rs.getInt(1);

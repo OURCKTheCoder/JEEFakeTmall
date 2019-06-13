@@ -108,19 +108,13 @@
                         <table>
                             <thead>
                                 <tr>
-                                    <th class="pro-price">Order  ID</th>
+                                    <th class="pro-price">Order code</th>
                                     <th class="pro-quantity">Content</th>
+                                    <th class="pro-quantity">Price</th>
                                 </tr>
                             </thead>
                             <tbody id = "tbody2">
-                                <tr>
-                                    <td class="pro-thumbnail">1</td>
-                                    <td class="pro-title">Le Parc Minotti Chair</td>
-                                </tr>
-                                <tr>
-                                    <td class="pro-thumbnail">2</td>
-                                    <td class="pro-title">DSR Eiffel chair</td>
-                                </tr>
+                            	<!-- AJAX here... -->
                             </tbody>
                         </table>
                     </div>
@@ -186,11 +180,12 @@
 <script>
  
  
- function creatOrder(order_num,content){
-	 var tableData;
+ function printOrder(order_id, content, price){
+	 var tableData = '';
 	 tableData ='<tr>';
-	 tableData +='<td class="pro-thumbnail">'+ order_num+'</td>';
+	 tableData +='<td class="pro-thumbnail">'+ order_id+'</td>';
 	 tableData +='<td class="pro-title">' + content + '</td>';
+	 tableData +='<td class="pro-title">' + price + '</td>';
 	 tableData +=' </tr>   ';
 	 
 	 container = document.getElementById('tbody2');	 
@@ -201,11 +196,8 @@
 
  
  $(document).ready(function() {  
-	 creatOrder('888','nothing here');
-	 /*
 	 $.ajax({ 
-		 withCredentials:true
-	     url: "http://localhost:8080/JEEFakeTmall/product/info", 
+	     url: "http://localhost:8080/JEEFakeTmall/order/info", 
 	     type: 'get',  
 	     success: function(data){
 	     	 //data = eval('(' + data + ')')
@@ -214,11 +206,11 @@
 	     	        //result[i]表示获得第i个json对象即JSONObject
 	     	        //result[i]通过.字段名称即可获得指定字段的值
 	     	        if(data[num].name != ''){     	        	
-	     	        	 creatOrder(ID,content);
+	     	        	printOrder(data[num].order_id, data[num].content, data[num].price);
 	     	        }        	   
 	     	    }     	
 	     }              
-	 });*/
+	 });
 	 
 
 	 
