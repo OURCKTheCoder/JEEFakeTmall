@@ -96,16 +96,10 @@
         </div>
     </div>
 </div>
+
+
  
- <script>
- function changeValue(num){ 
-	 var a = document.getElementById(num); 
-	 var b = document.getElementById("v"+num); 
-	 var c = document.getElementById("sv"+num); 
-	 c.value = b.value * a.value; 
-	 } 
  
- </script>
 <!-- PAGE SECTION START -->
 <div class="page-section section pt-120 pb-80">
     <div class="container">
@@ -124,27 +118,7 @@
                                     <th class="pro-remove">Remove</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="pro-thumbnail"><a href="#"><img src="img/product/1.jpg" alt="" /></a></td>
-                                    <td class="pro-title"><a href="#">Le Parc Minotti Chair</a></td>
-                                    <td class="pro-price"><input type="text" id ="v1" value="169.00" /></td>
-                                    <td class="pro-quantity">
-                                    	<div class="product-quantity">
-                                    		<input type="text" id ="1" value="1" />
-                                    	</div>                                  
-                                    </td>
-                                    <td class="pro-subtotal"><input type="text" id = "sv1" value="169.00" /></td>
-                                    <td class="pro-remove"><a href="#">×</a></td>                                    
-                                </tr>                                
-                                <tr>
-                                    <td class="pro-thumbnail"><a href="#"><img src="img/product/2.jpg" alt="" /></a></td>
-                                    <td class="pro-title"><a href="#">DSR Eiffel chair</a></td>
-                                    <td class="pro-price"><span class="amount">$137.00</span></td>
-                                    <td class="pro-quantity"><div class="product-quantity"><input type="text" value="1" /></div></td>
-                                    <td class="pro-subtotal">$137.00</td>
-                                    <td class="pro-remove"><a href="#">×</a></td>
-                                </tr>
+                            <tbody id = "tbody1">
                             </tbody>
                         </table>
                     </div>
@@ -157,18 +131,18 @@
                             <tbody>
                                 <tr class="cart-subtotal">
                                     <th>Subtotal</th>
-                                    <td><span class="amount">$306.00</span></td>
+                                    <td><input  type="text" id = 'total1' value = '0'></td>
                                 </tr>
                                 <tr class="order-total">
                                     <th>Total</th>
                                     <td>
-                                        <strong><span class="amount">$306.00</span></strong>
+                                        <strong><input  type="text" id = 'total2' value = '0'></strong>
                                     </td>
                                 </tr>											
                             </tbody>
                         </table>
                         <div class="proceed-to-checkout section mt-30">
-                            <a href="#">Proceed to Checkout</a>
+                            <a href="#">Create Order</a>
                         </div>
                     </div>
                 </div>
@@ -176,25 +150,7 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
 
-      
-	window.onload = init;
-	function changeValue(){  
-		c.value = b.value * a.value; 
-	}  
-	function init(){  
-		var a = document.getElementById("1"); 
-		var b = document.getElementById("v1"); 
-		var c = document.getElementById("sv1"); 
-	   if("\v"=="v"){//IE浏览器  
-	    a.onpropertychange=changeValue;  
-	   }else{ // 其他浏览器  
-	 	a.addEventListener("input",changeValue(),false);  
-	   }  
-	  }   
-
-</script>
 <!-- PAGE SECTION END --> 
 
 <!-- FOOTER TOP SECTION START -->
@@ -242,8 +198,75 @@
 <script src="js/plugins.js"></script>
 <!-- Ajax Mail js -->
 <script src="js/ajax-mail.js"></script>
+<!--  this is my js -->
+<!--  document.write('');-->
+<script>
+ 
+ var goodNum = 0;
+ var tableData;
+ function creatTable(data){
+	 var name = 'noname';
+	 var img_url = 'img/product/1.jpg';
+	 var quantity = '1';
+	 var price = '160';
+	 tableData +='<tr>';
+	 tableData +='<td class="pro-thumbnail"><a href="#"><img src="'+ img_url+'" alt="" /></a></td>';
+	 tableData +='<td class="pro-title"><a href="#">' + name + '</a></td>';
+	 tableData +=' <td class="pro-price"><input type="text" id ="v' + goodNum + '" value="'+ price +'" /></td>';
+	 tableData +=' <td class="pro-quantity">';
+	 	tableData +='<div class="product-quantity">';
+	 		tableData +='<input type="text" id ="' + goodNum + '" value="' + quantity +'" />';
+	 		//小箭头
+	 		tableData +='<span class="dec qtybtn"><i  class="fa fa-angle-left"></i></span><span class="inc qtybtn"><i class="fa fa-angle-right"></i></span>';
+	 	 tableData +='</div>';
+	 tableData +='</td>';
+	 tableData +='<td class="pro-subtotal"><input type="text" id = "sv' + goodNum 
+	 	+ '" value="' + parseInt(quantity)*parseInt(price) +'" /></td>';
+	 tableData +='<td class="pro-remove"><a href="#">×</a></td> ';
+	 tableData +=' </tr>   ';
+	 $("#tbody1").html(tableData);
+	 goodNum++;
+ }
+	
+ function calSum(){
+	   	var SubV = 0;
+	   	for(i = 0; i < goodNum; i++)
+	   		{
+	   			SubV += parseInt(document.getElementById('sv' + i).value);
+	   		}
+	   	document.getElementById('total1').value = SubV;
+	   	document.getElementById('total2').value = SubV;
+ }
+ 
+ $(document).ready(function() {  
+	 creatTable("");
+	 creatTable("");
+	 calSum();
+	 $('.qtybtn').on('click', function() {
+		    var $button = $(this);
+		    var oldValue = $button.parent().find('input').val();
+		    if ($button.hasClass('inc')) {
+		        var newVal = parseFloat(oldValue) + 1;
+		    } else {
+		        // Don't allow decrementing below zero
+		        if (oldValue > 0) {
+		            var newVal = parseFloat(oldValue) - 1;
+		        } else {
+		            newVal = 0;
+		        }
+		    }
+		    $button.parent().find('input').val(newVal);
+		    var row = $button.parent().find('input').attr('id');
+			var price = document.getElementById('v' + row).value;
+		   	document.getElementById('sv' + row).value = newVal * price;
+		   	calSum();		   	
+		});
+}); 
+</script>
 <!-- Main js -->
 <script src="js/main.js"></script>
+
+
 
 </body>
 
