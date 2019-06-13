@@ -116,56 +116,7 @@
     </div>
 </div>
 <!-- END SLIDER SECTION -->
- 
-<!--  document.write('');-->
- <script type="text/javascript">
- var printGood = function(name,price,detail_Url,img_Url,category){
-	 var container =document.getElementById('mainDIV');	
-	
-	  <!-- Product Item Start -->
-	  container.appendChild('<div class="isotope-item '+ category +
-	  '  col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-50">');
 
-container.appendChild('<div class="product-item text-center">');
-      <!-- Product Image -->
-      container.appendChild('<div class="product-img">');
-          <!-- Image -->                          
-          container.appendChild('<a class="image" href="'+ detail_Url	+
-        		  '"><img src="'+img_Url
-        		  +'" alt=""/></a> '); 
-					
-          
-          <!-- Action Button -->
-          container.appendChild('<div class="action-btn fix">');                           
-         	 container.appendChild('<a href="#" title="Add to Cart"><i class="pe-7s-cart"></i>add to cart</a>'); 
-          container.appendChild('</div>');
-      container.appendChild('</div>');
-      <!-- Portfolio Info -->
-      container.appendChild('<div class="product-info text-left">');
-          <!-- Title -->
-          container.appendChild('<h5 class="title"><a href="'+ detail_Url +
-        		  '">' + name +
-        		  '</a></h5>');
-          <!-- Price Ratting -->
-          container.appendChild('<div class="price-ratting fix">');
-          	container.appendChild('<span class="price float-left"><span class="new">'+ price +
-          			'</span></span>');
-          	container.appendChild('<span class="ratting float-right">');
-          		 container.appendChild('<i class="fa fa-star active"></i>');
-         		 container.appendChild('<i class="fa fa-star active"></i>');
-        		 container.appendChild('<i class="fa fa-star active"></i>');
-         		 container.appendChild('<i class="fa fa-star active"></i>');
-         		 container.appendChild('<i class="fa fa-star active"></i>');
-         	 container.appendChild('</span>');
-          container.appendChild('</div>');
-      container.appendChild('</div>');
-container.appendChild('</div>');
-container.appendChild('</div>');
-      <!-- Product Item End -->
-	　　
-	}
- 
- </script>
  
 <!-- PRODUCT SECTION START -->
 <div class="product-section section pt-120 pb-120">
@@ -186,24 +137,7 @@ container.appendChild('</div>');
         
         <div class="isotope-grid row" id = "mainDIV">
          <!-- Product Item Start -->
-         <script>
- 	            $.ajax({ 
-	                url: "http://localhost:8080/JEEFakeTmall/product/info", 
-	                type: 'get',  
-	                success: function(data){
-	                	 //data = eval('(' + data + ')')
-	                	 for(var num in data){
-	                	        //表示遍历数组，而i表示的是数组的下标值，
-	                	        //result[i]表示获得第i个json对象即JSONObject
-	                	        //result[i]通过.字段名称即可获得指定字段的值
-	                	        if(data[num].name != ''){     	        	
-	                	        	printGood(data[num].name,data[num].price,data[num].detail_url,
-	                	        			data[num].img_url, "123");
-	                	        }        	   
-	                	    }     	
-	                }              
-	            });
-            </script>
+         
             <!-- Product Item End -->
             
             <!-- Product Item Start -->
@@ -272,9 +206,9 @@ container.appendChild('</div>');
                     </div>
                 </div>
             </div>
-            <!-- Product Item End -->
-            
+            <!-- Product Item End -->            
         </div>
+        
         
         <div class="row">
             <div class="text-center col-xs-12 mt-30">
@@ -435,7 +369,79 @@ container.appendChild('</div>');
 <script src="js/ajax-mail.js"></script>
 <!-- Main js -->
 <script src="js/main.js"></script>
+ 
+<!--  document.write('');-->
+ <script type="text/javascript">
+ $(document).ready(function(){
+	 $.ajax({ 
+	     url: "http://localhost:8080/JEEFakeTmall/product/info", 
+	     type: 'get',  
+	     success: function(data){
+	     	 //data = eval('(' + data + ')')
+	     	 for(var num in data){
+	     	        //表示遍历数组，而i表示的是数组的下标值，
+	     	        //result[i]表示获得第i个json对象即JSONObject
+	     	        //result[i]通过.字段名称即可获得指定字段的值
+	     	        if(data[num].name != ''){     	        	
+	     	        	printGood(data[num].name,data[num].price,data[num].detail_url,
+	     	        			data[num].img_url, "123");
+	     	        }        	   
+	     	    }     	
+	     }              
+	 });
+ });
+  
 
+var printGood = function(name,price,detail_Url,img_Url,category){
+	
+var container;
+<!-- Product Item Start -->
+container +='<div class="isotope-item '+ category +
+	  '  col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-50">';
+
+container +='<div class="product-item text-center">';
+      <!-- Product Image -->
+      container +='<div class="product-img">';
+          <!-- Image -->                          
+          container +='<a class="image" href="'+ detail_Url	+
+        		  '"><img src="'+img_Url
+        		  +'" alt=""/></a> '; 
+					
+          
+          <!-- Action Button -->
+          container +='<div class="action-btn fix">';                           
+         	 container +='<a href="#" title="Add to Cart"><i class="pe-7s-cart"></i>add to cart</a>'; 
+          container +='</div>';
+      container +='</div>';
+      <!-- Portfolio Info -->
+      container +='<div class="product-info text-left">';
+          <!-- Title -->
+          container +='<h5 class="title"><a href="'+ detail_Url +
+        		  '">' + name +
+        		  '</a></h5>';
+          <!-- Price Ratting -->
+          container +='<div class="price-ratting fix">';
+          	container +='<span class="price float-left"><span class="new">'+ price +
+          			'</span></span>';
+          	container +='<span class="ratting float-right">';
+          		 container +='<i class="fa fa-star active"></i>';
+         		 container +='<i class="fa fa-star active"></i>';
+        		 container +='<i class="fa fa-star active"></i>';
+         		 container +='<i class="fa fa-star active"></i>';
+         		 container +='<i class="fa fa-star active"></i>';
+         	 container +='</span>';
+          container +='</div>';
+      container +='</div>';
+container +='</div>';
+container +='</div>';
+<!-- Product Item End -->
+	　　
+container2 = document.getElementById('mainDIV');
+container2.innerHTML  += container ; 
+	　　
+}
+ 
+ </script>
 </body>
 
 </html>
