@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import top.ourck.service.AuthService;
 
-@WebServlet("/login")
+@WebServlet("/user/login")
 public class LoginServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 7709829638140293297L;
@@ -31,6 +31,7 @@ public class LoginServlet extends HttpServlet {
 			String ticket = info.get("ticket");
 			Cookie ck = new Cookie("ticket", ticket);
 			resp.addCookie(ck);
+			resp.sendRedirect("/JEEFakeTmall");
 		}
 	}
 

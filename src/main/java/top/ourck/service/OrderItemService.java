@@ -67,6 +67,10 @@ public class OrderItemService {
 		orderItemDao.delete(id);
 	}
 	
+	public void delete(int pid, int uid) {
+		
+	}
+	
 	public OrderItem getById(int id) {
 		return orderItemDao.query(id);
 	}

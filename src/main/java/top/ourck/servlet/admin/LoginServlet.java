@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import top.ourck.service.AuthService;
 
-@WebServlet("/login")
+@WebServlet("/admin/login")
 public class LoginServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 7709829638140293297L;
@@ -36,7 +36,7 @@ public class LoginServlet extends HttpServlet {
 		}
 		else {
 			req.setAttribute("target", target);
-			req.getRequestDispatcher("/login.jsp").forward(req, resp);
+			req.getRequestDispatcher("/admin/loginPage/login.jsp").forward(req, resp);
 		}
 	}
 

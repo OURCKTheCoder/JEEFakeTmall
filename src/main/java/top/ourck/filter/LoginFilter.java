@@ -92,7 +92,7 @@ public class LoginFilter extends HttpFilter {
 		}
 		else {
 			String target = request.getRequestURI();
-			response.sendRedirect("/JEEFakeTmall/login" + "?target=" + target);
+			response.sendRedirect("/JEEFakeTmall/admin/login" + "?target=" + target);
 		}
 	}
 

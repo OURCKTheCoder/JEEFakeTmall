@@ -22,6 +22,7 @@ public class UserContactService {
 		usercontact.setAddress(address);
 		usercontact.setEmailaddress(emailaddress);
 		usercontact.setName(name);
+		usercontact.setUid(uid);
 		
 		usercontactdao.add(usercontact);
 	}

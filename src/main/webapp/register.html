@@ -103,31 +103,31 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2 col-xs-12">
                 <div class="login-reg-form">
-                    <form action="#">
+                    <form action="user/register" method="post">
                         <div class="row">
                         	<div class="col-sm-6 col-xs-12 mb-20">
-                                <label for="r_email">Email Addres<span class="required">*</span></label>										
-                                <input id="r_email" type="email" placeholder="You  can  use  this  to  log  in" />
+                                <label for="r_email">Email Address<span class="required">*</span></label>										
+                                <input id="r_email" name="r_email" type="email" placeholder="You  can  use  this  to  log  in" />
                             </div>
                            <div class="col-sm-6 col-xs-12 mb-20">
                                 <label for="r_name">Name<span class="required">*</span></label>										
-                                <input id="r_name" type="text" />                        
+                                <input id="r_name" name="r_name" type="text" />                        
                             </div>     
                             <div class="col-sm-6 col-xs-12 mb-20">
-                                <label for="r_uid">UID<span class="required">*</span></label>										
-                                <input id="r_uid" type="text"  />
+                                <label for="r_account">Account<span class="required">*</span></label>										
+                                <input id="r_account" name="r_account" type="text"  />
                             </div>                     
                             <div class="col-sm-6 col-xs-12 mb-20">
                                 <label for="r_phone">Phone<span class="required">*</span></label>										
-                                <input id="r_phone" type="text" />
+                                <input id="r_phone" name="r_phone" type="text" />
                             </div>  
                             <div class="col-xs-12 mb-20">
                                 <label>Address<span class="required">*</span> </label>
-                                <input id="r_addr" type="text" />
+                                <input id="r_addr" name="r_addr" type="text" />
                             </div>
                             <div class="col-xs-12 mb-20">
                                 <label class="" for="r_password">Account password<span class="required">*</span></label>
-                                <input id="r_password" type="password">
+                                <input id="r_password" name="r_password" type="password">
                             </div>  
                             <div class="col-xs-12">
                                 <input value="register" type="submit">

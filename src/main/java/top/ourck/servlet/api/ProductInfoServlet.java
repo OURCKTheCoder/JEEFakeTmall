@@ -39,7 +39,7 @@ public class ProductInfoServlet extends HttpServlet {
 			jobj.put("imageUrl", "http://localhost:8080/JEEFakeTmall/product/image"); // FIXME !!!
 			jary.put(jobj);
 		}
-		resp.setContentType("text/html");
+		resp.setContentType("application/json");
 		resp.getWriter().println(jary.toString());
 	}
 

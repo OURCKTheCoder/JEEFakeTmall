@@ -1,14 +1,11 @@
 package top.ourck.dao;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 
-import top.ourck.beans.User;
 import top.ourck.beans.UserContact;
 import top.ourck.utils.JDBCConnectionFactory;
 
@@ -18,13 +15,14 @@ public class UserContactDao implements SimpleDao<UserContact> {
 
 	@Override
 	public void add(UserContact obj) {
-		String sql="INSRET INTO user_contact values(null,?,?,?,?,?)";
+		String sql="INSERT INTO user_contact values(null,?,?,?,?,?)";
 		try(PreparedStatement stmt = JDBCConnectionFactory.getConnection()
 				.prepareStatement(sql)){
 			stmt.setString(1,obj.getPhone());
 			stmt.setString(2, obj.getAddress());
 			stmt.setString(3, obj.getEmailaddress());
-			stmt.setInt(4, obj.getUid());
+			stmt.setString(4, obj.getName());
+			stmt.setInt(5, obj.getUid());
 			
 			stmt.execute();
 		}catch(SQLException e) {
