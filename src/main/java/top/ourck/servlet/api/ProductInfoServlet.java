@@ -2,6 +2,7 @@ package top.ourck.servlet.api;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Random;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,11 +33,15 @@ public class ProductInfoServlet extends HttpServlet {
 		List<Product> pList = productService.list();
 		
 		for(Product p : pList) {
+			Random rand = new Random();
+			int randImgId = (int) ((rand.nextInt(100)) / 100.0 * 24.0 + 1.0);
+
 			JSONObject jobj = new JSONObject();
 			jobj.put("name", p.getName());
+			jobj.put("category", p.getCategory().getName());
 			jobj.put("price", p.getOriginalPrice());
-			jobj.put("detailUrl", "www.baidu.com");
-			jobj.put("imageUrl", "http://localhost:8080/JEEFakeTmall/product/1.jpg"); // FIXME !!!
+			jobj.put("detail_url", "www.baidu.com");
+			jobj.put("img_url", "http://localhost:8080/JEEFakeTmall/img/product/" + randImgId + ".jpg");
 			jary.put(jobj);
 		}
 		resp.setContentType("application/json");
