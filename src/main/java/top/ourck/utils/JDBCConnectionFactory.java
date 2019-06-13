@@ -13,8 +13,7 @@ public class JDBCConnectionFactory {
 	private static final String IP_ADDR = "127.0.0.1";
 	private static final String PORT = "3306";
 	private static final String USER_NAME = "root";
-	private static final String PASSWD = "voidPwd039"
-			+ "";
+	private static final String PASSWD = "142687";
 	private static final String PARAMS = "?serverTimezone=UTC&characterEncoding=utf-8";
 	private static final String DEFAULT_DB = "tmall";
 	private static final String CONN_URL = "jdbc:mysql://" + IP_ADDR + ":" + PORT + "/" + DEFAULT_DB + PARAMS;
