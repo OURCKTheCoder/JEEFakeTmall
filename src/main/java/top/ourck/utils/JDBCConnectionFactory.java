@@ -10,10 +10,10 @@ import java.sql.SQLException;
  */
 public class JDBCConnectionFactory {
 	
-	private static final String IP_ADDR = "ourck.top";
+	private static final String IP_ADDR = "127.0.0.1";
 	private static final String PORT = "3306";
-	private static final String USER_NAME = "tmaller";
-	private static final String PASSWD = "tmallisgreat!";
+	private static final String USER_NAME = "root";
+	private static final String PASSWD = "";
 	private static final String PARAMS = "?serverTimezone=UTC&characterEncoding=utf-8";
 	private static final String DEFAULT_DB = "tmall";
 	private static final String CONN_URL = "jdbc:mysql://" + IP_ADDR + ":" + PORT + "/" + DEFAULT_DB + PARAMS;
