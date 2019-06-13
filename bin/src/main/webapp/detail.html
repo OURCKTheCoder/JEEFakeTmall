@@ -1,0 +1,209 @@
+﻿<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Outside - Minimalist Ecommerce HTML Template</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+    
+    <!-- All CSS Files -->
+    <!-- Bootstrap css -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- Icon Font -->
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/pe-icon-7-stroke.css">
+    <!-- Plugins css file -->
+    <link rel="stylesheet" href="css/plugins.css">
+    <!-- Theme main style -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Responsive css -->
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <!-- Modernizr JS -->
+    <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+    
+</head>
+
+<body>
+
+     
+
+
+<!-- Body main wrapper start -->
+<div class="wrapper">
+
+<!-- START HEADER SECTION -->
+<header class="header-section section sticker">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <!-- logo -->
+                <div class="header-logo float-left">
+                    <a href="index.html">
+                    <img src="img/logo.png" alt="main logo">
+                    </a>
+                </div>
+                
+                <!-- header-search & total-cart -->
+                <div class="float-right">
+                    
+                    <!-- some button -->
+                    <nav class="main-menu menu-right float-right">
+                        <ul>
+                        	<!-- 跳转主页面 -->
+                            <li><a href="index.html">Home</a></li>                       
+                            <!-- 跳转购物车页面 -->
+							<li><a href="cart.html">cart</a></li>
+							<!-- 跳转个人信息主页 -->
+							 <li><a href="detail.html">personal</a>
+                                <ul class="sub-menu">
+                                    <li><a href="detail.html">details</a></li>
+                                    <li><a href="order.html">My order</a></li>
+                                </ul>
+                            </li>
+                            <!-- 跳转登录页面 -->
+  							<li><a href="login.html">login</a></li>  
+                           
+                        </ul>
+                    </nav>
+                </div>
+                <div class="mobile-menu"></div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- END HEADER SECTION -->
+
+<!-- PAGE BANNER SECTION -->
+<div class="page-banner-section section">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="page-banner-content">
+                    <h1>Detail</h1>
+                    <ul class="breadcrumb">
+                        <li><a href="index.html">Home</a></li>
+                        <li class="active">Detail</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- PAGE SECTION START -->
+<div class="page-section section pt-120 pb-120">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 col-xs-12">
+                <div class="login-reg-form">
+                    <form action="#">
+                        <div class="row">
+                            <div class="col-sm-6 col-xs-12 mb-20">
+                                <label for="r_name">Name</label>										
+                                <input id="r_name" type="text" readonly="readonly" />                        
+                            </div>     
+                            <div class="col-sm-6 col-xs-12 mb-20">
+                                <label for="r_uid">UID</label>										
+                                <input id="r_uid" type="text" readonly="readonly" />
+                            </div>                         
+                            <div class="col-sm-6 col-xs-12 mb-20">
+                                <label for="r_email">Email Addres</label>										
+                                <input id="r_email" type="email" readonly="readonly" />
+                            </div>
+                            <div class="col-sm-6 col-xs-12 mb-20">
+                                <label for="r_phone">Phone</label>										
+                                <input id="r_phone" type="text" readonly="readonly" />
+                            </div>  
+                            <div class="col-xs-12 mb-20">
+                                <label>Address </label>
+                                <input id="r_addr" type="text" readonly="readonly" />
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+ <script type="text/javascript">
+ $.ajax({ 
+     url: "http://localhost:8080/Web-Map/Servlet", 
+     type: 'post',  
+     success: function(data){  
+     	 for(var num in data){
+     	        //表示遍历数组，而i表示的是数组的下标值，
+     	        //result[i]表示获得第i个json对象即JSONObject
+     	        //result[i]通过.字段名称即可获得指定字段的值
+     	        if(data[num].uid != ''){     	        	
+     	        	document.getElementById("r_name").value= data[num].uname; 
+     	            document.getElementById("r_uid").value= data[num].uid;
+     	            document.getElementById("r_email").value= data[num].email;
+     	            document.getElementById("r_phone").value= data[num].phone;
+     	            document.getElementById("r_addr").value= data[num].addr; 
+     	        }        	   
+     	    }     	
+     }              
+ });
+    
+ </script>
+<!-- PAGE SECTION END --> 
+
+<!-- FOOTER TOP SECTION START -->
+<div class="footer-top-section section pt-100 pb-60">
+	<div class="container">
+		<div class="row">
+            <!-- Footer Widget -->
+			<div class="footer-widget text-center col-md-12 col-sm-6 col-xs-12 mb-40">
+				<h5 class="widget-title">ABOUT THE STORE</h5>
+				<p>You can find many fantastic goods here.However you can get them in no way.
+				</p>
+			</div>					
+		</div>
+	</div>
+</div>
+<!-- FOOTER TOP SECTION END -->  
+
+<!-- FOOTER BOTTOM SECTION START -->
+<div class="footer-bottom-section section">
+	<div class="container">
+		<div class="row">
+
+            	<!-- Copyright -->
+				<div class="copyright  col-sm-6 col-xs-12 ">
+				<p>Powered by Cytra. Cobbom Ourck.top</p>
+
+			</div>
+		</div>
+	</div>
+</div>
+<!-- FOOTER BOTTOM SECTION END -->  
+   
+
+</div>
+<!-- Body main wrapper end -->
+
+
+<!-- Placed JS at the end of the document so the pages load faster -->
+
+<!-- jQuery latest version -->
+<script src="js/vendor/jquery-3.1.1.min.js"></script>
+<!-- Bootstrap js -->
+<script src="js/bootstrap.min.js"></script>
+<!-- Plugins js -->
+<script src="js/plugins.js"></script>
+<!-- Ajax Mail js -->
+<script src="js/ajax-mail.js"></script>
+<!-- Main js -->
+<script src="js/main.js"></script>
+
+</body>
+
+</html>
