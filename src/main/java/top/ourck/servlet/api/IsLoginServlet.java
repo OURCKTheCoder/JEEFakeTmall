@@ -23,6 +23,7 @@ public class IsLoginServlet extends HttpServlet{
 		else
 			jsobj.put("success", "true");
 		
+		resp.setContentType("application/json");
 		resp.getWriter().print(jsobj);
 	}
 

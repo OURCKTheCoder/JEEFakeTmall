@@ -24,7 +24,6 @@ public class UserContactDao implements SimpleDao<UserContact> {
 			stmt.setString(4, obj.getName());
 			stmt.setInt(5, obj.getUid());
 			
-			
 			stmt.execute();
 		}catch(SQLException e) {
 			e.printStackTrace();

@@ -42,7 +42,7 @@ public class OrderInfoServlet extends HttpServlet {
 			jary.put(jobj);
 		}
 		
-		resp.setContentType("text/html");
+		resp.setContentType("application/json");
 		resp.getWriter().println(jary.toString());
 	}
 	

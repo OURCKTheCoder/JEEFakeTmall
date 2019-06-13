@@ -24,7 +24,7 @@ import top.ourck.service.UserService;
  * @author ourck
  *
  */
-public class LoginFilter extends HttpFilter {
+public class AdminLoginFilter extends HttpFilter {
 
 	private static final long serialVersionUID = 3963316667619810889L;
 
