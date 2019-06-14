@@ -202,6 +202,15 @@
 <!--  this is my js -->
 <!--  document.write('');-->
 <script>
+	function deleteGood(oiid){
+		 $.ajax({ 
+		     url: "http://localhost:8080/JEEFakeTmall/cart/update?op=delete", 
+		     type: 'get',  
+		     data: "oiid="+oiid,
+		     success: function(data){
+	     	        }        	   
+		     	 });
+	}
 	function createOrder(){
 		
 		var table = document.getElementById("cartTable");
@@ -217,7 +226,7 @@
 		
 		Cartdata +="}";
 		
-		
+		Cardata = eval('('+Cartdata+')');
 		
 		 $.ajax({ 
 		     url: "http://localhost:8080/JEEFakeTmall/cart/commit", 
@@ -248,7 +257,7 @@
 	 tableData +='</td>';
 	 tableData +='<td class="pro-subtotal"><input type="text" id = "sv' + goodNum 
 	 	+ '" value="' + parseInt(quantity)*parseInt(price) +'" /></td>';
-	 tableData +='<td class="pro-remove"><a href="#">×</a></td> ';
+	 tableData +='<td class="pro-remove"><a href="javascript:void(0)" onclick =deleteGood('+oiid+')>×</a></td> ';
 	 tableData +=' </tr>   ';
 	 
 	 container = document.getElementById('tbody1');
@@ -280,7 +289,8 @@
      	        //result[i]表示获得第i个json对象即JSONObject
      	        //result[i]通过.字段名称即可获得指定字段的值
      	        if(data[num].name != ''){     	        	
-     	        	createTable(data[num].pid,data[num].name, data[num].img_url, data[num].quantity,data[num].price);
+     	        	createTable(data[num].pid,data[num].name, data[num].oiid,
+     	        			data[num].img_url, data[num].quantity,data[num].price);
      	        }        	   
 	     	 }
 	     	calSum();
