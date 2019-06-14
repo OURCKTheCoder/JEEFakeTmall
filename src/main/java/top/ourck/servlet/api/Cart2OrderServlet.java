@@ -51,8 +51,13 @@ public class Cart2OrderServlet extends HttpServlet {
 		
 		Enumeration<String> ps = req.getParameterNames();
 		while(ps.hasMoreElements()) {
-			int pid = Integer.parseInt(req.getParameter(ps.nextElement()));
-			OrderItem oi = oiService.getByUidPid(user.getId(), pid);
+			String pidStr = ps.nextElement();
+			int count = Integer.parseInt(req.getParameter(pidStr));
+			OrderItem oi = oiService.getByUidPid(user.getId(), Integer.parseInt(pidStr));
+			if(oi == null)
+				return; // TODO ERROR!!
+			
+			oi.setNumber(count);
 			oi.setOrder(o);
 			oiService.update(oi);
 		};
