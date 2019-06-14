@@ -51,7 +51,7 @@ public class LoginServlet extends HttpServlet {
 			// TODO Login failed!
 		}
 		else {
-			String adminTicket = info.get("admin_ticket");
+			String adminTicket = info.get("ticket");
 			Cookie ck = new Cookie("admin_ticket", adminTicket);
 			resp.addCookie(ck);
 			resp.sendRedirect(target);

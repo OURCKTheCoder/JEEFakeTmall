@@ -22,7 +22,7 @@
 				<li><a href="/JEEFakeTmall/admin/user_list">用户管理</a></li>
 				<li><a href="/JEEFakeTmall/admin/product_list">产品管理</a></li>
 				<li><a href="/JEEFakeTmall/admin/order_list">订单管理</a></li>
-				<li><a href="/JEEFakeTmall/login?target=logout">退出登录</a></li>
+				<li><a href="/JEEFakeTmall/admin/login?target=logout">退出登录</a></li>
 			</ul>
 		</div>
 	</nav>
