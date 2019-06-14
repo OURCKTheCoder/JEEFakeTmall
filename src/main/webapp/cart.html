@@ -110,7 +110,7 @@
                         <table id = "cartTable">
                             <thead>
                                 <tr>
-                                	<th> uid</th>
+                                	<th hidden="hidden"> uid</th>
                                     <th class="pro-thumbnail">Image</th>
                                     <th class="pro-title">Product</th>
                                     <th class="pro-price">Price</th>
@@ -206,23 +206,27 @@
 		
 		var table = document.getElementById("cartTable");
 		var rows = table.rows.length;
-		var Cartdata="oi_count=";
-		Cartdata +=rows;
+		var Cartdata ='{';
 		
-		for(var i = 0; i<rows.length; i++ ){
-			Cartdata += "&"+rows[i].cells[0].innerHTML+"="+rows[i].cells[4].innerHTML;
+		for(var i = 1; i<rows; i++ ){
+			Cartdata += table.rows[i].cells[0].innerHTML;
+			Cartdata +=" : "+document.getElementById(i-1).value;
+			if(i <rows-1)
+				Cartdata += ",";
 		}
 		
-		for
+		Cartdata +="}";
+		
+		
+		
 		 $.ajax({ 
-		     url: "http://localhost:8080/JEEFakeTmall/cart/list", 
-		     type: 'get',  
+		     url: "http://localhost:8080/JEEFakeTmall/cart/commit", 
+		     type: 'post',  
 		     data: Cartdata,
 		     success: function(data){
 	     	        }        	   
-		     	 }
-		     }
-		 });
+		     	 });
+		
 	}
 </script>
 <script>
@@ -231,7 +235,7 @@
  var tableData;
  function createTable(pid,name,img_url,quantity,price){
 	 tableData ='<tr>';
-	 tableData +='<td>'+pid+'</td>';
+	 tableData +='<td hidden="hidden">'+pid+'</td>';
 	 tableData +='<td class="pro-thumbnail"><a href="#"><img src="'+ img_url+'" alt="" /></a></td>';
 	 tableData +='<td class="pro-title"><a href="#">' + name + '</a></td>';
 	 tableData +=' <td class="pro-price"><input type="text" id ="v' + goodNum + '" value="'+ price +'" /></td>';
@@ -250,6 +254,7 @@
 	 container = document.getElementById('tbody1');
 	 container.innerHTML  += tableData; 
 	 goodNum++;
+	 
  }
 	
  function calSum(){
@@ -279,11 +284,7 @@
      	        }        	   
 	     	 }
 	     	calSum();
-	     	function hidecolumn() {
-	     		$('#CartTable tr').find('td:eq(0)').hide();
-	     		('#CartTable tr').find('th:eq(0)').hide();
-
-	     	}
+	
 	     	$('.qtybtn').on('click', function() {
 			    var $button = $(this);
 			    var oldValue = $button.parent().find('input').val();
