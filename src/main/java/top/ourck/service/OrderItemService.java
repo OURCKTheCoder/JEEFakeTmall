@@ -24,6 +24,9 @@ public class OrderItemService {
 		return orderItemDao.listCommitedByUserId(uid);
 	}
 	
+	public OrderItem getByUidPid(int uid, int pid) {
+		return orderItemDao.getByUidPid(uid, pid);
+	}
 	
 	public void add(OrderItem item) {
 		OrderItem origin = orderItemDao.getByUidPid(item.getUser().getId(), item.getProduct().getId());
