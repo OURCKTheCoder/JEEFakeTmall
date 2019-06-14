@@ -2,6 +2,7 @@ package top.ourck.servlet.api;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.Enumeration;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,7 +35,6 @@ public class Cart2OrderServlet extends HttpServlet {
 		User user = (User)req.getAttribute("rememberedUser");
 		UserContact uc = ucService.getByUid(user.getId());
 		Order o = new Order();
-		
 		o.setAddress(uc.getAddress());
 		o.setConfirmDate(new Date()); // FIXME !!
 		o.setCreateDate(new Date());
@@ -49,15 +49,15 @@ public class Cart2OrderServlet extends HttpServlet {
 		o.setUserMessage("23333");
 		orderService.add(o);
 		
-		int oiCount = Integer.parseInt(req.getParameter("oi_count"));
-		for(int i = 0; i < oiCount; i++) {
-			int oiid = Integer.parseInt(req.getParameter("oiid" + i));
-			OrderItem oi = oiService.getById(oiid);
+		Enumeration<String> ps = req.getParameterNames();
+		while(ps.hasMoreElements()) {
+			int pid = Integer.parseInt(req.getParameter(ps.nextElement()));
+			OrderItem oi = oiService.getByUidPid(user.getId(), pid);
 			oi.setOrder(o);
 			oiService.update(oi);
-		}
-		resp.getWriter().println("Order commited! :)");
+		};
 		
+		resp.getWriter().println("Order commited! :)"); // TODO JSON
 	}
 	
 	

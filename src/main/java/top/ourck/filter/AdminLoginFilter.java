@@ -57,7 +57,7 @@ public class AdminLoginFilter extends HttpFilter {
 		}
 		else {
 			for(Cookie ck : cookies) {
-				if(ck.getName().equals("ticket")) {
+				if(ck.getName().equals("admin_ticket")) {
 					// 1. Get ticket string.
 					String tStr = ck.getValue();
 					LoginTicket t = authService.getTicket(tStr);

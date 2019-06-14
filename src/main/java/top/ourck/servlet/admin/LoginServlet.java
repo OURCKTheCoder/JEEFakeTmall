@@ -27,7 +27,7 @@ public class LoginServlet extends HttpServlet {
 		if(target.equals("logout")) {
 			Cookie[] cks = req.getCookies();
 			for(Cookie ck : cks) {
-				if(ck.getName().equals("ticket")) {
+				if(ck.getName().equals("admin_ticket")) {
 					authService.logout(ck.getValue());
 					break;
 				}
@@ -51,8 +51,8 @@ public class LoginServlet extends HttpServlet {
 			// TODO Login failed!
 		}
 		else {
-			String ticket = info.get("ticket");
-			Cookie ck = new Cookie("ticket", ticket);
+			String adminTicket = info.get("admin_ticket");
+			Cookie ck = new Cookie("admin_ticket", adminTicket);
 			resp.addCookie(ck);
 			resp.sendRedirect(target);
 		}
