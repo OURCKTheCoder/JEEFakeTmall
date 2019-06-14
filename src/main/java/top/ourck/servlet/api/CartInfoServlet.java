@@ -49,6 +49,7 @@ public class CartInfoServlet extends HttpServlet {
 				jobj.put("quantity", oi.getNumber());
 				jobj.put("price", p.getOriginalPrice());
 				jobj.put("oiid", oi.getId());
+				jobj.put("pid", p.getId());
 				jary.put(jobj);
 			}
 			
