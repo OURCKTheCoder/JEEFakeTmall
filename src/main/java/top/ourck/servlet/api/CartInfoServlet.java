@@ -31,7 +31,8 @@ public class CartInfoServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		User user = (User)req.getAttribute("rememberedUser");
 		if(user == null) {
-			resp.sendRedirect("http://localhost:8080/JEEFakeTmall/login");
+//			resp.sendRedirect("http://localhost:8080/JEEFakeTmall/login");
+			return;
 		}
 		else {
 			List<OrderItem> oiList = oiService.listCartByUserId(user.getId());
@@ -42,10 +43,12 @@ public class CartInfoServlet extends HttpServlet {
 				
 				Product p = oi.getProduct();
 				JSONObject jobj = new JSONObject();
+				jobj.put("success", "true");
 				jobj.put("name", p.getName());
 				jobj.put("img_url", "http://localhost:8080/JEEFakeTmall/img/product/" + randImgId + ".jpg");
 				jobj.put("quantity", oi.getNumber());
 				jobj.put("price", p.getOriginalPrice());
+				jobj.put("pid", p.getId());
 				jary.put(jobj);
 			}
 			

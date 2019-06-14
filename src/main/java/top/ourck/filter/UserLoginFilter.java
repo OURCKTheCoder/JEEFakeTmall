@@ -14,6 +14,8 @@ import javax.servlet.http.HttpFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONObject;
+
 import top.ourck.beans.LoginTicket;
 import top.ourck.beans.User;
 import top.ourck.service.AuthService;
@@ -91,7 +93,9 @@ public class UserLoginFilter extends HttpFilter {
 			chain.doFilter(req, res);
 		}
 		else {
-			response.sendRedirect("/JEEFakeTmall/login.html");
+			JSONObject jobj = new JSONObject();
+			jobj.put("success", "false");
+			jobj.put("msg", "Needs login!");
 		}
 	}
 
