@@ -67,4 +67,9 @@
   	<url-pattern>/cart/*</url-pattern>
   </filter-mapping>
   
+  <filter-mapping>
+  	<filter-name>UserLoginFilter</filter-name>
+  	<url-pattern>/order/*</url-pattern>
+  </filter-mapping>
+  
 </web-app>
