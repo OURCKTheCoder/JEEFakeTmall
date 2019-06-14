@@ -107,9 +107,10 @@
             <form action="#">				
                 <div class="col-xs-12">
                     <div class="cart-table table-responsive mb-40">
-                        <table>
+                        <table id = "cartTable">
                             <thead>
                                 <tr>
+                                	<th> uid</th>
                                     <th class="pro-thumbnail">Image</th>
                                     <th class="pro-title">Product</th>
                                     <th class="pro-price">Price</th>
@@ -142,7 +143,7 @@
                             </tbody>
                         </table>
                         <div class="proceed-to-checkout section mt-30">
-                            <a href="#">Create Order</a>
+                            <a href="javascript:void(0)" onclick =createOrder()>Create Order</a>
                         </div>
                     </div>
                 </div>
@@ -201,11 +202,36 @@
 <!--  this is my js -->
 <!--  document.write('');-->
 <script>
+	function createOrder(){
+		
+		var table = document.getElementById("cartTable");
+		var rows = table.rows.length;
+		var Cartdata="oi_count=";
+		Cartdata +=rows;
+		
+		for(var i = 0; i<rows.length; i++ ){
+			Cartdata += "&"+rows[i].cells[0].innerHTML+"="+rows[i].cells[4].innerHTML;
+		}
+		
+		for
+		 $.ajax({ 
+		     url: "http://localhost:8080/JEEFakeTmall/cart/list", 
+		     type: 'get',  
+		     data: Cartdata,
+		     success: function(data){
+	     	        }        	   
+		     	 }
+		     }
+		 });
+	}
+</script>
+<script>
  
  var goodNum = 0;
  var tableData;
- function createTable(name,img_url,quantity,price){
+ function createTable(pid,name,img_url,quantity,price){
 	 tableData ='<tr>';
+	 tableData +='<td>'+pid+'</td>';
 	 tableData +='<td class="pro-thumbnail"><a href="#"><img src="'+ img_url+'" alt="" /></a></td>';
 	 tableData +='<td class="pro-title"><a href="#">' + name + '</a></td>';
 	 tableData +=' <td class="pro-price"><input type="text" id ="v' + goodNum + '" value="'+ price +'" /></td>';
@@ -249,11 +275,15 @@
      	        //result[i]表示获得第i个json对象即JSONObject
      	        //result[i]通过.字段名称即可获得指定字段的值
      	        if(data[num].name != ''){     	        	
-     	        	createTable(data[num].name, data[num].img_url, data[num].quantity,data[num].price);
+     	        	createTable(data[num].pid,data[num].name, data[num].img_url, data[num].quantity,data[num].price);
      	        }        	   
 	     	 }
 	     	calSum();
-	     	
+	     	function hidecolumn() {
+	     		$('#CartTable tr').find('td:eq(0)').hide();
+	     		('#CartTable tr').find('th:eq(0)').hide();
+
+	     	}
 	     	$('.qtybtn').on('click', function() {
 			    var $button = $(this);
 			    var oldValue = $button.parent().find('input').val();

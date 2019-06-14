@@ -38,7 +38,7 @@ public class InfoServlet extends HttpServlet{
 		JSONObject jsobj = new JSONObject();
 		JSONArray jary = new JSONArray();
 		
-		jsobj.put("one", usercontact.getPhone());
+		jsobj.put("phone", usercontact.getPhone());
 		jsobj.put("address", usercontact.getAddress());
 		jsobj.put("emailaddress", usercontact.getEmailaddress());
 		jsobj.put("name", usercontact.getName());
