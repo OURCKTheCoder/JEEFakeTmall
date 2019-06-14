@@ -38,7 +38,7 @@ public class OrderInfoServlet extends HttpServlet {
 			JSONObject jobj = new JSONObject();
 			jobj.put("order_id", oi.getOrder().getOrderCode());
 			jobj.put("content", oi.getProduct().getName() + " * " + oi.getNumber());
-			jobj.put("price", oi.getNumber() + oi.getProduct().getOriginalPrice());
+			jobj.put("price", oi.getNumber() * oi.getProduct().getOriginalPrice());
 			jary.put(jobj);
 		}
 		
