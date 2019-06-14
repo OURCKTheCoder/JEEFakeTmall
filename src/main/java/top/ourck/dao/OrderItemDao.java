@@ -77,7 +77,7 @@ public class OrderItemDao implements SimpleDao<OrderItem> {
         		PreparedStatement ps = c.prepareStatement(sql);) {
 
             ps.setInt(1, bean.getProduct().getId());
-            if(null==bean.getOrder())	ps.setInt(2, -1);
+            if(null==bean.getOrder())	ps.setInt(2, INVALID_ORDER_ID);
             else						ps.setInt(2, bean.getOrder().getId());            	
             ps.setInt(3, bean.getUser().getId());
             ps.setInt(4, bean.getNumber());
@@ -137,19 +137,16 @@ public class OrderItemDao implements SimpleDao<OrderItem> {
  
 	public OrderItem getByUidPid(int uid, int pid) {
         OrderItem bean = null;
-        String sql = "select * from orderitem where uid = ? and pid = ?";
+        String sql = "select * from orderitem where uid = " + uid + " and pid = " + pid;
         try (Connection c = JDBCConnectionFactory.getConnection();
-        		PreparedStatement s = c.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);) {
-        	s.setInt(1, uid);
-        	s.setInt(2, pid);
-            ResultSet rs = s.executeQuery(sql);
+        		PreparedStatement s = c.prepareStatement(sql);) {
+//        	s.setInt(1, uid);
+//        	s.setInt(2, pid);
+            ResultSet rs = s.executeQuery();
             if (rs.next()) { // TODO 应该只有一个
             	bean = new OrderItem();
-            	ResultSet idRs = s.getGeneratedKeys();
-            	idRs.next(); // 游标移动
-            	int id = idRs.getInt(1);
-            	bean.setId(id);
-            	
+
+            	int id = rs.getInt("id");
                 int resPid = rs.getInt("pid"); // ...实际上pid一样可以
                 int oid = rs.getInt("oid");
                 int resUid = rs.getInt("uid");
@@ -159,6 +156,7 @@ public class OrderItemDao implements SimpleDao<OrderItem> {
                 bean.setProduct(product);
                 bean.setUser(user);
                 bean.setNumber(number);
+                bean.setId(id);
                 
                 // If oid exists, inject the Order object into OrderItem!
                 if(0 != oid){
@@ -267,7 +265,7 @@ public class OrderItemDao implements SimpleDao<OrderItem> {
     			int number = rs.getInt("number");
     			
     			Product product = new ProductDao().query(pid);
-    			if(-1 != oid){
+    			if(INVALID_ORDER_ID != oid){
     				Order order= new OrderDao().query(oid);
     				bean.setOrder(order);               	
     			}
@@ -345,7 +343,7 @@ public class OrderItemDao implements SimpleDao<OrderItem> {
                 int number = rs.getInt("number");
                 
                 Product product = new ProductDao().query(pid);
-                if(-1 != oid){
+                if(INVALID_ORDER_ID != oid){
                     Order order= new OrderDao().query(oid);
                     bean.setOrder(order);               	
                 }
@@ -409,5 +407,10 @@ public class OrderItemDao implements SimpleDao<OrderItem> {
 	@Override
 	public List<OrderItem> list() {
 		return list(0, Short.MAX_VALUE);
+	}
+	
+	public static void main(String[] args) {
+		OrderItemDao oid = new OrderItemDao();
+		System.out.println(oid.getByUidPid(2, 87));
 	}
 }
