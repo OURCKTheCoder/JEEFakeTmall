@@ -135,9 +135,9 @@ public class OrderItemDao implements SimpleDao<OrderItem> {
         return bean;
     }
  
-	public OrderItem getByUidPid(int uid, int pid) {
+	public OrderItem getCartByUidPid(int uid, int pid) {
         OrderItem bean = null;
-        String sql = "select * from orderitem where uid = " + uid + " and pid = " + pid;
+        String sql = "select * from orderitem where oid = " + INVALID_ORDER_ID + " uid = " + uid + " and pid = " + pid;
         try (Connection c = JDBCConnectionFactory.getConnection();
         		PreparedStatement s = c.prepareStatement(sql);) {
 //        	s.setInt(1, uid);
@@ -411,6 +411,6 @@ public class OrderItemDao implements SimpleDao<OrderItem> {
 	
 	public static void main(String[] args) {
 		OrderItemDao oid = new OrderItemDao();
-		System.out.println(oid.getByUidPid(2, 87));
+		System.out.println(oid.getCartByUidPid(2, 87));
 	}
 }

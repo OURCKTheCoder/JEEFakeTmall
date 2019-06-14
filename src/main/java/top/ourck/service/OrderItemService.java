@@ -25,11 +25,11 @@ public class OrderItemService {
 	}
 	
 	public OrderItem getByUidPid(int uid, int pid) {
-		return orderItemDao.getByUidPid(uid, pid);
+		return orderItemDao.getCartByUidPid(uid, pid);
 	}
 	
 	public void add(OrderItem item) {
-		OrderItem origin = orderItemDao.getByUidPid(item.getUser().getId(), item.getProduct().getId());
+		OrderItem origin = orderItemDao.getCartByUidPid(item.getUser().getId(), item.getProduct().getId());
 		if(origin == null) {
 			orderItemDao.add(item);
 		}

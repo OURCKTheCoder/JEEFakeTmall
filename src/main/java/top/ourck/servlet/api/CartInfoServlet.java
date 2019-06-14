@@ -48,7 +48,7 @@ public class CartInfoServlet extends HttpServlet {
 				jobj.put("img_url", "http://localhost:8080/JEEFakeTmall/img/product/" + randImgId + ".jpg");
 				jobj.put("quantity", oi.getNumber());
 				jobj.put("price", p.getOriginalPrice());
-				jobj.put("pid", p.getId());
+				jobj.put("oiid", oi.getId());
 				jary.put(jobj);
 			}
 			
