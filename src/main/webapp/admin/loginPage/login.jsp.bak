@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta property="qc:admins" content="754034015366713545637571540352652">
     <meta property="wb:webmaster" content="1ad39047f32b5b6b">
-    <title>FakeTmall - 理想生活上假天猫</title>
+    <title>统一身份认证</title>
 	<link href="./loginPage/CHDCASPortalStatic/login.css" rel="stylesheet">
 	<link href="./loginPage/CHDCASPortalStatic/custom.css" rel="stylesheet">
 </head>
@@ -18,7 +18,8 @@
 <body>
 <div class="auth_page_wrapper">
 <div class="auth_logo">
-    <img class="logoimg" src="/JEEFakeTmall/img/logo.png" alt="logo">
+    <img class="logoimg" src="./loginPage/CHDCASPortalStatic/logos.png" alt="logo">
+	<div class="top-bar"><a href="http://www.chd.edu.cn/" target="_blank">长安大学主页</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="http://bkjw.chd.edu.cn/eams/home.action" target="_blank">本科教务</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="http://123.chd.edu.cn/" target="_blank">长大导航</a></div>
 </div>
 <div class="auth_login_content">
     <div class="auth_login_left">
@@ -31,12 +32,12 @@
         
     
     <div class="auth_login_right">
-	    <img class="mainbg" src="/JEEFakeTmall/img/login_logoBG.png" alt="">
+	    <img class="mainbg" src="./loginPage/CHDCASPortalStatic/web-bg1.png" alt="">
         <div class="auth_tab">
             <div class="auth_tab_links">
                 <ul>
                     <li id="accountLogin" style="width:100%;" class="selected" tabid="01">
-					    <img src="/JEEFakeTmall/img/log-title.png" alt="">
+					    <img src="./loginPage/CHDCASPortalStatic/log-title.png" alt="">
 					</li>
                     
 		    
@@ -96,6 +97,11 @@
 <div class="clearfloat"></div>
 <div class="auth_login_footer">
     <img class="footbg" src="./loginPage/CHDCASPortalStatic/chd_mobile.jpg" alt="">
+	<div class="foottext">
+	    <p><a href="http://ids.chd.edu.cn/authserver/warning/warning.htm" style="text-decoration: none;color:red;" target="_blank">统一身份认证防诈骗提醒</a></p>
+		<p><a href="http://app.chd.edu.cn/" style="text-decoration: none;color:#00AEAE;" target="_blank">长安大学移动门户APP</a></p>
+		<p>版权所有©长安大学 | 信息与网络管理处维护</p>
+	</div>
 </div>
 </div>
 
