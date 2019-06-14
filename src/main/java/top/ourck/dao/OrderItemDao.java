@@ -137,12 +137,12 @@ public class OrderItemDao implements SimpleDao<OrderItem> {
  
 	public OrderItem getCartByUidPid(int uid, int pid) {
         OrderItem bean = null;
-        String sql = "select * from orderitem where oid = " + INVALID_ORDER_ID + " uid = " + uid + " and pid = " + pid;
+        String sql = "select * from orderitem where oid = " + INVALID_ORDER_ID + " and uid = " + uid + " and pid = " + pid;
         try (Connection c = JDBCConnectionFactory.getConnection();
-        		PreparedStatement s = c.prepareStatement(sql);) {
+        		Statement s = c.createStatement();) {
 //        	s.setInt(1, uid);
 //        	s.setInt(2, pid);
-            ResultSet rs = s.executeQuery();
+            ResultSet rs = s.executeQuery(sql);
             if (rs.next()) { // TODO 应该只有一个
             	bean = new OrderItem();
 
