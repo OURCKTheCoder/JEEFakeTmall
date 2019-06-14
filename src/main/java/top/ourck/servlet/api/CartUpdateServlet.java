@@ -29,10 +29,12 @@ public class CartUpdateServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String op = req.getParameter("op");
-		if(op.equals("")) // TODO 非法访问
-			return;
-		
 		JSONObject jobj = null;
+		if(op.equals("")) {
+			jobj.put("success", "true");
+			return;
+		}
+		
 		if(op.equals("add")) {
 			int pid = Integer.parseInt(req.getParameter("pid")); // FIXME null!
 			int count = Integer.parseInt(req.getParameter("num"));
@@ -46,14 +48,14 @@ public class CartUpdateServlet extends HttpServlet {
 			oiService.add(oi);
 			
 			jobj = new JSONObject();
-			jobj.put("success", true);
+			jobj.put("success", "true");
 			jobj.put("oiid", oi.getId()); // 返回订单项目ID给前端，以后对该订单项目的操作根据oiid来。
 		}
 		else if (op.equals("delete")) {
 			int oiid = Integer.parseInt(req.getParameter("oiid"));
 			oiService.delete(oiid);
 			jobj = new JSONObject();
-			jobj.put("success", true);
+			jobj.put("success", "true");
 		}
 		
 		resp.setContentType("application/json");

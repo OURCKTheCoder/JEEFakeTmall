@@ -40,7 +40,7 @@ public class ProductInfoServlet extends HttpServlet {
 			jobj.put("name", p.getName());
 			jobj.put("category", p.getCategory().getName());
 			jobj.put("price", p.getOriginalPrice());
-			jobj.put("detail_url", "www.baidu.com");
+			jobj.put("detail_url", "http://localhost:8080/JEEFakeTmall/product/detail?pid=" + p.getId());
 			jobj.put("img_url", "http://localhost:8080/JEEFakeTmall/img/product/" + randImgId + ".jpg");
 			jobj.put("pid", p.getId());
 			jary.put(jobj);
