@@ -104,13 +104,14 @@ public class OrderItemDao implements SimpleDao<OrderItem> {
  
 	@Override
     public OrderItem query(int id) {
-        OrderItem bean = new OrderItem();
+        OrderItem bean = null;
         String sql = "select * from orderitem where id = " + id;
         try (Connection c = JDBCConnectionFactory.getConnection();
         		Statement s = c.createStatement();) {
- 
             ResultSet rs = s.executeQuery(sql);
             if (rs.next()) {
+            	bean = new OrderItem();
+            	
                 int pid = rs.getInt("pid");
                 int oid = rs.getInt("oid");
                 int uid = rs.getInt("uid");
@@ -122,7 +123,7 @@ public class OrderItemDao implements SimpleDao<OrderItem> {
                 bean.setNumber(number);
                 
                 // If oid exists, inject the Order object into OrderItem!
-                if(-1 != oid){
+                if(0 != oid){
                     Order order = new OrderDao().query(oid);
                     bean.setOrder(order);               	
                 }
@@ -134,6 +135,43 @@ public class OrderItemDao implements SimpleDao<OrderItem> {
         return bean;
     }
  
+	public OrderItem getByUidPid(int uid, int pid) {
+        OrderItem bean = null;
+        String sql = "select * from orderitem where uid = ? and pid = ?";
+        try (Connection c = JDBCConnectionFactory.getConnection();
+        		PreparedStatement s = c.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);) {
+        	s.setInt(1, uid);
+        	s.setInt(2, pid);
+            ResultSet rs = s.executeQuery(sql);
+            if (rs.next()) { // TODO 应该只有一个
+            	bean = new OrderItem();
+            	ResultSet idRs = s.getGeneratedKeys();
+            	idRs.next(); // 游标移动
+            	int id = idRs.getInt(1);
+            	bean.setId(id);
+            	
+                int resPid = rs.getInt("pid"); // ...实际上pid一样可以
+                int oid = rs.getInt("oid");
+                int resUid = rs.getInt("uid");
+                int number = rs.getInt("number");
+                Product product = new ProductDao().query(resPid);
+                User user = new UserDao().query(resUid);
+                bean.setProduct(product);
+                bean.setUser(user);
+                bean.setNumber(number);
+                
+                // If oid exists, inject the Order object into OrderItem!
+                if(0 != oid){
+                    Order order = new OrderDao().query(oid);
+                    bean.setOrder(order);               	
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return bean;
+	}
+	
     public List<OrderItem> listCommitedByUserId(int uid) {
         return listCommitedByUserId(uid, 0, Short.MAX_VALUE);
     }

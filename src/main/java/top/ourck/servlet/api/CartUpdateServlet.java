@@ -29,9 +29,10 @@ public class CartUpdateServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String op = req.getParameter("op");
-		JSONObject jobj = null;
+		JSONObject jobj = new JSONObject();
 		if(op.equals("")) {
-			jobj.put("success", "true");
+			jobj.put("success", "false");
+			resp.getWriter().print(jobj.toString());
 			return;
 		}
 		
@@ -47,7 +48,6 @@ public class CartUpdateServlet extends HttpServlet {
 			oi.setNumber(count);
 			oiService.add(oi);
 			
-			jobj = new JSONObject();
 			jobj.put("success", "true");
 			jobj.put("oiid", oi.getId()); // 返回订单项目ID给前端，以后对该订单项目的操作根据oiid来。
 		}

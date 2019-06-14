@@ -26,7 +26,15 @@ public class OrderItemService {
 	
 	
 	public void add(OrderItem item) {
-		orderItemDao.add(item);
+		OrderItem origin = orderItemDao.getByUidPid(item.getUser().getId(), item.getProduct().getId());
+		if(origin == null) {
+			orderItemDao.add(item);
+		}
+		else {
+			origin.setNumber(origin.getNumber() + 1);
+			orderItemDao.update(origin);
+		}
+		
 	}
 	
 	
