@@ -68,7 +68,7 @@
                                 </ul>
                             </li>
                             <!-- 跳转登录页面 -->
-  							<li><a href="login.html">login</a></li>  
+  							<li><a id="user_name" href="login.html">login</a></li>  
                            
                         </ul>
                     </nav>
@@ -208,8 +208,8 @@
 		     type: 'get',  
 		     data: "oiid="+oiid,
 		     success: function(data){
-	     	        }        	   
-		     	 });
+		     		  }        	   
+		 });
 	}
 	function createOrder(){
 		
@@ -279,45 +279,70 @@
  $(document).ready(function() {  
 	 /* createTable('noname','img/product/1.jpg','1','160');
 	 createTable('noname','img/product/1.jpg','2','250'); */
+	 
+	 var xhttp = new XMLHttpRequest();
+	 xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			var response = this.responseText;
+			var data = eval('(' + response + ')');
+			if(data.success == "false") {
+				window.location.href="/JEEFakeTmall/login.html";
+			}
+			else {
+			 $.ajax({ 
+			     url: "http://localhost:8080/JEEFakeTmall/cart/list", 
+			     type: 'get',  
+			     success: function(data){
+			     	 //data = eval('(' + data + ')')
+			     	 for(var num in data){
+		     	        //表示遍历数组，而i表示的是数组的下标值，
+		     	        //result[i]表示获得第i个json对象即JSONObject
+		     	        //result[i]通过.字段名称即可获得指定字段的值
+		     	        if(data[num].name != ''){     	        	
+		     	        	createTable(data[num].pid,data[num].name,
+		     	        			data[num].img_url, data[num].quantity,data[num].price, data[num].oiid);
+		     	        }        	   
+			     	 }
+			     	calSum();
+			
+			     	$('.qtybtn').on('click', function() {
+					    var $button = $(this);
+					    var oldValue = $button.parent().find('input').val();
+					    if ($button.hasClass('inc')) {
+					        var newVal = parseFloat(oldValue) + 1;
+					    } else {
+					        // Don't allow decrementing below zero
+					        if (oldValue > 0) {
+					            var newVal = parseFloat(oldValue) - 1;
+					        } else {
+					            newVal = 0;
+					        }
+					    }
+					    $button.parent().find('input').val(newVal);
+					    var row = $button.parent().find('input').attr('id');
+						var price = document.getElementById('v' + row).value;
+					   	document.getElementById('sv' + row).value = newVal * price;
+					   	calSum();		   	
+					});
+			     }              
+			 });
+			}
+		}
+	 };
+	 xhttp.open("GET", "user/islogin", true);
+	 xhttp.send();
+	 
 	 $.ajax({ 
-	     url: "http://localhost:8080/JEEFakeTmall/cart/list", 
+	     url: "http://localhost:8080/JEEFakeTmall/user/islogin", 
 	     type: 'get',  
 	     success: function(data){
-	     	 //data = eval('(' + data + ')')
-	     	 for(var num in data){
-     	        //表示遍历数组，而i表示的是数组的下标值，
-     	        //result[i]表示获得第i个json对象即JSONObject
-     	        //result[i]通过.字段名称即可获得指定字段的值
-     	        if(data[num].name != ''){     	        	
-     	        	createTable(data[num].pid,data[num].name,
-     	        			data[num].img_url, data[num].quantity,data[num].price, data[num].oiid);
-     	        }        	   
-	     	 }
-	     	calSum();
-	
-	     	$('.qtybtn').on('click', function() {
-			    var $button = $(this);
-			    var oldValue = $button.parent().find('input').val();
-			    if ($button.hasClass('inc')) {
-			        var newVal = parseFloat(oldValue) + 1;
-			    } else {
-			        // Don't allow decrementing below zero
-			        if (oldValue > 0) {
-			            var newVal = parseFloat(oldValue) - 1;
-			        } else {
-			            newVal = 0;
-			        }
-			    }
-			    $button.parent().find('input').val(newVal);
-			    var row = $button.parent().find('input').attr('id');
-				var price = document.getElementById('v' + row).value;
-			   	document.getElementById('sv' + row).value = newVal * price;
-			   	calSum();		   	
-			});
+	    	 if(data.success == 'true') {
+		    	 var userArea = document.getElementById('user_name');
+		    	 userArea.href='/JEEFakeTmall/user/logout';
+		    	 userArea.innerHTML='Welcome, ' + data.user + '! : )';
+	    	 }
 	     }              
 	 });
-	 
-	 
 }); 
 </script>
 <!-- Main js -->

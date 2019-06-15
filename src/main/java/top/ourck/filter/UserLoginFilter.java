@@ -96,6 +96,7 @@ public class UserLoginFilter extends HttpFilter {
 			JSONObject jobj = new JSONObject();
 			jobj.put("success", "false");
 			jobj.put("msg", "Needs login!");
+			response.getWriter().println(jobj);
 		}
 	}
 

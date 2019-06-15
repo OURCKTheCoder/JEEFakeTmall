@@ -68,7 +68,7 @@
                                 </ul>
                             </li>
                             <!-- 跳转登录页面 -->
-  							<li><a href="login.html">login</a></li>  
+  							<li><a id="user_name" href="login.html">login</a></li>  
                            
                         </ul>
                     </nav>
@@ -196,7 +196,7 @@
 
  
  $(document).ready(function() {  
-	 $.ajax({ 
+	 /* $.ajax({ 
 	     url: "http://localhost:8080/JEEFakeTmall/order/info", 
 	     type: 'get',  
 	     success: function(data){
@@ -210,11 +210,48 @@
 	     	        }        	   
 	     	    }     	
 	     }              
+	 }); */
+	 var xhttp = new XMLHttpRequest();
+	 xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			var response = this.responseText;
+			var data = eval('(' + response + ')');
+			if(data.success == "false") {
+				window.location.href="/JEEFakeTmall/login.html";
+			}
+			else {
+				$.ajax({ 
+				     url: "http://localhost:8080/JEEFakeTmall/order/info", 
+				     type: 'get',  
+				     success: function(data){
+				     	 //data = eval('(' + data + ')')
+				     	 for(var num in data){
+				     	        //表示遍历数组，而i表示的是数组的下标值，
+				     	        //result[i]表示获得第i个json对象即JSONObject
+				     	        //result[i]通过.字段名称即可获得指定字段的值
+				     	        if(data[num].name != ''){     	        	
+				     	        	printOrder(data[num].order_id, data[num].content, data[num].price);
+				     	        }        	   
+				     	    }     	
+				     }              
+				 });
+		  	}
+		}
+	 };
+	 xhttp.open("GET", "user/islogin", true);
+	 xhttp.send();
+	 
+	 $.ajax({ 
+	     url: "http://localhost:8080/JEEFakeTmall/user/islogin", 
+	     type: 'get',  
+	     success: function(data){
+	    	 if(data.success == 'true') {
+		    	 var userArea = document.getElementById('user_name');
+		    	 userArea.href='/JEEFakeTmall/user/logout';
+		    	 userArea.innerHTML='Welcome, ' + data.user + '! : )';
+	    	 }
+	     }              
 	 });
-	 
-
-	 
-	
 }); 
 </script>
 </body>

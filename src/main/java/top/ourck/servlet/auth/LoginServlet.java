@@ -25,7 +25,7 @@ public class LoginServlet extends HttpServlet {
 		
 		Map<String, String> info = authService.getAuth(userName, password);
 		if(info.get("success").equals("false")) {
-			// TODO Login failed!
+			resp.sendRedirect("/JEEFakeTmall/login.html");
 		}
 		else {
 			String ticket = info.get("ticket");
