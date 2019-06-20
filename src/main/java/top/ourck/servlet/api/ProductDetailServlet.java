@@ -9,9 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import top.ourck.beans.Product;
 import top.ourck.beans.PropertyValue;
 import top.ourck.service.ProductService;
@@ -36,19 +33,10 @@ public class ProductDetailServlet extends HttpServlet {
 		// 上边这个没必要了。因为下面那个方法返回的Bean已经持有对应Property的引用了。
 		List<PropertyValue> pvList = propService.getPropertyValueByProductId(p.getId());
 		
-		JSONObject jsonProduct = new JSONObject();
-		JSONArray props = new JSONArray();
-		for(PropertyValue pv : pvList) {
-			JSONObject jobj = new JSONObject();
-			String key = pv.getProperty().getName();
-			String value = pv.getValue();
-			jobj.put(key, value);
-			props.put(jobj);
-		}
-		jsonProduct.put("name", p.getName());
-		jsonProduct.put("description", p.getSubTitle());
-		
-		resp.setContentType("application/json");
+		req.setAttribute("p", p);
+		req.setAttribute("pvList", pvList);
+		resp.setContentType("text/html");
+		req.getRequestDispatcher("/product-details.jsp").forward(req, resp);
 	}
 
 	

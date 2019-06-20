@@ -3,6 +3,7 @@ package top.ourck.servlet.api;
 import java.io.IOException;
 import java.util.Date;
 import java.util.Enumeration;
+import java.util.UUID;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -41,7 +42,8 @@ public class Cart2OrderServlet extends HttpServlet {
 		o.setDeliveryDate(new Date());
 		o.setPayDate(new Date());
 		o.setMobile(uc.getPhone());
-		o.setOrderCode("SAMPLE_ORDER233");
+		String randCode = UUID.randomUUID().toString().replaceAll("-", "");
+		o.setOrderCode(randCode.substring(0, Math.min(randCode.length(), 15)).toUpperCase());
 		o.setPost("710000");
 		o.setReceiver(uc.getName());
 		o.setStatus("已下单");
